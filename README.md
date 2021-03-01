@@ -2,9 +2,9 @@
 
 Estos son mis apuntes de *PHP*.
 
-<!-- ## Tabla de contenido
+## Tabla de contenido
 
-1. [Primeros pasos](capitulos/01-primeros-pasos.md) -->
+1. [Sintaxis básica](capitulos/01-sintaxis-basica.md)
 
 ---
 
