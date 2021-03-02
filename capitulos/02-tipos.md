@@ -225,7 +225,6 @@ Si especificamos una interfaz, se aceptan objetos que pertenezcan a una clase qu
 ```
 function sum(int $a, int $b): float
 { ... }
-
 ```
 
 Este ejemplo retornará siempre un flotante.
@@ -242,7 +241,7 @@ En el **valor de retorno** se pueden definir los tipos `void` (no retorna valor,
 
 Por defecto, *PHP* cambia automáticamente un tipo erróneo a uno escalar correcto, si es posible. Pero se puede declarar el tipado estricto en un archivo *.php* mediante `declare(strict_types=1)`. El tipado estricto se aplica a las **llamadas** hechas en el archivo, no a las funciones declaradas en él.
 
-## Malabarismos de tipos (type juggling)
+## Malabarismos de tipos (*type juggling*)
 
 El tipo de una variable se determina por el contexto. Se puede forzar el tipo de una variable con `settype()`. Para evaluar una variable como un cierto tipo, se usa el *type casting*.
 
