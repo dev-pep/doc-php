@@ -7,6 +7,7 @@ Estos son mis apuntes de *PHP*.
 1. [Sintaxis básica](capitulos/01-sintaxis-basica.md)
 2. [Tipos](capitulos/02-tipos.md)
 3. [Variables](capitulos/03-variables.md)
+4. [Constantes](capitulos/04-constantes.md)
 
 ---
 

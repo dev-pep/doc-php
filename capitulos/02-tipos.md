@@ -2,7 +2,7 @@
 
 Tipos admitidos:
 
-- 4 tipos escalares (`bool`, `int`, `float`, `decimal`).
+- 4 tipos escalares (`bool`, `int`, `float`, `string`).
 - 4 tipos compuestos (`array`, `object`, `callable`, `iterable`).
 - 2 tipos especiales (`resource`, `NULL`).
 
@@ -168,9 +168,9 @@ Para eliminar un elemento: `unset($arr[$clave])`. Para eliminar el *array* enter
 
 Si tras eliminar algún elemento se quiere reindexar el *array*, se puede usar `array_values()`, que renumera los enteros.
 
-> El mecanismo de tratamiento de constantes no definidas hace que algo como `$arr[foo]` funcione cuando no existe ninguna constante ***foo***. Lo que hace *PHP* es sustituir las constantes no definidas por *strings* con ese contenido, con lo que en este caso quedaría `$arr['foo']`. Sin embargo se genera un aviso.
+> El mecanismo de tratamiento de constantes no definidas hace que algo como `$arr[foo]`, anteriormente a PHP 8, funcione cuando no existe ninguna constante ***foo***. Lo que hace *PHP* es sustituir las constantes no definidas por *strings* con ese contenido, con lo que en este caso quedaría `$arr['foo']`. Sin embargo se genera un aviso. A partir de PHP 8, levanta un error.
 >
-> Cuando definimos `$arr['foo']`, referenciarlo como `$arr[foo]` funciona pero genera aviso. Sin embargo, dentro de *string* funciona bien, sin aviso, ya que dentro de *strings* no se miran las constantes: `"string con $arr[foo]"`. Hay que hacerlo así obligatoriamente, a excepción del uso de llaves: `"string con {$arr['foo']}"`.
+> Sin embargo, dentro de *string*, este mecanismo funciona bien siempre, sin aviso, ya que dentro de *strings* no se miran las constantes: `"string con $arr[foo]"`. Hay que hacerlo así obligatoriamente. Si la variable va entre llaves, entonces sí hay que indicarlo de la forma habitual: `"string con {$arr['foo']}"`.
 
 ### Conversión
 
@@ -236,6 +236,10 @@ Si prefijamos ***?*** al tipo declarado significa que se acepta ***null*** tambi
 Se usan para permitir más de un tipo. Son de la forma `T1|T2|...`. Uno de los tipos puede ser `NULL`, pero este no puede ser el único tipo.
 
 En el **valor de retorno** se pueden definir los tipos `void` (no retorna valor, debe ser el único tipo) o `static` (debe ser una instancia de la clase a la que pertenece el método).
+
+#### mixed
+
+`mixed` equivale a la unión `array|bool|callable|int|float|object|resource|string|null`.
 
 ## Tipado estricto
 
