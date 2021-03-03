@@ -8,6 +8,7 @@ Estos son mis apuntes de *PHP*.
 2. [Tipos](capitulos/02-tipos.md)
 3. [Variables](capitulos/03-variables.md)
 4. [Constantes](capitulos/04-constantes.md)
+5. [Operadores](capitulos/05-operadores.md)
 
 ---
 
