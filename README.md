@@ -10,7 +10,7 @@ Estos son mis apuntes de *PHP*.
 4. [Constantes](capitulos/04-constantes.md)
 5. [Operadores](capitulos/05-operadores.md)
 6. [Estructuras de control](capitulos/06-estructuras-control.md)
-7. [Funciones](capitulos/06-funciones.md)
+7. [Funciones](capitulos/07-funciones.md)
 
 ---
 

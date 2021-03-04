@@ -152,3 +152,13 @@ $fun();    // 'adiós': la función usa ahora una referencia a la variable
 ```
 
 Al especificar `use` debemos indicar entre paréntesis la lista de varibales separadas por comas.
+
+## Funciones *arrow*
+
+Son también *closures*. Se definen así:
+
+```
+$a = foo($n1, $n2) => $n1 - $n2;
+```
+
+En este caso, no es necesario `use`, ya que lo hace por defecto (por valor) de todas las variables accesibles.
