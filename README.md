@@ -9,6 +9,7 @@ Estos son mis apuntes de *PHP*.
 3. [Variables](capitulos/03-variables.md)
 4. [Constantes](capitulos/04-constantes.md)
 5. [Operadores](capitulos/05-operadores.md)
+6. [Estructuras de control](capitulos/06-estructuras-control.md)
 
 ---
 

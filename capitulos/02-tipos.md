@@ -168,7 +168,7 @@ Para eliminar un elemento: `unset($arr[$clave])`. Para eliminar el *array* enter
 
 Si tras eliminar algún elemento se quiere reindexar el *array*, se puede usar `array_values()`, que renumera los enteros.
 
-> El mecanismo de tratamiento de constantes no definidas hace que algo como `$arr[foo]`, anteriormente a PHP 8, funcione cuando no existe ninguna constante ***foo***. Lo que hace *PHP* es sustituir las constantes no definidas por *strings* con ese contenido, con lo que en este caso quedaría `$arr['foo']`. Sin embargo se genera un aviso. A partir de PHP 8, levanta un error.
+> El mecanismo de tratamiento de constantes no definidas hace que algo como `$arr[foo]`, anteriormente a *PHP* 8, funcione cuando no existe ninguna constante ***foo***. Lo que hace *PHP* es sustituir las constantes no definidas por *strings* con ese contenido, con lo que en este caso quedaría `$arr['foo']`. Sin embargo se genera un aviso. A partir de *PHP* 8, levanta un error.
 >
 > Sin embargo, dentro de *string*, este mecanismo funciona bien siempre, sin aviso, ya que dentro de *strings* no se miran las constantes: `"string con $arr[foo]"`. Hay que hacerlo así obligatoriamente. Si la variable va entre llaves, entonces sí hay que indicarlo de la forma habitual: `"string con {$arr['foo']}"`.
 
@@ -231,7 +231,7 @@ Este ejemplo retornará siempre un flotante.
 
 Si prefijamos ***?*** al tipo declarado significa que se acepta ***null*** también.
 
-### Unión de tipos (php 8)
+### Unión de tipos (*PHP* 8)
 
 Se usan para permitir más de un tipo. Son de la forma `T1|T2|...`. Uno de los tipos puede ser `NULL`, pero este no puede ser el único tipo.
 
