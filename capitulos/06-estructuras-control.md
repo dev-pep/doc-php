@@ -239,7 +239,7 @@ Retorna el control al módulo llamador, opcionalmente pasando un valor: `return 
 
 No es necesario el paréntesis para el valor, pues `return` no es una función. Si se omite el parámetro se entiende ***null***.
 
-## incluide y require
+## include y require
 
 `include` incluye y evalúa el archivo especificado. Si se especifica con la ruta completa (relativa o absoluta), lo busca allí. Si no, lo busca en el *include path* especificado en la configuración (se puede ver con `get_include_path()`). Si no lo encuentra allí, buscará en el directorio donde está el *script*, y finalmente en el directorio de trabajo actual. Si no lo encuentra, se genera un aviso.
 
