@@ -2,7 +2,7 @@
 
 La sintaxis para definir una función es:
 
-```
+```php
 function foo($arg1, $arg2,...)
 {
     /* código */
@@ -12,7 +12,7 @@ function foo($arg1, $arg2,...)
 
 Está permitido anidar funciones e incluso clases. Las funciones pueden ser definidas después de ser referenciadas, a no ser que esté definida en un bloque condicional (dentro de un `if`, por ejemplo). Todas las funciones y clases en *PHP* tienen *scope* global. Sin embargo, para que una función sea visible, debe estar definida en *scope* global, ya sea antes o después de su referencia; en caso contrario, debe haberse ejecutado ya su definición. Por ejemplo:
 
-```
+```php
 bar();    // ERROR! No está definida en scope global ni se ha ejecutado su definición
 poobarboo();    // OK! Está definida más abajo en scope global
 bar();    // OK! Al llamar a poobarboo() arriba, se ha ejecutado su definición
@@ -46,7 +46,7 @@ Por defecto, los argumetos se pasan por valor. Para que el paso sea siempre por 
 
 Los parámetros (incluso los pasados por referencia) pueden tener valores escalares, *array* o ***null*** por defecto. El valor debe ser una expresión constante.
 
-```
+```php
 function foo($a = 'Valor')
 ```
 
@@ -56,7 +56,7 @@ Los parámetros por defecto deberían ir después de los parámetros obligatorio
 
 Para definir funciones variádicas se usa un parámetro al que se le prefija el *token* `...`, de tal modo que recogerá todos los argumentos de la llamada. No puede haber más parámetros después de este.
 
-```
+```php
 function foo($parm1, $parm2, ...$parms)
 {
     /* $parms es un array */
@@ -65,13 +65,13 @@ function foo($parm1, $parm2, ...$parms)
 
 Se puede hacer una declaración de tipo a este parámetro, de tal modo que ese tipo se aplicará a todos los argumentos que recoja. También se puede definir que sean pasados por referencia prefijando ***&***:
 
-```
+```php
 function foo($parm1, $parm2, int &...$parms)
 ```
 
 El *token* `...` también puede usarse en una llamada a función para desempaquetar el contenido de un *array* en argumentos de llamada:
 
-```
+```php
 $arr = [1, 2, 3];
 echo add(...$a);
 ```
@@ -82,7 +82,7 @@ equivale a `echo add(1, 2, 3);`.
 
 **En la llamada** se puede especificar cada argumento por su nombre. Esto será tenido en cuenta, en lugar del orden en que son incluidos:
 
-```
+```php
 foo(parm2: 33, parm1: 'hello');
 ```
 
@@ -94,7 +94,7 @@ Si la función omite `return`, el valor retornado será ***null***.
 
 Si la función debe retornar una referencia, se debe prefijar con ***&*** (tanto en la definición como en la llamada):
 
-```
+```php
 function &foo()
 {
     /* ... */
@@ -108,7 +108,7 @@ $a = &foo();
 
 Las funciones se pueden llamar a través de una varible que contenga su nombre:
 
-```
+```php
 function foo() { /* ... */ }
 $a = 'foo';
 $a();
@@ -116,7 +116,7 @@ $a();
 
 Si ***$ob*** es un objeto de una clase que tiene un método ***met()***, se puede invocar:
 
-```
+```php
 $a = 'met';
 $ob->a$();
 ```
@@ -125,7 +125,7 @@ $ob->a$();
 
 También conocidas como *closures*. Pueden pasarse como argumento, o asignarse como valor a una variable.
 
-```
+```php
 $a = function($n1, $n2)
 {
     return $n1 - $n2;
@@ -136,7 +136,7 @@ $a(4, 2);
 
 En el momento de definirse, la función tenía acceso a una serie de variables. Si especificamos convenientemente que use esas variables, podemos acceder a ellas:
 
-```
+```php
 $ms = "hola";
 $fun = function() { echo "Resultado: " . $ms . "<br/>"; };
 $fun();    // '': no hemos especificado que usa $ms
@@ -157,7 +157,7 @@ Al especificar `use` debemos indicar entre paréntesis la lista de varibales sep
 
 Son también *closures*. Se definen así:
 
-```
+```php
 $a = foo($n1, $n2) => $n1 - $n2;
 ```
 

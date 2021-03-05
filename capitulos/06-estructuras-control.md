@@ -87,7 +87,7 @@ Similar a `while`, pero en este caso, la evaluación de la expresión se realiza
 ```php
 do
     <sentencia>
-while(<expresión>)
+while(<expresión>);
 ```
 
 En este caso no hay sintaxis alternativa.
