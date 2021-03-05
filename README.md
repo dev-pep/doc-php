@@ -11,6 +11,7 @@ Estos son mis apuntes de *PHP*.
 5. [Operadores](capitulos/05-operadores.md)
 6. [Estructuras de control](capitulos/06-estructuras-control.md)
 7. [Funciones](capitulos/07-funciones.md)
+8. [Clases y objetos](capitulos/08-clases-objetos.md)
 
 ---
 

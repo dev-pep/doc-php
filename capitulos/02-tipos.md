@@ -78,7 +78,7 @@ Una *nowdoc* es a las *single quoted strings* lo que una *heredoc* es a una *dou
 
 Es simplemente indicar el nombre de la variable, incluyendo el ***$*** inicial. El *parser* tomará el nombre a continuación (de forma *greedy*).
 
-```
+```php
 $juice = "apple";
 echo "I like $juices";    // produce: I like
 echo "I like ${juice}s";    // produce: I like apples
@@ -92,7 +92,7 @@ Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (qu
 
 Para elementos de un *array* con clave no numérica, solo se puede usar la sintaxis compleja.
 
-```
+```php
 $fruta = "pera";
 $nombre = "fruta";
 echo "contenido de $nombre: {${$nombre}};"    // produce: contenido de fruta: pera
@@ -138,7 +138,7 @@ Mapa de pares clave-valor. Un elemento del *array* puede ser otro *array* (*arra
 
 ### Creación
 
-```
+```php
 $arr = array(key1=>val1, key2=>val2,...)
 
 $arr = [key1=>val1, key2=>val2,...]
@@ -158,7 +158,7 @@ Acceder a una clave inexistente, produce el mismo efecto que acceder a una varia
 
 ### Creación/modificación
 
-```
+```php
 $arr[5] = "pepe";    // si no existe el array, lo crea
 $arr[-5] = "giuseppe";    // añade o modifica clave -5
 $arr[] = "joe";    // en este caso, equivale a $arr[6]="joe"
@@ -222,7 +222,7 @@ Si especificamos una clase, se aceptan objetos de esa clase o de cualquier deriv
 
 Si especificamos una interfaz, se aceptan objetos que pertenezcan a una clase que implemente esa interfaz.
 
-```
+```php
 function sum(int $a, int $b): float
 { ... }
 ```

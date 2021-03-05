@@ -4,13 +4,13 @@ Identificador cuyo valor no puede cambiar. *Case-sensitive*. Como las variables,
 
 Se definen así:
 
-```
+```php
 define(string $nombre, mixed $valor);
 ```
 
 o así:
 
-```
+```php
 const nombre = $valor;
 ```
 
