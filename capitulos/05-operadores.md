@@ -61,7 +61,7 @@ La asignación crea una copia de la expresión a asignar, con la salvedad que la
 
 Si se quiere crear una referencia en lugar de una copia, de debe usar la sintaxis:
 
-```
+```php
 $refvar = &$original
 ```
 

@@ -4,14 +4,14 @@ Una sentencia *PHP* termina en ***;***. Las sentencias se pueden agrupar mediant
 
 ## if
 
-```
+```php
 if(<expresión>)
     <sentencia>  // puede ser una sentencia o grupo de ellas
 ```
 
 La sentencia se ejecuta solo si la expresión es verdadera.
 
-```
+```php
 if(<expresión>)
     <sentencia>
 else
@@ -22,7 +22,7 @@ Si no se ejecuta la sentencia del bloque `if`, se ejecutará la del bloque `else
 
 Puede haber uno o más bloques `elseif` (aunque como máximo un bloque `else`):
 
-```
+```php
 if(<expresión>)
     <sentencia>
 elseif(<expresión>)
@@ -41,7 +41,7 @@ Las sentencias `if/elseif/else` pueden anidarse tanto como se desee.
 
 Las estructuras `if`, `while`, `for`, `foreach` y `switch` disponen de una sintaxis alternativa. En esta sintaxis, y suponiendo sentencias compuestas entre llaves, la llave inicial se sustituye por dos puntos (***:***) y la llave final se sustituye por `endif`, `endwhile`, `endfor`, `endforeach` o `endswitch` respectivamente.
 
-```
+```php
 if(<expresión>):
     <sentencia>
 else:
@@ -51,7 +51,7 @@ endif
 
 Esto resulta útil para incluir código *HTML* directamente. Aunque también se puede hacer usando llaves, así resulta más claro:
 
-```
+```php
 <?php if($expr): ?>
     <h2>Código HTML</h2>
     <p>Esto es código HTML</p>
@@ -65,7 +65,7 @@ No es posible combinar ambas sintaxis en una misma estructura.
 
 ## while
 
-```
+```php
 while(<expresión>)
     <sentencia>
 ```
@@ -74,7 +74,7 @@ La sentencia se ejecutará una y otra vez hasta que la expresión se evalúe com
 
 En sintaxis alternativa:
 
-```
+```php
 while(<expresión>):
     <sentencia>
 endwhile;
@@ -84,7 +84,7 @@ endwhile;
 
 Similar a `while`, pero en este caso, la evaluación de la expresión se realiza después de cada iteración, con lo que nos aseguramos de que se produce, por lo menos, una iteración.
 
-```
+```php
 do
     <sentencia>
 while(<expresión>)
@@ -96,7 +96,7 @@ En este caso no hay sintaxis alternativa.
 
 Tiene esta sintaxis:
 
-```
+```php
 for(<expr1>; <expr2>; <expr3>)
     <sentencia>
 ```
@@ -109,7 +109,7 @@ Si la expresión 2 está formada por varias expresiones, se ejecutarán todas, p
 
 Admite sintaxis alternativa:
 
-```
+```php
 for(<expr1>; <expr2>; <expr3>):
     <sentencia>
 endfor;
@@ -119,7 +119,7 @@ endfor;
 
 Permite iterar sobre *arrays* y objetos. Tiene estas dos formas:
 
-```
+```php
 foreach(<expresión iterable> as $valor):
     <sentencia>
 
@@ -143,7 +143,7 @@ Una estructura `switch` se considera un bucle, pero técnicamente no lo es. Así
 
 Es equivalente a una serie de sentencia `if`. Su sintaxis es:
 
-```
+```php
 switch(<expresión>)
 {
     case <exp1>:
@@ -164,7 +164,7 @@ Las cláusulas `case` pueden dejarse en blanco para agrupar series de valores qu
 
 La sintaxis alternativa tendría este estilo:
 
-```
+```php
 switch(<expresión>):
     case <exp1>:
         <sentencia(s)>
@@ -182,7 +182,7 @@ En todo caso, es posible cambiar los dos puntos (***;***) de las cláusulas `cas
 
 Similar a `switch`. Tiene esta sintaxis:
 
-```
+```php
 match(<expresión>)
 {
     <expr1> => <ret_expr1>,
@@ -208,7 +208,7 @@ Si en lugar de `===` deseamos cualquier otro tipo de operador de comparación, l
 
 Permite establecer directivas para un bloque de código. Se les puede dar valor a estas directivas mediante un literal (no constantes ni variables). El efecto de declare se puede referir a un bloque de código específico:
 
-```
+```php
 declare(ticks=1)
 {
     /* solo afecta aquí dentro */
@@ -217,7 +217,7 @@ declare(ticks=1)
 
 O en *scope* global:
 
-```
+```php
 /* aquí no afecta */
 declare(ticks=1)
 /* afecta a partir de aquí hasta el final del archivo */
@@ -251,14 +251,14 @@ Si el archivo incluido no retorna un valor en sí mismo, el valor de la sentenci
 
 Al no ser una función, no es necesario incluir paréntesis: `include <archivo>`. Así, esto es erróneo:
 
-```
+```php
 if(include('vars.php') == true) {...}
 ```
 
 Porque se interpreta como `include 'vars.php' == TRUE`, es decir, `include ('vars.php' == true)`, o sea `include('1')`. Lo correcto sería escribir, por ejemplo:
 
-```
-if((include 'vars.php') == true)
+```php
+if((include 'vars.php') == true) { ... }
 ```
 
 Si hay funciones o clases definidas en el archivo incluido, que están después de un posible `return`, se podrán usar igual desde el archivo principal.
@@ -271,7 +271,7 @@ En cuanto a `require`, es igual que `include`, pero se produce un error si el ar
 
 Para saltar a una etiqueta:
 
-```
+```php
 goto <eti>;
 ...
 <eti>:

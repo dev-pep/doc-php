@@ -4,7 +4,7 @@ Las variables en *PHP* empiezan por el signo ***$*** y siguen con una secuencia 
 
 Las variables no son referencias (como en *Python*), con lo que asignar una variable a otra resultará en dos variables completamente desvinculadas. Sin embargo sí se puede asignar "por referencia" (como en *Python*):
 
-```
+```php
 $a = &$b;
 ```
 
@@ -22,14 +22,14 @@ Una variable estática (`static`) existe dentro de una función únicamente, per
 
 El código:
 
-```
+```php
 $a = 'hello';
 $hello = 'world';
 ```
 
 Es equivalente a:
 
-```
+```php
 $a = 'hello';
 $$a = 'world';
 ```
