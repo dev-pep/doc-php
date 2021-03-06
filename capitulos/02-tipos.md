@@ -235,7 +235,7 @@ Si prefijamos ***?*** al tipo declarado significa que se acepta ***null*** tambi
 
 Se usan para permitir más de un tipo. Son de la forma `T1|T2|...`. Uno de los tipos puede ser `NULL`, pero este no puede ser el único tipo.
 
-En el **valor de retorno** se pueden definir los tipos `void` (no retorna valor, debe ser el único tipo) o `static` (debe ser una instancia de la clase a la que pertenece el método).
+En el **valor de retorno** se pueden definir los tipos `void` (no retorna valor, debe ser el único tipo) o `static` (se refiere a clase a la que pertenece el método).
 
 #### mixed
 
