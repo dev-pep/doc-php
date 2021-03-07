@@ -12,6 +12,7 @@ Estos son mis apuntes de *PHP*.
 6. [Estructuras de control](capitulos/06-estructuras-control.md)
 7. [Funciones](capitulos/07-funciones.md)
 8. [Clases y objetos](capitulos/08-clases-objetos.md)
+9. [Namespaces](capitulos/09-namespaces.md)
 
 ---
 
