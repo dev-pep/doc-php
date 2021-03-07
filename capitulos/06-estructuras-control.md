@@ -211,7 +211,7 @@ Permite establecer directivas para un bloque de código. Se les puede dar valor 
 ```php
 declare(ticks=1)
 {
-    /* solo afecta aquí dentro */
+    /* script entero */
 }
 ```
 
@@ -222,6 +222,8 @@ O en *scope* global:
 declare(ticks=1)
 /* afecta a partir de aquí hasta el final del archivo */
 ```
+
+`declare` afectará hasta el final del archivo si está en *scope* global. Si el archivo está incluido, no afectará al código del archivo que lo incluye.
 
 Actualmente existen 3 directivas posibles: ***ticks***, ***encoding*** y [***strict_types***](02-tipos.md#tipado-estricto).
 
