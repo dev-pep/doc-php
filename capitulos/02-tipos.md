@@ -146,6 +146,8 @@ $arr = [key1=>val1, key2=>val2,...]
 
 Las claves pueden ser *string* o entero (positivo, negativo o 0). Los valores, cualquier tipo. Si es *string* y contiene un número decimal correcto (que no empiece por ***+***), será convertido a entero. Los flotantes se convierte a entero (truncando). Los booleanos, pasan a entero 0 o 1. ***NULL*** se convierte al *string* vacío. Si varios elementos usan la misma clave, solo será accesible el último de ellos.
 
+Cuando las claves no son todas enteras, se le llama *array* asociativo, en contraposición a un *array* numérico o secuencial.
+
 Si se omite la clave en algún elemento, se tomará el valor de la mayor clave entera hasta el momento, más uno (como mínimo será 0). Si se omite para el primer elemento, será 0. Ese valor de la mayor clave entera puede no existir ya. Ese valor se restablece al reindexar el *array*.
 
 ### Acceso
