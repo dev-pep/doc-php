@@ -140,6 +140,6 @@ Sean ***$a*** y ***$b*** dos *arrays*:
 
 ## Operador de tipo
 
-El operador `instanceof` comprueba si una variable es una instancia de una clase determinada: `$a instanceof MiClase` retorna verdadero si ***$a*** es instancia de ***MiClase*** o de una derivada de ***MiClase***. También se puede usar para comprobar si la variable es una instancia de una clase que implemente una determinada interfaz (`$a instanceof MiInterface`).
+El operador `instanceof` comprueba si una variable es una instancia de una clase determinada: `$a instanceof MiClase` retorna verdadero si ***$a*** es instancia de ***MiClase*** o de una derivada de ***MiClase***. También se puede usar para comprobar si la variable es una instancia de una clase que implemente una determinada interfaz (` $a instanceof MiInterface`).
 
 Para comprobar si la variable pertenece a la clase, el segundo operando puede ser el nombre de la clase, o un objeto de esa clase, o un *string* con el nombre de esa clase.
