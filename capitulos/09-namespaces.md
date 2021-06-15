@@ -148,5 +148,5 @@ Al hacer referencia a un nombre dentro del código, los nombres se resuelven as�
 - Los nombres relativos (usando `namespace`) se resuelven sustituyendo ***namespace*** por el espacio actual: ***namespace\A\B*** dentro del espacio ***X\Y*** se resuelve a ***X\Y\A\B***, y dentro del espacio global se resuelve a ***A\B***.
 - Los nombres cualificados (***A\B\C***) son sustituidos según importación definida, y si no procede esta, se añade al principio el nombre del espacio actual.
 - Los nombres sin cualificar (***A***) son sustituidos según importación definida, y si esta no procede, pueden pasar dos cosas:
-  - Si es el nombre de una clase, se le prefija el nombre del *namespace* actual.
-  - Si es una función o constante, también se prefija el nombre del espacio actual, pero en este caso, si no se encuentra, pero sí está disponible en el espacio global, en *runtime* usará la versión del *namespace* global.
+    - Si es el nombre de una clase, se le prefija el nombre del *namespace* actual.
+    - Si es una función o constante, también se prefija el nombre del espacio actual, pero en este caso, si no se encuentra, pero sí está disponible en el espacio global, en *runtime* usará la versión del *namespace* global.
