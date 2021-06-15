@@ -88,7 +88,7 @@ Para el contenido de un elemento de un *array* o propiedad de una clase, tambié
 
 #### Sintaxis compleja
 
-Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (que tenga representación *string*), entre llaves ***{...}***. El ***$*** debe ir inmediatemente después de la llave de apertura. Para conseguir ***{$***, hay que escribir ***{\$***.
+Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (que tenga representación *string*), entre llaves ***{...}***. El ***$*** debe ir inmediatemente después de la llave de apertura. Para conseguir ***{\$***, hay que escribir ***{\\\$***.
 
 Para elementos de un *array* con clave no numérica, solo se puede usar la sintaxis compleja.
 

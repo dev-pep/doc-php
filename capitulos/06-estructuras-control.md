@@ -129,7 +129,7 @@ foreach(<expresión iterable> as $clave => $valor):
 
 En el primer caso, se va pasando por todos los elementos del iterable, y en cada iteración, la variable especificada (en este caso ***$valor***) va tomando sucesivamente los valores de los elementos. En el segundo caso, adicionalmente, la variable específica (en el ejemplo, ***$clave***) irá tomando al mismo tiempo los valores de las distintas claves.
 
-Si deseamos cambiar los elementos del *array* sobre el que iteramos, las asignaciones se deben hacer por referencia, del tipo `foreach($arr as &$valor)`. Si se hace así, después del bucle, la variable ***$valor*** seguirá viva, como referencia al último elemento del *array*, con lo que se recomienda deshacer la referencia (`unset($valor)`).
+Si deseamos cambiar los elementos del *array* sobre el que iteramos, las asignaciones se deben hacer por referencia, del tipo `foreach($arr as &$valor)`. Si se hace así, después del bucle, la variable ***$valor*** seguirá viva, como referencia al último elemento del *array*, con lo que se recomienda deshacer la referencia (con `unset()`).
 
 ## break y continue
 
