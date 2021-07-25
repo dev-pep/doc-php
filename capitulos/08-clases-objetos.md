@@ -35,13 +35,13 @@ $referencia = &$instancia;
 
 Las variables no guardan el contenido de un objeto directamente, sino un *handle*, identificador o "apuntador" al mismo.
 
-En nuestro ejemplo, ***$instancia*** contiene el *handle* o apuntador a la nueva instancia creada. Al asignarse dicha variable a ***$asignado***, esta última recibe una copia de tal apuntador, con lo que ambas variables tendrán un apuntador (idéntico) a la misma instancia, pero no comparten el mismo apuntador. Sin embargo, ***$referencia*** sí es una referencia al mismo *handle* que tiene ***$instancia***. Así, las tres variables hacen referencia al mismo objeto, a través de dos apuntadores. Ahora, si hacemos:
+En nuestro ejemplo, ***\$instancia*** contiene el *handle* o apuntador a la nueva instancia creada. Al asignarse dicha variable a ***\$asignado***, esta última recibe una copia de tal apuntador, con lo que ambas variables tendrán un apuntador (idéntico) a la misma instancia, pero no comparten el mismo apuntador. Sin embargo, ***\$referencia*** sí es una referencia al mismo *handle* que tiene ***\$instancia***. Así, las tres variables hacen referencia al mismo objeto, a través de dos apuntadores. Ahora, si hacemos:
 
 ```php
 $instancia = null;
 ```
 
-el contenido de ***$instancia*** ya no es ese apuntador a la instancia, sino que ha pasado a ser ***null***. Como el contenido de ***$instancia*** es compartido también por ***$referencia***, esta última también tendrá contenido ***null***. Sin embargo, ***$asignado*** seguirá teniendo como contenido un *handle* a la instancia original.
+el contenido de ***\$instancia*** ya no es ese apuntador a la instancia, sino que ha pasado a ser ***null***. Como el contenido de ***\$instancia*** es compartido también por ***\$referencia***, esta última también tendrá contenido ***null***. Sin embargo, ***\$asignado*** seguirá teniendo como contenido un *handle* a la instancia original.
 
 Se dice que los objetos se pasan por referencia cuando se usan como argumentos. Esto no es exactamente así; lo que sucede es que se pasa **el valor** de ese apuntador, que, efectivamente hace referencia al mismo objeto. Veámoslo con un ejemplo:
 
@@ -71,7 +71,7 @@ bar($ob2);
 echo $ob2->contenido;
 ```
 
-Tanto la función ***foo()*** como la función ***bar()*** manipulan el objeto al que hace referencia su parámetro ***$objeto***. Esa manipulación puede comprobarse tras la ejecución de la función. Al mismo tiempo, ambas **cambian** el valor del argumento recibido en sí, y mientras ese cambio es efectivo en el argumento llamante a ***bar()***, no es efectivo en ***foo()***, ya que el argumento se pasa estrictamente por valor en esta última.
+Tanto la función ***foo()*** como la función ***bar()*** manipulan el objeto al que hace referencia su parámetro ***\$objeto***. Esa manipulación puede comprobarse tras la ejecución de la función. Al mismo tiempo, ambas **cambian** el valor del argumento recibido en sí, y mientras ese cambio es efectivo en el argumento llamante a ***bar()***, no es efectivo en ***foo()***, ya que el argumento se pasa estrictamente por valor en esta última.
 
 ## Propiedades y métodos
 
@@ -149,7 +149,7 @@ A partir de *PHP* 8, los argumentos pasados al constructor pueden convertirse di
 public __construct(public int $x, protected $y, string $z) {}
 ```
 
-En este caso, ***$x*** e ***$y*** se convertirán en propiedades del objeto. Tras ello, se ejecutará el código del cuerpo del constructor (que puede estar vacío).
+En este caso, ***\$x*** e ***\$y*** se convertirán en propiedades del objeto. Tras ello, se ejecutará el código del cuerpo del constructor (que puede estar vacío).
 
 El constructor podría ser privado, en cuyo caso solo podría ser llamado por un método estático de la clase, que debería crear y retornar el objeto:
 

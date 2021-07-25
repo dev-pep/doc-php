@@ -58,7 +58,7 @@ Literal *string* entre comillas simples. Los *newlines* del *string* forman part
 
 ### Double quoted
 
-Entre comillas dobles se pueden indicar estos caracteres especiales: ***\\n*** (LF), ***\\r***, (CR) ***\\t*** (HTAB), ***\\v*** (VTAB), ***\\e*** (ESC), ***\\f*** (FF), ***\\"***, ***\\\\***, ***\\$***.
+Entre comillas dobles se pueden indicar estos caracteres especiales: ***\\n*** (LF), ***\\r***, (CR) ***\\t*** (HTAB), ***\\v*** (VTAB), ***\\e*** (ESC), ***\\f*** (FF), ***\\"***, ***\\\\***, ***\\\$***.
 
 También se puede indicar un carácter mediante una secuencia de 1 a 3 caracteres octales precedidos por *backslash* (***\\58***), ignorando el bit más significativo. También un número hexadecimal de 1 o 2 dígitos precedido por ***\\x*** (***\\x58***). También se puede indicar un *codepoint Unicode* mediante una secuencia de dígitos hexadecimales del tipo ***\\u\{1400}***: resultará en uno o más caracteres con la representación *UTF-8* de ese carácter.
 
@@ -76,7 +76,7 @@ Una *nowdoc* es a las *single quoted strings* lo que una *heredoc* es a una *dou
 
 #### Sintaxis simple
 
-Es simplemente indicar el nombre de la variable, incluyendo el ***$*** inicial. El *parser* tomará el nombre a continuación (de forma *greedy*).
+Es simplemente indicar el nombre de la variable, incluyendo el ***\$*** inicial. El *parser* tomará el nombre a continuación (de forma *greedy*).
 
 ```php
 $juice = "apple";

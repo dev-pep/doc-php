@@ -114,11 +114,11 @@ $a = 'foo';
 $a();
 ```
 
-Si ***$ob*** es un objeto de una clase que tiene un método ***met()***, se puede invocar:
+Si ***\$ob*** es un objeto de una clase que tiene un método ***met()***, se puede invocar:
 
 ```php
 $a = 'met';
-$ob->a$();
+$ob->$a();
 ```
 
 ## Funciones anónimas

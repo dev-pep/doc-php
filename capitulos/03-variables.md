@@ -1,6 +1,6 @@
 # Variables
 
-Las variables en *PHP* empiezan por el signo ***$*** y siguen con una secuencia de caracteres *ASCII*, de los cuales, el primero no puede ser numérico. Son *case-sensitive*. La variable ***$this*** no puede asignarse.
+Las variables en *PHP* empiezan por el signo ***\$*** y siguen con una secuencia de caracteres *ASCII*, de los cuales, el primero no puede ser numérico. Son *case-sensitive*. La variable ***\$this*** no puede asignarse.
 
 Las variables no son referencias (como en *Python*), con lo que asignar una variable a otra resultará en dos variables completamente desvinculadas. Sin embargo sí se puede asignar "por referencia" (como en *Python*):
 
@@ -14,7 +14,7 @@ Para saber si una variable ha sido inicializada se usa `isset()`.
 
 El *scope* de la variable empieza donde está declarada, hacia adelante (incluyendo archivos incluidos y requeridos). Dentro de una función, tendrá *scope* local, por lo que no se podrá acceder a una variable de un ámbito exterior con el mismo nombre. Si queremos acceder a variables globales, se declararán con `global`.
 
-Otra forma de acceder a las variables globales es mediante el *array* ***$GLOBALS***, usando como clave el nombre de la variable global deseada. Este *array* es **superglobal** (accesible en **todos** los *scopes*).
+Otra forma de acceder a las variables globales es mediante el *array* ***\$GLOBALS***, usando como clave el nombre de la variable global deseada. Este *array* es **superglobal** (accesible en **todos** los *scopes*).
 
 Una variable estática (`static`) existe dentro de una función únicamente, pero no pierde su valor entre llamadas. Se deben inicializar, y solo son inicializadas la primera vez.
 

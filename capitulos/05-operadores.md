@@ -73,8 +73,8 @@ Estos operadores actúan sobre los *bits* del valor.
 - `$a | $b` lo mismo con OR.
 - `$a ^ $b` lo mismo con XOR.
 - `~ $a` aplica NOT a cada *bit*.
-- `$a << $b` desplaza a la izquierda los *bits* de ***$a*** tantas posiciones como indique ***$b***.
-- `$a >> $b` desplaza a la derecha los *bits* de ***$a*** tantas posiciones como indique ***$b***.
+- `$a << $b` desplaza a la izquierda los *bits* de ***\$a*** tantas posiciones como indique ***\$b***.
+- `$a >> $b` desplaza a la derecha los *bits* de ***\$a*** tantas posiciones como indique ***\$b***.
 
 En las operaciones AND, OR y XOR, si los operandos son *strings*, las operaciones se realizan sobre los caracteres *ASCII* y el resultado es otro *string*. En cualquier otro caso, los operandos se convierten a entero y el resultado es un entero. Algo equivalente sucede con el unario NOT.
 
@@ -86,7 +86,7 @@ Los operadores de comparación son como en *C*, pero además existen `===` (igua
 
 Los operadores `!=` y `<>` son equivalentes.
 
-El operador *spaceship* `$a <=> $b` retorna un entero negativo cuando ***$a*** es menor que ***$b***, un entero positivo en caso contrario, y cero si son iguales.
+El operador *spaceship* `$a <=> $b` retorna un entero negativo cuando ***\$a*** es menor que ***\$b***, un entero positivo en caso contrario, y cero si son iguales.
 
 Cuando los operandos son *strings* numéricos o uno es un número y el otro un *string* numérico, las comparaciones se hacen numéricamente. En el caso de los operadores `===` y `!==` no hay conversión previa de tipos.
 
@@ -130,9 +130,9 @@ Disponemos del operador de concatenación `.`, y su correspondiente operador `.=
 
 ## Operadores para *arrays*
 
-Sean ***$a*** y ***$b*** dos *arrays*:
+Sean ***\$a*** y ***\$b*** dos *arrays*:
 
-- `$a + $b` es la **unión** de ambos. Si hay claves duplicadas, se accederá al elemento de ***$a***.
+- `$a + $b` es la **unión** de ambos. Si hay claves duplicadas, se accederá al elemento de ***\$a***.
 - `$a == $b` será verdadero si ambos tienen los mismos pares clave/valor.
 - `$a === $b` será verdadero si ambos tienen los mismos pares clave/valor, en el mismo orden y son del mismo tipo.
 - `$a != $b` y `$a <> $b` serán verdaderos si `$a == $b` es falso.
@@ -140,6 +140,6 @@ Sean ***$a*** y ***$b*** dos *arrays*:
 
 ## Operador de tipo
 
-El operador `instanceof` comprueba si una variable es una instancia de una clase determinada: `$a instanceof MiClase` retorna verdadero si ***$a*** es instancia de ***MiClase*** o de una derivada de ***MiClase***. También se puede usar para comprobar si la variable es una instancia de una clase que implemente una determinada interfaz (` $a instanceof MiInterface`).
+El operador `instanceof` comprueba si una variable es una instancia de una clase determinada: `$a instanceof MiClase` retorna verdadero si ***\$a*** es instancia de ***MiClase*** o de una derivada de ***MiClase***. También se puede usar para comprobar si la variable es una instancia de una clase que implemente una determinada interfaz (` $a instanceof MiInterface`).
 
 Para comprobar si la variable pertenece a la clase, el segundo operando puede ser el nombre de la clase, o un objeto de esa clase, o un *string* con el nombre de esa clase.

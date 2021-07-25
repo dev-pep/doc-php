@@ -1,6 +1,6 @@
 # Constantes
 
-Identificador cuyo valor no puede cambiar. *Case-sensitive*. Como las variables, pero sin el ***$***. Por convenio, todo mayúsculas.
+Identificador cuyo valor no puede cambiar. *Case-sensitive*. Como las variables, pero sin el ***\$***. Por convenio, todo mayúsculas.
 
 Se definen así:
 
