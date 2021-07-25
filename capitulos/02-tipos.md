@@ -28,7 +28,7 @@ Puede representar enteros positivos, negativos y 0. Un literal se considera deci
 - si empieza por ***0x*** (o ***0X***) es hexadecimal.
 - si empieza por ***0b*** (o ***0B***) es binario.
 
-Los enteros pueden contener guiones bajos (***_***, no consecutivos) intercalados.
+Los enteros pueden contener guiones bajos (***\_***, no consecutivos) intercalados.
 
 Un entero no genera *overflow*: se convierte en flotante.
 
@@ -54,19 +54,19 @@ Secuencias de caracteres (solo *bytes*, no *wide chars*).
 
 ### Single quoted
 
-Literal *string* entre comillas simples. Los *newlines* del *string* forman parte de su contenido. Para indicar un carácter comilla simple dentro del *string*, hay que prefijar *backslash* (***\'***). Para indicar barra invertida, también (***\\***). En cualquier otro caso, la barra invertida no tiene ningún significado especial.
+Literal *string* entre comillas simples. Los *newlines* del *string* forman parte de su contenido. Para indicar un carácter comilla simple dentro del *string*, hay que prefijar *backslash* (***\\'***). Para indicar barra invertida, también (***\\\\***). En cualquier otro caso, la barra invertida no tiene ningún significado especial.
 
 ### Double quoted
 
-Entre comillas dobles se pueden indicar estos caracteres especiales: ***\n*** (LF), ***\r***, (CR) ***\t*** (HTAB), ***\v*** (VTAB), ***\e*** (ESC), ***\f*** (FF), ***\"***, ***\\***, ***\$***.
+Entre comillas dobles se pueden indicar estos caracteres especiales: ***\\n*** (LF), ***\\r***, (CR) ***\\t*** (HTAB), ***\\v*** (VTAB), ***\\e*** (ESC), ***\\f*** (FF), ***\\"***, ***\\\\***, ***\\$***.
 
-También se puede indicar un carácter mediante una secuencia de 1 a 3 caracteres octales precedidos por *backslash* (***\58***), ignorando el bit más significativo. También un número hexadecimal de 1 o 2 dígitos precedido por ***\x*** (***\x58***). También se puede indicar un *codepoint Unicode* mediante una secuencia de dígitos hexadecimales del tipo ***\u{1400}***: resultará en uno o más caracteres con la representación *UTF-8* de ese carácter.
+También se puede indicar un carácter mediante una secuencia de 1 a 3 caracteres octales precedidos por *backslash* (***\\58***), ignorando el bit más significativo. También un número hexadecimal de 1 o 2 dígitos precedido por ***\\x*** (***\\x58***). También se puede indicar un *codepoint Unicode* mediante una secuencia de dígitos hexadecimales del tipo ***\\u{1400}***: resultará en uno o más caracteres con la representación *UTF-8* de ese carácter.
 
 Además, los nombres de variables son expandidos.
 
 ### Heredoc
 
-Este tipo de *string* empieza con ***<<<***, un identificador y *newline*. Luego el *string* en sí, y una línea de cierre que solo contiene el identificador (debe empezar en la columna 1) y el correspondiente ***;*** final. Este *string* se comporta igual que un *double quoted string*, con la diferencia de que no es necesario usar la barra invertida para indicar comillas dobles.
+Este tipo de *string* empieza con ***\<\<\<***, un identificador y *newline*. Luego el *string* en sí, y una línea de cierre que solo contiene el identificador (debe empezar en la columna 1) y el correspondiente ***;*** final. Este *string* se comporta igual que un *double quoted string*, con la diferencia de que no es necesario usar la barra invertida para indicar comillas dobles.
 
 ### Nowdoc
 
@@ -88,7 +88,7 @@ Para el contenido de un elemento de un *array* o propiedad de una clase, tambié
 
 #### Sintaxis compleja
 
-Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (que tenga representación *string*), entre llaves ***{...}***. El ***$*** debe ir inmediatemente después de la llave de apertura. Para conseguir ***{\$***, hay que escribir ***{\\\$***.
+Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (que tenga representación *string*), entre llaves ***{...}***. El ***$*** debe ir inmediatemente después de la llave de apertura. Para conseguir ***{\\$***, hay que escribir ***{\\\\\\$***.
 
 Para elementos de un *array* con clave no numérica, solo se puede usar la sintaxis compleja.
 
@@ -178,7 +178,7 @@ Si tras eliminar algún elemento se quiere reindexar el *array*, se puede usar `
 
 Si un tipo escalar se convierte a *array*, resulta un *array* con un solo elemento e índice 0. Es decir, `(array)$escalar` equivale a `array($escalar)`.
 
-Si se convierte a *array* un objeto compuesto, resultará un *array* con las propiedades de este como elementos. Sus claves serán los nombres de las propiedades y los valores sus valores. Los nombres de las propiedades privadas llevan como prefijo el nombre de la clase entre caracteres nulos, y los de las *protected* llevan el prefijo ***"\0*\0"***.
+Si se convierte a *array* un objeto compuesto, resultará un *array* con las propiedades de este como elementos. Sus claves serán los nombres de las propiedades y los valores sus valores. Los nombres de las propiedades privadas llevan como prefijo el nombre de la clase entre caracteres nulos, y los de las *protected* llevan el prefijo ***\"\\0\*\\0"***.
 
 La conversión de un objeto `NULL` produce un *array* vacío.
 

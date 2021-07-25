@@ -1,6 +1,6 @@
 # Estructuras de control
 
-Una sentencia *PHP* termina en ***;***. Las sentencias se pueden agrupar mediante llaves (***{}***), formando una sentencia en sí.
+Una sentencia *PHP* termina en punto y coma (***;***). Las sentencias se pueden agrupar mediante llaves (***{}***), formando una sentencia en sí.
 
 ## if
 
@@ -193,14 +193,14 @@ match(<expresión>)
 };    // obsérvese el ';' final
 ```
 
-`match` va comparando cada expresión ***<exprN>*** con la expresión inicial ***<expresión>***. Diferencias con `switch`:
+`match` va comparando cada expresión ***\<exprN>*** con la expresión inicial ***\<expresión>***. Diferencias con `switch`:
 
-- `match` retorna un valor: cuando encuentra una coincidencia, simplemente retorna el valor de la expresión ***<ret_exprN>*** correspondiente.
+- `match` retorna un valor: cuando encuentra una coincidencia, simplemente retorna el valor de la expresión ***\<ret_exprN>*** correspondiente.
 - En lugar de comparar mediante `==`, lo hace usando `===`.
 - La ejecución no sigue a otras cláusulas: se ejecuta una sola expresión de retorno.
 - Las expresiones deben ser exhaustivas. Al menos una debe coincidir.
 
-Una expresión ***<exprN>*** puede estar compuesta por varias expresiones separadas por comas. La expresión de retorno correspondiente se ejecutará si una de estas subexpresiones coincide. La cláusula `default` es opcional.
+Una expresión ***\<exprN>*** puede estar compuesta por varias expresiones separadas por comas. La expresión de retorno correspondiente se ejecutará si una de estas subexpresiones coincide. La cláusula `default` es opcional.
 
 Si en lugar de `===` deseamos cualquier otro tipo de operador de comparación, la expresión inicial puede ser ***true*** y las expresiones pueden contener cualquier tipo de comparación.
 
@@ -225,7 +225,7 @@ declare(ticks=1)
 
 `declare` afectará hasta el final del archivo si está en *scope* global. Si el archivo está incluido, no afectará al código del archivo que lo incluye.
 
-Actualmente existen 3 directivas posibles: ***ticks***, ***encoding*** y [***strict_types***](02-tipos.md#tipado-estricto).
+Actualmente existen 3 directivas posibles: ***ticks***, ***encoding*** y ***strict_types*** (tipado estricto).
 
 ### ticks
 
@@ -259,8 +259,8 @@ if(include('vars.php') == true) {...}
 
 Porque se interpreta como `include 'vars.php' == TRUE`, es decir, `include ('vars.php' == true)`, o sea `include('1')`. Lo correcto sería escribir, por ejemplo:
 
-```php
-if((include 'vars.php') == true) { ... }
+```
+if((include 'vars.php') == true) { /* ... */ }
 ```
 
 Si hay funciones o clases definidas en el archivo incluido, que están después de un posible `return`, se podrán usar igual desde el archivo principal.

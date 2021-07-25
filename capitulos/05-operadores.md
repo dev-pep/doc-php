@@ -95,7 +95,7 @@ Según los tipos, las reglas de comparación son, en orden de aplicación:
 | Operando 1     | Operando 2     | Acción               |
 | :------------- | :------------- | :------------------- |
 | ***null*** o *string* | *string* | Se convierte el ***null*** al *string* vacío. |
-| ***null*** o `bool` | cualquiera | Se convierten ambos lados a `bool` (***false*** < ***true***). |
+| ***null*** o `bool` | cualquiera | Se convierten ambos lados a `bool` (***false*** \< ***true***). |
 | objeto         | objeto         | Las clases pueden definir sus comparaciones, pero siempre entre clases iguales; clases distintas son incomparables. |
 | *string*, recurso, entero o flotante | *string*, recurso, entero o flotante | Se convierten *strings* y recursos a números. |
 | *array*        | *array*        | El *array* con menos miembros es menor. Si son iguales, se comparan elemento a elemento (si una clave de un operando no se encuentra en el otro, son incomparables). |

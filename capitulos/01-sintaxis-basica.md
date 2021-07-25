@@ -10,4 +10,4 @@ Cada instrucción debe finalizar con un `;`, exceptuando la última instrucción
 
 La función `echo` no produce *newline* al final. Los *newlines* fuera de los bloques *php* son enviados a la salida.
 
-En cuanto a los **comentarios**, se admiten los comentarios de una sola línea con `\\ ...`, o multilínea (no anidable) con `/* ... */`.
+En cuanto a los **comentarios**, se admiten los comentarios de una sola línea con `// ...`, o multilínea (no anidable) con `/* ... */`.

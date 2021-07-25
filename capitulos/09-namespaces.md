@@ -73,7 +73,7 @@ Cuando utilizamos variables que contienen nombres de funciones o clases para inv
 namespace MiEspacio;    // entramos en el espacio MiEspacio
 class MiClase { /* ... */ }
 $a = new MiClase;    // OK, estamos en el mismo espacio que la definición de la clase
-$b = new \\MiEspacio\\MiClase;    // OK, equivale al anterior
+$b = new \MiEspacio\MiClase;    // OK, equivale al anterior
 $nombre = 'MiClase';
 $c = new $nombre;    // Error, a través de instanciación dinámica hay que especificar namespace
 $nombre = '\MiEspacio\MiClase';
@@ -144,9 +144,9 @@ Las referencias no cualificadas a nombres de clases dentro de un *namespace* se 
 
 Al hacer referencia a un nombre dentro del código, los nombres se resuelven así:
 
-- Los nombres *fully qualified* se resuelven sin el separador inicial: ***\A\B\C*** se resuelve a ***A\B\C***.
-- Los nombres relativos (usando `namespace`) se resuelven sustituyendo ***namespace*** por el espacio actual: ***namespace\A\B*** dentro del espacio ***X\Y*** se resuelve a ***X\Y\A\B***, y dentro del espacio global se resuelve a ***A\B***.
-- Los nombres cualificados (***A\B\C***) son sustituidos según importación definida, y si no procede esta, se añade al principio el nombre del espacio actual.
+- Los nombres *fully qualified* se resuelven sin el separador inicial: ***\\A\\B\\C*** se resuelve a ***A\\B\\C***.
+- Los nombres relativos (usando `namespace`) se resuelven sustituyendo ***namespace*** por el espacio actual: ***namespace\\A\\B*** dentro del espacio ***X\\Y*** se resuelve a ***X\\Y\\A\\B***, y dentro del espacio global se resuelve a ***A\\B***.
+- Los nombres cualificados (***A\\B\\C***) son sustituidos según importación definida, y si no procede esta, se añade al principio el nombre del espacio actual.
 - Los nombres sin cualificar (***A***) son sustituidos según importación definida, y si esta no procede, pueden pasar dos cosas:
     - Si es el nombre de una clase, se le prefija el nombre del *namespace* actual.
     - Si es una función o constante, también se prefija el nombre del espacio actual, pero en este caso, si no se encuentra, pero sí está disponible en el espacio global, en *runtime* usará la versión del *namespace* global.

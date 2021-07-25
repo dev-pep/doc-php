@@ -315,7 +315,7 @@ public valid(): bool    // comprueba si la posición actual es válida
 
 ## Métodos especiales (magic methods)
 
-Cambian la acción por defecto en ciertas acciones realizadas sobre un objeto o clase. Empiezan por ***__***.
+Cambian la acción por defecto en ciertas acciones realizadas sobre un objeto o clase. Empiezan por dos guiones bajos (***\_\_***).
 
 Todos los *magic methods* deben ser públicos, a excepción de `__construct`, `__destruct` y `__clone`.
 
