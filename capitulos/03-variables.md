@@ -36,7 +36,7 @@ $$a = 'world';
 
 En *arrays*: `$$arr[0]` es ambiguo, con lo que debemos especificar `${$arr[0]}` o `${$arr}[0]`.
 
-Se pueden incluir tantos niveles como se quiera: ***$$$a***, ***$$$$a***, etc.
+Se pueden incluir tantos niveles como se quiera: ***\$\$\$a***, ***\$\$\$\$a***, etc.
 
 ## Variables de fuentes externas
 

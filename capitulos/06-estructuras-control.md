@@ -1,6 +1,6 @@
 # Estructuras de control
 
-Una sentencia *PHP* termina en punto y coma (***;***). Las sentencias se pueden agrupar mediante llaves (***{}***), formando una sentencia en sí.
+Una sentencia *PHP* termina en punto y coma (***;***). Las sentencias se pueden agrupar mediante llaves (***\{}***), formando una sentencia en sí.
 
 ## if
 

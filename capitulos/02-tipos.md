@@ -60,7 +60,7 @@ Literal *string* entre comillas simples. Los *newlines* del *string* forman part
 
 Entre comillas dobles se pueden indicar estos caracteres especiales: ***\\n*** (LF), ***\\r***, (CR) ***\\t*** (HTAB), ***\\v*** (VTAB), ***\\e*** (ESC), ***\\f*** (FF), ***\\"***, ***\\\\***, ***\\$***.
 
-También se puede indicar un carácter mediante una secuencia de 1 a 3 caracteres octales precedidos por *backslash* (***\\58***), ignorando el bit más significativo. También un número hexadecimal de 1 o 2 dígitos precedido por ***\\x*** (***\\x58***). También se puede indicar un *codepoint Unicode* mediante una secuencia de dígitos hexadecimales del tipo ***\\u{1400}***: resultará en uno o más caracteres con la representación *UTF-8* de ese carácter.
+También se puede indicar un carácter mediante una secuencia de 1 a 3 caracteres octales precedidos por *backslash* (***\\58***), ignorando el bit más significativo. También un número hexadecimal de 1 o 2 dígitos precedido por ***\\x*** (***\\x58***). También se puede indicar un *codepoint Unicode* mediante una secuencia de dígitos hexadecimales del tipo ***\\u\{1400}***: resultará en uno o más caracteres con la representación *UTF-8* de ese carácter.
 
 Además, los nombres de variables son expandidos.
 
@@ -88,7 +88,7 @@ Para el contenido de un elemento de un *array* o propiedad de una clase, tambié
 
 #### Sintaxis compleja
 
-Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (que tenga representación *string*), entre llaves ***{...}***. El ***$*** debe ir inmediatemente después de la llave de apertura. Para conseguir ***{\\$***, hay que escribir ***{\\\\\\$***.
+Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (que tenga representación *string*), entre llaves ***\{...}***. El ***$*** debe ir inmediatamente después de la llave de apertura. Para conseguir ***\{\\\$***, hay que escribir ***\{\\\\\$***.
 
 Para elementos de un *array* con clave no numérica, solo se puede usar la sintaxis compleja.
 
