@@ -32,12 +32,12 @@ Algunos ejemplos de constantes *core* pueden ser ***PHP_VERSION***, ***PHP_DEBUG
 
 Las *magic constants* pueden ir cambiando a lo largo de la ejecución, con lo que no son realmente constantes, aunque no se les puede asignar valor. Son *case insensitive*:
 
-- ***\_\_LINE__*** indica la línea del *script*.
-- ***\_\_FILE__*** es la ruta completa del archivo fuente (si es un archivo incluido, es la ruta del archivo incluido, no del que lo incluye).
-- ***\_\_DIR__*** es el directorio del archivo fuente. Equivale a `dirname(__FILE__)`.
-- ***\_\_FUNCTION__*** devuelve el nombre de la función actual. Si es una función anónima retorna ***\"\{closure}\"***.
-- ***\_\_CLASS__*** es el nombre de la clase actual, incluyendo el *namespace* en el que está definida (tipo ***\"Namesp\\Clase\"***). Si se usa en un *trait* devuelve el nombre de la clase que usa ese *trait*.
-- ***\_\_TRAIT__*** es el nombre del *trait* actual, incluyendo el *namespace* en el que está incluido (tipo ***\"Namesp\\Trait\"***).
-- ***\_\_METHOD__*** es el nombre del método actual.
-- ***\_\_NAMESPACE__*** es el nombre del *namespace* actual.
+- ***\_\_LINE\_\_*** indica la línea del *script*.
+- ***\_\_FILE\_\_*** es la ruta completa del archivo fuente (si es un archivo incluido, es la ruta del archivo incluido, no del que lo incluye).
+- ***\_\_DIR\_\_*** es el directorio del archivo fuente. Equivale a `dirname(__FILE__)`.
+- ***\_\_FUNCTION\_\_*** devuelve el nombre de la función actual. Si es una función anónima retorna ***\"\{closure}\"***.
+- ***\_\_CLASS\_\_*** es el nombre de la clase actual, incluyendo el *namespace* en el que está definida (tipo ***\"Namesp\\Clase\"***). Si se usa en un *trait* devuelve el nombre de la clase que usa ese *trait*.
+- ***\_\_TRAIT\_\_*** es el nombre del *trait* actual, incluyendo el *namespace* en el que está incluido (tipo ***\"Namesp\\Trait\"***).
+- ***\_\_METHOD\_\_*** es el nombre del método actual.
+- ***\_\_NAMESPACE\_\_*** es el nombre del *namespace* actual.
 - ***ClassName::class*** es el nombre de la clase actual *fully qualified*.
