@@ -211,6 +211,25 @@ abstract class MiClase
 }
 ```
 
+## ¿Literales objeto?
+
+En *PHP* no existen los literales objeto, como por ejemplo en *Javascript*. Sin embargo se puede conseguir un mecanismo similar utilizando literales *array* y haciendo el *cast* a tipo ***object***. En el siguiente ejemplo, obtenemos un *array* de 3 objetos:
+
+```php
+$arr = [
+    (object)[ 'campo1' => 1, 'campo2' => 2 ],
+    (object)[ 'campo1' => 11, 'campo2' => 22 ],
+    (object)[ 'campo1' => 111, 'campo2' => 222 ]
+];
+```
+
+Para acceder a los valores, podemos hacer:
+
+```php
+$v1 = $arr[1];  // retorna el segundo objeto
+$v2 = $arr[0]->campo2;  // retorna el entero '2'
+```
+
 ## Interfaces
 
 Una interfaz se define igual que una clase, pero usando `interface` en lugar de `class`. No puede definir los métodos que tenga, si los tiene, y estos deben ser públicos. Una clase puede definirse para implementar una interfaz mediante `implements`.
