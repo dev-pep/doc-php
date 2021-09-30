@@ -4,6 +4,8 @@
 
 El operador ternario es como en *C*: `$a ? $b : $c;`.
 
+El operador `??` es binario, y retorna el primer operando si este no es ***NULL***; de lo contrario retorna el segundo.
+
 ## Precedencia de operadores
 
 Operadores con la misma precedencia juntos se evalúan según su asociatividad. Por ejemplo, `+` y `-` tienen la misma precedencia y asociatividad izquierda, con lo que `1 + 2 - 3` equivale a `(1 + 2) - 3`. En cambio, `=` tiene asociatividad derecha, con lo que `$a = $b = 5;` equivale a `$a = ($b = 5)`.

@@ -26,7 +26,7 @@ Para acceder a su valor, simplemente se debe escribir su nombre, o usar `constan
 
 Existe una serie de constantes que están predefinidas. Por un lado, las *core predefined constants* están siempre disponibles. Dependiendo de las extensiones instaladas, habrá otras tantas disponibles.
 
-Algunos ejemplos de constantes *core* pueden ser ***PHP_VERSION***, ***PHP_DEBUG***, ***PHP_EOL***, , ***PHP_INT_MAX***, ***PHP_INT_MIN***, ***true***, ***false***, ***null***, etc.
+Algunos ejemplos de constantes *core* pueden ser ***PHP_VERSION***, ***PHP_DEBUG***, ***PHP_EOL***, ***PHP_INT_MAX***, ***PHP_INT_MIN***, ***true***, ***false***, ***null***, etc.
 
 ## Constantes mágicas
 

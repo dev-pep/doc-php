@@ -93,11 +93,11 @@ En los ejemplos, `namespace` se sustituye por el nombre *fully qualified* del *n
 
 ## Importación
 
-Importar es la posibilidad de referirnos a un objeto externo mediante un alias, sin cualificar. Es posible crear alias para elementos de un *namespace*, así como de un *namespace* en sí. Este aliasing se realiza con el operador `use`... `as`.
+Importar es la posibilidad de referirnos a un objeto externo mediante un alias, sin cualificar. Es posible crear alias para elementos de un *namespace*, así como de un *namespace* en sí. Este *aliasing* se realiza con el operador `use`... `as`.
 
 Las importaciones se realizan relativas al espacio global, no al actual, con lo que no es necesario (y no se recomienda) empezar el nombre del espacio a importar con barra invertida (***\\***).
 
-Si importamos una función o constante, hay que informar en el código, no así cuando importamos un *namespace* o una clase.
+Si importamos una función o constante, hay que informar en el código de que se trata de una función (`use function`) o constante (`use const`), no así cuando importamos un *namespace* o una clase.
 
 Cuando omitimos `as`, se entenderá que este será el último elemento de la importación: `use <un>\<elemento>\<a>\<importar>` equivale a `use <un>\<elemento>\<a>\<importar> as <importar>`.
 

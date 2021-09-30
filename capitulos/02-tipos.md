@@ -58,7 +58,7 @@ Literal *string* entre comillas simples. Los *newlines* del *string* forman part
 
 ### Double quoted
 
-Entre comillas dobles se pueden indicar estos caracteres especiales: ***\\n*** (LF), ***\\r***, (CR) ***\\t*** (HTAB), ***\\v*** (VTAB), ***\\e*** (ESC), ***\\f*** (FF), ***\\"***, ***\\\\***, ***\\\$***.
+Entre comillas dobles se pueden indicar estos caracteres especiales: ***\\n*** (LF), ***\\r*** (CR) ***\\t*** (HTAB), ***\\v*** (VTAB), ***\\e*** (ESC), ***\\f*** (FF), ***\\"***, ***\\\\***, ***\\\$***.
 
 También se puede indicar un carácter mediante una secuencia de 1 a 3 caracteres octales precedidos por *backslash* (***\\58***), ignorando el bit más significativo. También un número hexadecimal de 1 o 2 dígitos precedido por ***\\x*** (***\\x58***). También se puede indicar un *codepoint Unicode* mediante una secuencia de dígitos hexadecimales del tipo ***\\u\{1400}***: resultará en uno o más caracteres con la representación *UTF-8* de ese carácter.
 
@@ -139,12 +139,12 @@ Mapa de pares clave-valor. Un elemento del *array* puede ser otro *array* (*arra
 ### Creación
 
 ```php
-$arr = array(key1=>val1, key2=>val2,...)
+$arr = array(key1 => val1, key2 => val2,...)
 
-$arr = [key1=>val1, key2=>val2,...]
+$arr = [key1 => val1, key2 => val2,...]
 ```
 
-Las claves pueden ser *string* o entero (positivo, negativo o 0). Los valores, cualquier tipo. Si es *string* y contiene un número decimal correcto (que no empiece por ***+***), será convertido a entero. Los flotantes se convierte a entero (truncando). Los booleanos, pasan a entero 0 o 1. ***NULL*** se convierte al *string* vacío. Si varios elementos usan la misma clave, solo será accesible el último de ellos.
+Las claves pueden ser *string* o entero (positivo, negativo o 0). Los valores, cualquier tipo. Si es *string* y contiene un número decimal correcto (que no empiece por ***+***), será convertido a entero. Los flotantes se convierten a entero (truncando). Los booleanos, pasan a entero 0 o 1. ***NULL*** se convierte al *string* vacío. Si varios elementos usan la misma clave, solo será accesible el último de ellos.
 
 Cuando las claves no son todas enteras, se le llama *array* asociativo, en contraposición a un *array* numérico o secuencial.
 
@@ -190,7 +190,7 @@ Se construyen en base a un *array*, o un objeto que implemente la interfaz `Trav
 
 Se crean mediante `new`.
 
-Si se convierte un valor cualquiera a objeto, se crea un instancia de la clase `stdClass`. Si es desde `NULL`, esta nueva instancia estará vacía. Si se convierte desde *array* resultará un objeto con las propiedades indicadas por las claves, con sus valores correspondientes.
+Si se convierte un valor cualquiera a objeto (con un *cast* a `object`, por ejemplo), se crea un instancia de la clase `stdClass`. Si es desde `NULL`, esta nueva instancia estará vacía. Si se convierte desde *array* resultará un objeto con las propiedades indicadas por las claves, con sus valores correspondientes.
 
 Un escalar se convierte a objeto con una propiedad llamada `scalar`.
 
@@ -231,7 +231,7 @@ function sum(int $a, int $b): float
 
 Este ejemplo retornará siempre un flotante.
 
-Si prefijamos ***?*** al tipo declarado significa que se acepta ***null*** también.
+Si prefijamos ***?*** al tipo declarado significa que se acepta ***null*** también. Es lo que se denomina un tipo *nullable*.
 
 ### Unión de tipos (*PHP* 8)
 

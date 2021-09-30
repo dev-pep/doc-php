@@ -36,7 +36,7 @@ Los nombres de funciones son *case-insensitive*.
 
 ## Argumentos
 
-Los argumentos se evalúa de izquierda a derecha. Si un parámetro tiene valor ***null*** por defecto, lógicamente admitirá el valor ***null*** (*nullable* argument). Para que el argumento sea *nullable* se recomienda definirlo como tal, sin tener que darle valor nulo por defecto.
+Los argumentos se evalúan de izquierda a derecha. Si un parámetro tiene valor ***null*** por defecto, lógicamente admitirá el valor ***null*** (*nullable* argument). Para que el argumento sea *nullable* se recomienda definirlo como tal, sin tener que darle valor nulo por defecto.
 
 ### Paso por referencia
 
@@ -54,7 +54,7 @@ Los parámetros por defecto deberían ir después de los parámetros obligatorio
 
 ### Número variable de parámetros
 
-Para definir funciones variádicas se usa un parámetro al que se le prefija el *token* `...`, de tal modo que recogerá todos los argumentos de la llamada. No puede haber más parámetros después de este.
+Para definir funciones variádicas se usa un parámetro al que se le prefija el *token* `...`, de tal modo que recogerá los argumentos restantes de la llamada. No puede haber más parámetros después de este.
 
 ```php
 function foo($parm1, $parm2, ...$parms)

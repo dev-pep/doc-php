@@ -39,26 +39,26 @@ Las sentencias `if/elseif/else` pueden anidarse tanto como se desee.
 
 ## Sintaxis alternativa
 
-Las estructuras `if`, `while`, `for`, `foreach` y `switch` disponen de una sintaxis alternativa. En esta sintaxis, y suponiendo sentencias compuestas entre llaves, la llave inicial se sustituye por dos puntos (***:***) y la llave final se sustituye por `endif`, `endwhile`, `endfor`, `endforeach` o `endswitch` respectivamente.
+Las estructuras `if`, `while`, `for`, `foreach` y `switch` disponen de una sintaxis alternativa. En esta sintaxis, y suponiendo sentencias compuestas entre llaves, la llave inicial se sustituye por dos puntos (***:***) y la llave final se sustituye por `endif`, `endwhile`, `endfor`, `endforeach` o `endswitch` (seguido de punto y coma) respectivamente.
 
 ```php
 if(<expresión>):
     <sentencia>
 else:
     <sentencia>
-endif
+endif;
 ```
 
 Esto resulta útil para incluir código *HTML* directamente. Aunque también se puede hacer usando llaves, así resulta más claro:
 
 ```php
-<?php if($expr): ?>
+<?php ?>
     <h2>Código HTML</h2>
     <p>Esto es código HTML</p>
 <?php else: ?>
     <h2>Otro código HTML</h2>
     <p>Esto es otro código HTML</p>
-<?php endif ?>
+<?php endif; ?>
 ```
 
 No es posible combinar ambas sintaxis en una misma estructura.
@@ -120,16 +120,28 @@ endfor;
 Permite iterar sobre *arrays* y objetos. Tiene estas dos formas:
 
 ```php
-foreach(<expresión iterable> as $valor):
+foreach(<expresión iterable> as $valor)
     <sentencia>
 
-foreach(<expresión iterable> as $clave => $valor):
+foreach(<expresión iterable> as $clave => $valor)
     <sentencia>
 ```
 
 En el primer caso, se va pasando por todos los elementos del iterable, y en cada iteración, la variable especificada (en este caso ***\$valor***) va tomando sucesivamente los valores de los elementos. En el segundo caso, adicionalmente, la variable específica (en el ejemplo, ***\$clave***) irá tomando al mismo tiempo los valores de las distintas claves.
 
 Si deseamos cambiar los elementos del *array* sobre el que iteramos, las asignaciones se deben hacer por referencia, del tipo `foreach($arr as &$valor)`. Si se hace así, después del bucle, la variable ***\$valor*** seguirá viva, como referencia al último elemento del *array*, con lo que se recomienda deshacer la referencia (con `unset()`).
+
+La sintaxis alternativa tiene esta forma:
+
+```php
+foreach(<expresión iterable> as $valor):
+    <sentencia>
+endforeach;
+
+foreach(<expresión iterable> as $clave => $valor):
+    <sentencia>
+endforeach;
+```
 
 ## break y continue
 
@@ -141,7 +153,7 @@ Una estructura `switch` se considera un bucle, pero técnicamente no lo es. Así
 
 ## switch
 
-Es equivalente a una serie de sentencia `if`. Su sintaxis es:
+Es equivalente a una serie de sentencias `if`. Su sintaxis es:
 
 ```php
 switch(<expresión>)
@@ -176,7 +188,7 @@ switch(<expresión>):
 endswitch;
 ```
 
-En todo caso, es posible cambiar los dos puntos (***;***) de las cláusulas `case` por punto y coma (***;***).
+En todo caso, es posible cambiar los dos puntos (***:***) de las cláusulas `case` por punto y coma (***;***).
 
 ## match (*PHP* 8)
 
@@ -202,7 +214,7 @@ match(<expresión>)
 
 Una expresión ***\<exprN>*** puede estar compuesta por varias expresiones separadas por comas. La expresión de retorno correspondiente se ejecutará si una de estas subexpresiones coincide. La cláusula `default` es opcional.
 
-Si en lugar de `===` deseamos cualquier otro tipo de operador de comparación, la expresión inicial puede ser ***true*** y las expresiones pueden contener cualquier tipo de comparación.
+Si en lugar de `===` deseamos cualquier otro tipo de operador de comparación, la expresión inicial puede ser ***true*** y las expresiones de retorno pueden contener cualquier tipo de comparación.
 
 ## declare
 

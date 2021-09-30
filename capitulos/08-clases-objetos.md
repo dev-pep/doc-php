@@ -71,7 +71,7 @@ bar($ob2);
 echo $ob2->contenido;
 ```
 
-Tanto la función ***foo()*** como la función ***bar()*** manipulan el objeto al que hace referencia su parámetro ***\$objeto***. Esa manipulación puede comprobarse tras la ejecución de la función. Al mismo tiempo, ambas **cambian** el valor del argumento recibido en sí, y mientras ese cambio es efectivo en el argumento llamante a ***bar()***, no es efectivo en ***foo()***, ya que el argumento se pasa estrictamente por valor en esta última.
+Tanto la función ***foo()*** como la función ***bar()*** cambian el valor del objeto al que hace referencia su parámetro ***\$objeto***. Esa manipulación puede comprobarse tras la ejecución de la función. Al mismo tiempo, ambas **cambian** el valor del argumento recibido en sí, y mientras ese cambio es efectivo en el argumento llamante a ***bar()***, no es efectivo en ***foo()***, ya que el argumento se pasa estrictamente por valor en esta última.
 
 ## Propiedades y métodos
 
@@ -85,9 +85,9 @@ Una clase ***D*** puede ser derivada de una clase ***B***:
 class D extends B { /* ... */ }
 ```
 
-Al *override* un método en la derivada, debe **ser compatible** con el de la clase padre: esto significa que el nuevo método debe respetar las reglas de [varianza](#reglas-de-varianza), y además el método hijo no puede eliminar parámetros del padre, o hacer obligatorios los parámetros opcionales del padre (sí puede hacer opcionales los parámetros obligatorios del padre). Puede, en todo caso, añadir parámetros, pero estos deben ser opcionales.
+Al *override* un método en la derivada, la *signature* (parámetros y sus tipos, y tipo de retorno) del método hijo debía ser, en anteriores versiones de *PHP*, igual que la del padre. Sin embargo, actualmente es suficiente que sean compatibles, y eso significa que la *signature* del hijo debe respetar las **reglas de varianza**, que se verán más adelante. Además, el método hijo no puede eliminar parámetros del padre, o hacer obligatorios los parámetros opcionales del padre (sí puede hacer opcionales los parámetros obligatorios del padre). Puede, en todo caso, añadir parámetros, pero estos deben ser opcionales.
 
-Puede acceders a los métodos *overriden* del padre o propiedades estáticas mediante `parent`, que se refiere a la **clase padre**, mientras que `self` se refiere a la **clase actual**. Se deben usar estos identificadores con el operador `::`.
+Puede accederse a los métodos *overriden* del padre o propiedades estáticas mediante `parent`, que se refiere a la **clase padre**, mientras que `self` se refiere a la **clase actual**. Se deben usar estos identificadores con el operador `::`.
 
 Renombrar parámetros en las clases hijas no constituye incompatibilidad, pero puede llevar a error si se usan argumentos con nombre.
 
@@ -122,7 +122,7 @@ Las constantes se almacenan en la clase, y no en las instancias. Por lo tanto su
 
 ## Autoload de clases
 
-Una forma frecuente de trabajar es crear un archivo por cada clase. Lo malo es tener que indicar una larga retahíla de *includes* para cargar todas las clases al prinicipio de cada *script*. Para evitarlo, se puede registrar un (o más) *autoloader*. Se hace con `spl_autoload_register()`, al que se le pasa una función anónima que indica qué hacer cuando intentamos usar una clase que nos está definida. Tal función recibirá un argumento con el nombre de la clase.
+Una forma frecuente de trabajar es crear un archivo por cada clase. Lo malo es tener que indicar una larga retahíla de *includes* para cargar todas las clases al prinicipio de cada *script*. Para evitarlo, se puede registrar un (o más) *autoloader*. Se hace con `spl_autoload_register()`, al que se le pasa una función anónima que indica qué hacer cuando intentamos usar una clase que no está definida. Tal función recibirá un argumento con el nombre de la clase.
 
 Por ejemplo:
 
@@ -139,7 +139,7 @@ A partir de aquí, si hacemos `$ob = new MiClase;` y ***MiClase*** no está defi
 
 El constructor es una función `__construct()` que no debe retornar nada. Puede tener tantos argumentos como se quiera. Los argumentos se pasarán en el momento de crear la clase con `new`.
 
-Las clases hijas que definen constructor no llaman implícitamente al constructor del padre, con lo que si se quiere llamar desde este, hay que hacerlo mediante `parent::__construct()` pasándole los argumentos pertinentes. Si la clase hija no define constructor, lo hereda del padre.
+Las clases hijas que definen constructor no llaman implícitamente al constructor del padre, con lo que si se quiere llamar desde este, hay que hacerlo mediante `parent::__construct()` pasándole los argumentos pertinentes. Si la clase hija no define constructor, lo hereda del padre (a no ser que el constructor del padre sea `private`).
 
 El constructor *overriden* está exento de las reglas de compatibilidad.
 
@@ -189,7 +189,7 @@ Una clase debe estar definida antes de usarse (con excepción de los *autoloader
 
 El operador `::` permite acceder a propiedades y métodos estáticos, a constantes y a métodos *overriden* de una clase.
 
-Al usarse fuera de la clase, se debe usar el nombre de la clase, o una variable que contenga ese nombre. Desde el interior de la clase se usa con `self` (clase actual), `parent` (clase padre) o `static` (ver [*binding*](#binding-enlazado)).
+Al usarse fuera de la clase, se debe usar el nombre de la clase, o una variable que contenga ese nombre. Desde el interior de la clase se usa con `self` (clase actual), `parent` (clase padre) o `static` (véase apartado sobre *binding*).
 
 ## static
 
@@ -287,7 +287,7 @@ Pueden también declarar métodos abstractos. En este caso, en la clase que los 
 
 ## Clases anónimas
 
-Útiles, por ejemplo, para pasar como argumento una objeto que no necesita ser almacenado:
+Útiles, por ejemplo, para pasar como argumento un objeto que no necesita ser almacenado:
 
 ```php
 foo(new class { /* ... */ });
@@ -421,7 +421,7 @@ class Deriv extends Base
 }
 ```
 
-En este caso, al hacer `Deriv::show();` de ejecutará el método ***quesoy()*** de la clase ***Base***. Es la limitación que tiene acceder a través de `self`. Para solucionarlo, disponemos del identificador `static`, que supera esta limitación, almacenando, no la clase actual, sino la clase que se utilizó para hacer la invocación en tiempo de ejecución. En este caso, el código correcto quedaría:
+En este caso, al hacer `Deriv::show();` se ejecutará el método ***quesoy()*** de la clase ***Base***. Es la limitación que tiene acceder a través de `self`. Para solucionarlo, disponemos del identificador `static`, que supera esta limitación, almacenando, no la clase actual, sino la clase que se utilizó para hacer la invocación en tiempo de ejecución. En este caso, el código correcto quedaría:
 
 ```php
 class Base
@@ -450,9 +450,11 @@ Cuando hablemos de tipos más o menos específicos, consideraremos que un tipo e
 - Cuando una clase se cambia por una clase hija de esta.
 - Cuando `float` se cambia a `int`.
 
+En caso contrario, será un tipo menos específico.
+
 ### Covarianza
 
-Permite al método *overriden* en el hijo, retornar un tipo más específico que el del padre. Esto incluye que el método del hijo puede definir tipo de retorno si padre no lo hace.
+Permite al método *overriden* en el hijo, retornar un tipo más específico que el del padre. Esto incluye que el método del hijo puede definir un tipo de retorno si el padre no lo hace.
 
 ### Contravarianza
 
