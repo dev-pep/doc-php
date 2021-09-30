@@ -15,6 +15,10 @@ Estos son mis apuntes de *PHP*.
 9. [Namespaces](capitulos/09-namespaces.md)
 10. [Variables predefinidas](capitulos/10-variables-predefinidas.md)
 
+### Bibliotecas
+
+[LdapRecord](capitulos/ldaprecord.md)
+
 ---
 
 [![CC BY 4.0][cc-by-shield]][cc-by]
