@@ -13,7 +13,9 @@ Estos son mis apuntes de *PHP*.
 7. [Funciones](capitulos/07-funciones.md)
 8. [Clases y objetos](capitulos/08-clases-objetos.md)
 9. [Namespaces](capitulos/09-namespaces.md)
-10. [Variables predefinidas](capitulos/10-variables-predefinidas.md)
+10. [Excepciones](capitulos/10-excepciones.md)
+11. [Generators](capitulos/11-generators.md)
+12. [Variables predefinidas](capitulos/12-variables-predefinidas.md)
 
 ### Bibliotecas
 
