@@ -320,7 +320,7 @@ Existen varios métodos para comprobar la igualdad o relación entre dos modelos
 
 Otros métodos: `isDescendantOf()`, `isAncestorOf()`, `isChildOf()`, `isParentOf()`.
 
-### *Accessors* i *mutators*
+### *Accessors* y *mutators*
 
 > El mecanismo es casi idéntico al de los *accessors* y *mutators* de *Eloquent ORM*.
 

@@ -19,7 +19,8 @@ Estos son mis apuntes de *PHP*.
 
 ### Bibliotecas
 
-[LdapRecord](capitulos/ldaprecord.md)
+- [LdapRecord](capitulos/ldaprecord.md)
+- [Monolog](capitulos/monolog.md)
 
 ---
 
