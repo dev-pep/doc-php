@@ -21,6 +21,7 @@ Estos son mis apuntes de *PHP*.
 
 - [LdapRecord](capitulos/ldaprecord.md)
 - [Monolog](capitulos/monolog.md)
+- [KnpMenu](capitulos/knpmenu.md)
 
 ---
 
