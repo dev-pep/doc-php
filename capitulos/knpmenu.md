@@ -126,7 +126,7 @@ Normalmente, el elemento de menú correspondiente a la página actual deberá ap
 
 Al renderizador hay que indicarle cómo debe hacer el *match* entre la página actual y los elementos de menú. Para ello se le pasará, al construirse, una instancia de un objeto ***Knp\Menu\Matcher\Matcher*** que tiene esa información. Este *matcher* decidirá en base a los objetos *voter* que tenga registrados. El *voter* más usual es el que comprueba simplemente a base de la *URI* actual: ***Knp\Menu\Matcher\Voter\UriVoter***.
 
-Primero hay que construir ese *voter*, pasándole el *string* que deberá comparar con los campos *URI* de los distintos elementos del menú. Luego hay que añadir ese *voter* al objeto *matcher*, al que se le pueden añadir otros *voters*, que pueden comparar con una expresión regular, un nombre de ruta, etc. Para añadirle el *voter* se usa el método `addVoter()`:
+Primero hay que construir ese *voter*, pasándole el *string* que deberá comparar con los campos *URI* de los distintos elementos del menú. Luego hay que añadir ese *voter* al objeto *matcher*, al que se le pueden añadir otros *voters*, que pueden comparar con una expresión regular (***RegexVoter***), un nombre de ruta (***RouteVoter***), o un *voter* creado por nosotros. Para añadirle el *voter* se usa el método `addVoter()`:
 
 ```php
 use Knp\Menu\Matcher\Matcher;
@@ -138,4 +138,37 @@ $matcher->addVoter(new UriVoter($_SERVER['REQUEST_URI']));
 $renderer = new ListRenderer($matcher);
 ```
 
-Para crear un *voter* debemos crear una clase que implemente la interfaz ***Knp\Menu\Matcher\Voter\VoterInterface***.
+Para crear un *voter* debemos crear una clase que implemente la interfaz ***Knp\Menu\Matcher\Voter\VoterInterface***. Además podemos crear nuestro propio *matcher* (debe implementar ***Knp\Menu\Matcher\MatcherInterface***).
+
+## Iteradores
+
+Para iterar sobre todos los elementos del menú, podemos hacerlo teniendo en cuenta que se trata de una estructura de árbol. Para facilitar el trabajo, podemos recorrer el árbol usando iteradores.
+
+En primer lugar, el iterador ***Knp\Menu\Iterator\RecursiveItemIterator***, al pasarle un objeto menú genera un iterador que va retornando cada uno de los submenús principales, es decir, los hijos del objeto menú.
+
+Para obtener otro iterador que recorra cada uno de los elementos de estos submenús, hay que envolver *wrap* el anterior iterador en el iterador *PHP* ***RecursiveIteratorIterator***:
+
+```php
+$itemIterator = new \Knp\Menu\Iterator\RecursiveItemIterator($menu);
+$iterator = new \RecursiveIteratorIterator($itemIterator, \RecursiveIteratorIterator::SELF_FIRST);
+foreach ($iterator as $item) {
+    echo $item->getName() . " ";
+}
+```
+
+La constante ***SELF_FIRST*** del iterador ***RecursiveIteratorIterator*** retorna cada nodo antes que sus hijos (preorden); para hacerlo al revés (postorden), se usa ***CHILD_FIRST***.
+
+El ejemplo no incluye el elemento raíz (el objeto menú en sí). Para que lo incluya se debe pasar a ***RecursiveItemIterator*** un iterador que inicie en tal raíz en lugar del objeto menú:
+
+```php
+$rootIterator = new \ArrayIterator([$menu]);  // iterador que solo contiene el nodo raíz
+$itemIterator = new \Knp\Menu\Iterator\RecursiveItemIterator($rootIterator);
+$iterator = new \RecursiveIteratorIterator($itemIterator, \RecursiveIteratorIterator::SELF_FIRST);
+foreach ($iterator as $item) {
+    echo $item->getName() . " ";
+}
+```
+
+## Acceso a las propiedades
+
+Para acceder a las propiedades de los elementos de menú, se dispone de los métodos `getName()`, `getLabel()`, `getUri()`, `getAttribute()`, etc.
