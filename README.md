@@ -16,6 +16,7 @@ Estos son mis apuntes de *PHP*.
 10. [Excepciones](capitulos/10-excepciones.md)
 11. [Generators](capitulos/11-generators.md)
 12. [Variables predefinidas](capitulos/12-variables-predefinidas.md)
+13. [Otros](capitulos/13-otros.md)
 
 ### Bibliotecas
 
