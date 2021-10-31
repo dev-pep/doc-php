@@ -2,9 +2,13 @@
 
 ## Autenticación *HTTP*
 
-El servidor puede estar configurado para solicitar autenticación para visitar un sitio *web*. En ese caso, al autenticarse, el servidor establecerá el nombre del usuario autenticado en la variable ***USER_AUTH*** (*IIS*) o ***REMOTE_USER*** (*Apache*), accesible mediante el *array* `$_SERVER`.
+El servidor puede estar configurado para solicitar automáticamente autenticación para visitar un sitio *web*. En ese caso, al autenticarse, el servidor establecerá el nombre del usuario autenticado en la variable ***USER_AUTH*** (*IIS*) o ***REMOTE_USER*** (*Apache*), accesible mediante el *array* `$_SERVER`.
 
-Sin embargo podemos configurar manualmente el acceso con autenticación en *PHP*. Para ello se debe enviar una cabecera de tipo ***WWW-Authenticate*** mediante la función `header()` (explicada más abajo). Esto enviará dicha cabecera inmediatamente, pausando la ejecución del *script*, causando que se abra una ventana de usuario/contraseña en el navegador. Si la autenticación es correcta, se volverá a cargar la misma *URL*, pero esta vez las variables del servidor ***PHP_AUTH_USER***, ***PHP_AUTH_PW*** y ***AUTH_TYPE*** establecidas a un valor apropiado (nombre de usuario, contraseña y tipo de autenticación, *basic* o *digest*).
+Sin embargo podemos configurar manualmente el acceso con autenticación en *PHP*. Para ello se debe enviar una cabecera de tipo ***WWW-Authenticate*** mediante la función `header()` (explicada más abajo). Esto enviará dicha cabecera inmediatamente, pausando la ejecución del *script*, causando que se abra una ventana de usuario/contraseña en el navegador. Si la autenticación es correcta, se volverá a cargar la misma *URL*, pero esta vez las variables del servidor ***PHP_AUTH_USER***, ***PHP_AUTH_PW*** y ***AUTH_TYPE*** establecidas a un valor apropiado (nombre de usuario proporcionado, contraseña y tipo de autenticación, *basic* o *digest*).
+
+Esta acción es exactamente la misma que realiza el servidor automáticamente, si está configurado para hacerlo. La diferencia es que en el caso automático, el servidor se encarga de verificar la validez de las credenciales presentadas y de permitir o no el acceso a la página.
+
+> Las variables ***PHP_AUTH_USER***, ***PHP_AUTH_PW*** y ***AUTH_TYPE*** también reciben el valor adecuado cuando la autenticación se realiza automáticamente a través del servidor.
 
 En caso de que la autenticación sea cancelada por el usuario, la ejecución proseguirá desde el punto en que se había pausado.
 
@@ -22,11 +26,11 @@ else
 }
 ```
 
-Una vez obtenemos ***PHP_AUTH_USER*** y ***PHP_AUTH_PW***, se podrían chequear en una base de datos de usuarios.
+Una vez obtenemos ***PHP_AUTH_USER*** y ***PHP_AUTH_PW***, se podrían chequear en una base de datos de usuarios. Si las credenciales son correctas se realizará una acción, y si no, otra.
 
-Los tipos de autenticación son *basic* (no se encriptan los datos antes de enviarse) o *digest* (datos se encriptan antes de enviarse). El método *basic* sobre conexiones no *HTTPS* están desaconsejados completamente.
+Los tipos de autenticación son *basic* (no se encriptan los datos antes de enviarse) o *digest* (datos se encriptan antes de enviarse). De todas formas, con protocolo *HTTPS*, los datos viajarán encriptados, aunque usemos el modo *basic*. Por ello, el método *basic* sobre conexiones no *HTTPS* está desaconsejado completamente.
 
-Por otro lado, al autenticarse, se debe definir un *realm*, que será un *string* (arbitrario) compartido por varias páginas. Solo hay que autenticarse en una de las páginas de un mismo *realm* para poder visitarlas todas.
+Por otro lado, al autenticarse, se debe definir un *realm*, que será un *string* (arbitrario) compartido por varias páginas. Solo hay que autenticarse en una de las páginas de un mismo *realm* para poder visitarlas todas (dentro del mismo sitio *web*).
 
 ### header()
 
