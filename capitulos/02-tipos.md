@@ -132,9 +132,9 @@ Si hay literales *string* en un *script .php* con caracteres *Unicode*, serán c
 
 Si el *string* empieza con un número pero tiene otro contenido posterior, puede convertirse a ese valor numérico, pero se genera un aviso.
 
-## Arrays
+## *Arrays*
 
-Mapa de pares clave-valor. Un elemento del *array* puede ser otro *array* (*array* multidimensional).
+Mapa de pares clave-valor. Un elemento del *array* puede ser otro *array* (*array* multidimensional). Para hacer un volcado de un *array* podemos usar `var_dump()`, pero la función `print_r()` formateará el valor adecuadamente.
 
 ### Creación
 

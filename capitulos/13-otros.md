@@ -91,3 +91,7 @@ unset($_SESSION['ciudad']);
 ```
 
 Para eliminar una sesión completamente se usa `session_destroy()`.
+
+## Terminar la ejecución
+
+La sentencia `exit` y su equivalente `die` terminan la ejecución del *script*. No son funciones, sino construcciones del lenguaje. Se pueden escribir sin paréntesis, a no ser que deseemos pasarles un argumento. Este puede ser un *string*, en cuyo caso se enviará este a la salida, o un entero entre 0 (salida correcta) y 254.
