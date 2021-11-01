@@ -10,6 +10,8 @@ Esta acción es exactamente la misma que realiza el servidor automáticamente, s
 
 > Las variables ***PHP_AUTH_USER***, ***PHP_AUTH_PW*** y ***AUTH_TYPE*** también reciben el valor adecuado cuando la autenticación se realiza automáticamente a través del servidor.
 
+> Antiguamente existía la directiva *PHP* ***safe_mode***, la cual, si estaba activada, causaba que las variables ***PHP_AUTH_USER*** y ***PHP_AUTH_PW*** no recibían valor alguno cuando la autenticación era automática a través del servidor. Este modo fue eliminado en *PHP* 4.5.
+
 En caso de que la autenticación sea cancelada por el usuario, la ejecución proseguirá desde el punto en que se había pausado.
 
 ```php
