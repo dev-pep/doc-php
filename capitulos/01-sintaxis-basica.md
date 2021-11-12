@@ -12,4 +12,4 @@ La sentencia `echo` produce salida, y no produce *newline* al final. Es una cons
 
 Los *newlines* fuera de los bloques *php* son enviados a la salida.
 
-En cuanto a los **comentarios**, se admiten los comentarios de una sola línea con `// ...`, o multilínea (no anidable) con `/* ... */`.
+En cuanto a los **comentarios**, se admiten los comentarios de una sola línea con `// ...`, o multilínea (no anidable) con `/* ... */`. A parte de estos comentarios tipo *C*/*C++*, también admite el estilo *shell script*, es decir ***#*** (más usado en archivos *PHP* que definen configuraciones).
