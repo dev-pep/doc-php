@@ -18,11 +18,15 @@ Estos son mis apuntes de *PHP*.
 12. [Variables predefinidas](capitulos/12-variables-predefinidas.md)
 13. [Otros](capitulos/13-otros.md)
 
+### Extensiones
+
+- [ldap](captitulos/ext-ldap.md)
+
 ### Bibliotecas
 
-- [LdapRecord](capitulos/ldaprecord.md)
-- [Monolog](capitulos/monolog.md)
-- [KnpMenu](capitulos/knpmenu.md)
+- [LdapRecord](capitulos/lib-ldaprecord.md)
+- [Monolog](capitulos/lib-monolog.md)
+- [KnpMenu](capitulos/lib-knpmenu.md)
 
 ---
 
