@@ -20,7 +20,7 @@ Estos son mis apuntes de *PHP*.
 
 ### Extensiones
 
-- [ldap](captitulos/ext-ldap.md)
+- [ldap](capitulos/ext-ldap.md)
 
 ### Bibliotecas
 
