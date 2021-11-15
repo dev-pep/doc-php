@@ -48,13 +48,13 @@ ldap_search($ldap, $base, $filter, $attributes=[], $attributes_only=0, $sizelimi
 
 Solo los tres primeros argumentos son obligatorios:
 
-- ***$ldap*** es el objeto conexión.
-- ***$base*** es el *DN* base utilizado, es decir, el subárbol donde se realizará la búsqueda.
-- ***$filter*** indica un filtro con formato *ldap* para los resultados.
-- ***$attributes*** es un *array* que indica los atributos que deseamos que se retornen. El *dn* es siempre retornado. Si no se indica este argumento, se retornan **todos** los atributos de cada coincidencia, lo cual se desaconseja, pues ralentiza mucho la operación.
-- ***$attributes_only***: si se establece en 1, solo se retornan los tipos de atributo, no sus valores. Por defecto es 0 (retorna valores).
-- ***$sizelimit*** indica el número máximo de entradas devueltas. Un número inferior a 1 significa sin límite, aunque nunca se retornarán más elementos que el máximo definido en el servidor.
-- ***$timelimit*** indica el máximo número de segundos que debe tomar la búsqueda. Un número inferior a 1 significa sin límite, aunque nunca tardará más que el máximo definido en el servidor.
+- ***\$ldap*** es el objeto conexión.
+- ***\$base*** es el *DN* base utilizado, es decir, el subárbol donde se realizará la búsqueda.
+- ***\$filter*** indica un filtro con formato *ldap* para los resultados.
+- ***\$attributes*** es un *array* que indica los atributos que deseamos que se retornen. El *dn* es siempre retornado. Si no se indica este argumento, se retornan **todos** los atributos de cada coincidencia, lo cual se desaconseja, pues ralentiza mucho la operación.
+- ***\$attributes_only***: si se establece en 1, solo se retornan los tipos de atributo, no sus valores. Por defecto es 0 (retorna valores).
+- ***\$sizelimit*** indica el número máximo de entradas devueltas. Un número inferior a 1 significa sin límite, aunque nunca se retornarán más elementos que el máximo definido en el servidor.
+- ***\$timelimit*** indica el máximo número de segundos que debe tomar la búsqueda. Un número inferior a 1 significa sin límite, aunque nunca tardará más que el máximo definido en el servidor.
 
 La función retorna un objeto del tipo ***LDAP\Result*** (o ***false*** si hay error).
 
@@ -64,7 +64,156 @@ Ejemplo:
 $busqueda = ldap_search($ldap, 'DC=dominio,DC=com', '(objectClass=user)', ['cn']);
 ```
 
-La búsqueda se realiza recursivamente por todos los niveles del subárbol. Si solo se desea un nivel de búsqueda, se debe usar la fucnión `ldap_list()`, que recibe los mismos argumentos que `ldap_search()`. Por otro lado, la función `ldap_read()` también recibe los mismos argumentos, y retorna un resultado que contiene un solo elemento (en este caso, ***$base*** es el *dn* exacto del elemento deseado).
+La búsqueda se realiza recursivamente por todos los niveles del subárbol. Si solo se desea un nivel de búsqueda, se debe usar la fucnión `ldap_list()`, que recibe los mismos argumentos que `ldap_search()`. Por otro lado, la función `ldap_read()` también recibe los mismos argumentos, y retorna un resultado que contiene un solo elemento (en este caso, ***\$base*** es el *dn* exacto del elemento deseado).
+
+### Filtros *LDAP*
+
+Los filtros *LDAP* tienen su propia sintaxis, y se utilizan principalmente en las búsquedas, aunque pueden tener otros usos. Existen 10 tipos de filtros que veremos a continuación.
+
+#### Filtro de presencia
+
+Sirve para comprobar si una entrada contiene un atributo específico (el atributo tiene por lo menos un valor).
+
+```
+(<atributo>=*)
+```
+
+Por ejemplo, `(cn=*)` retorna verdadero si la entrada tiene por lo menos un valor ***cn***. El filtro `(objectClass=*)` coincide con todas las entradas, ya que todas deben tener un atributo ***objectClass***.
+
+#### Filtro de igualdad
+
+Comprueba si un atributo concreto de la entrada tiene un valor específico.
+
+```
+(<atributo>=<valor>)
+```
+
+Por ejemplo, `(givenName=John)`.
+
+La forma de tratar mayúsculas/minúsculas depende de la configuración del servidor.
+
+#### Filtro mayor o igual
+
+Comprueba si un atributo concreto de la entrada tiene **por lo menos un** valor mayor o igual al indicado.
+
+```
+(<atributo>>=<valor>)
+```
+
+Por ejemplo, `(targetAttribute>=10)`.
+
+El tipo de comparación en números (numérica o alfabética) depende de la configuración del servidor.
+
+#### Filtro menor o igual
+
+Comprueba si un atributo concreto de la entrada tiene **por lo menos un** valor menor o igual al indicado.
+
+```
+(<atributo><=<valor>)
+```
+
+Por ejemplo, `(targetAttribute<=10)`.
+
+El tipo de comparación en números (numérica o alfabética) depende de la configuración del servidor.
+
+#### Filtro de *substring*
+
+Comprueba si un atributo concreto de la entrada tiene **por lo menos un** valor que encaja con el *substring* indicado.
+
+El *substring* tiene tres partes:
+
+- Componente inicial opcional, el valor debe empezar con este componente.
+- Cero o más componentes interiores. Si existe más de uno, deben aparecer en el orden indicado y sin solaparse.
+- Componente final opcional, el valor debe terminar con este componente.
+
+Ningún componente interior puede solaparse con un componente inicial o final. Los componentes inicial y final tampoco pueden solaparse.
+
+El formato del *substring* es el siguiente:
+
+- Componente inicial si existe.
+- Asterisco (***\****).
+- Para cada componente interior:
+    - El componente.
+    - Asterisco (***\****).
+- Componente final si existe.
+
+Ejemplos:
+
+`a*b*cd*e` tiene componente inicial (***a***), componentes interiores (***b*** y ***cd***) y componente final (***e***).
+
+`*b*cd*e` tiene componentes interiores (***b*** y ***cd***) y componente final (***e***).
+
+`a*b*cd*` tiene componente inicial (***a***) y componentes interiores (***b*** y ***cd***).
+
+`*b*cd*` tiene solo componentes interiores (***b*** y ***cd***).
+
+`a*e` tiene componente inicial (***a***) y final (***e***).
+
+El formato del filtro es:
+
+```
+(<atributo>=<substring>)
+```
+
+Por ejemplo, `(cn=John*)` coincide con un valor de ***cn*** que empiece por ***John***. `(cn=John*son*)` coincide con un valor de ***cn*** que empiece por ***John*** y tenga más adelante el *substring* ***son***.
+
+#### Filtro de coincidencia aproximada
+
+Comprueba si un atributo concreto de la entrada tiene **por lo menos un** valor aproximadamente igual al indicado.
+
+```
+(<atributo>~=<valor>)
+```
+
+Por ejemplo, `(givenName~=John)`.
+
+Qué se entiende por "aproximadamente igual" depende de la configuración del servidor.
+
+#### Filtro de extensión de coincidencias
+
+Filtro muy flexible, y algo más complejo (se omite explicación).
+
+#### Filto *AND*
+
+Encapsula cero o más filtros precedidos por el carácter *ampersand* (***&***). El resultado es verdadero si todos los filtros se evalúan a verdadero. Es falso si alguno de los filtros se evalúa a falso. Los filtros pueden evaluarse a verdadero, falso o indefinido (por ejemplo en alguna comparación con un tipo no adecuado).
+
+```
+(&(<filtro1>)(<filtro2>)...)
+```
+
+El filtro *AND* sin filtros en sus interior `(&)` retorna verdadero. Se denomina el *LDAP true*.
+
+#### Filto *OR*
+
+Encapsula cero o más filtros precedidos por el carácter *pipe* o barra vertical (***|***). El resultado es verdadero algún filtro se evalúa a verdadero. Es falso si todos los filtros se evalúan a falso. Como en el caso de *AND*, los filtros interiores pueden evaluarse a verdadero, falso o indefinido.
+
+```
+(|(<filtro1>)(<filtro2>)...)
+```
+
+El filtro *OR* sin filtros en sus interior `(|)` retorna falso. Se denomina el *LDAP false*.
+
+#### Filtro *NOT*
+
+Sirve para negar un filtro interior, precediéndolo de un signo de exclamación (***!***). Si el filtro interior es verdadero el resultado será falso, y viceversa. Si el filtro interior es indefinido, el resultado será también indefinido.
+
+```
+(!(<filtro>))
+```
+
+#### Consideraciones sobre filtros
+
+Los filtros pueden *NOT*, *AND* y *OR* pueden anidarse a voluntad y combinarse con todo tipo de filtros.
+
+Algunos caracteres deben indicarse *escaped* cuando nos referimos a una ocurrencia:
+
+- Carácter nulo: ***\\00***
+- Paréntesis apertura: ***\\28***
+- Paréntesis cierre: ***\\29***
+- Asterisco: ***\\2a***
+- Contrabarra (*backslash*): ***\\5c***
+
+Entonces, `(cn=*)` coincide con todos los ***cn***, pero `(cn=\2a)` coincide solamente con un ***cn*** que sea igual a un asterisco.
 
 ### Trabajar con una búsqueda
 
@@ -82,11 +231,11 @@ En este caso, la organización del *array* retornado es la siguiente:
 
 - `$entradas['count']` es el número de entradas de la búsqueda.
 - `$entradas[0]` el la primera de las entradas.
-- `$entradas[$i]['dn']` es el atributo *dn* de la entrada número ***$i*** (siempre *zero-based*).
-- `$entradas[$i]['count']` es el número de atributos de la entrada número ***$i***.
-- `$entradas[$i][$j]` el el **nombre** del atributo número ***$j*** de la entrada número ***$i***.
-- `$entradas[$i]['atributo']['count']` es el número de valores del atributo ***atributo*** de la entrada número ***$i***.
-- `$entradas[$i]['atributo'][$j]` es el valor número ***$j*** del atributo ***atributo*** de la entrada número ***$i***.
+- `$entradas[$i]['dn']` es el atributo *dn* de la entrada número ***\$i*** (siempre *zero-based*).
+- `$entradas[$i]['count']` es el número de atributos de la entrada número ***\$i***.
+- `$entradas[$i][$j]` el el **nombre** del atributo número ***\$j*** de la entrada número ***\$i***.
+- `$entradas[$i]['atributo']['count']` es el número de valores del atributo ***atributo*** de la entrada número ***\$i***.
+- `$entradas[$i]['atributo'][$j]` es el valor número ***\$j*** del atributo ***atributo*** de la entrada número ***\$i***.
 
 Por otro lado, la función `ldap_first_entry()`, con los mismos argumentos, retorna un solo elemento (o ***false*** si hay error). Seguidamente se puede ir usando la función `ldap_next_entry()`, también con los mismos argumentos, que irá retornando la siguiente entrada de la búsqueda, hasta que no haya más (retornará ***false***).
 
@@ -99,7 +248,7 @@ $busqueda = ldap_search($ldap, 'DC=dominio,DC=com', '(objectClass=user)', ['cn']
 $entrada = ldap_first_entry($ldap, $busqueda);
 while($entrada)
 {
-    $atributos = ldap_get_attributes($entrada);
+    $atributos = ldap_get_attributes($ldap, $entrada);
     // tratamos los atributos
     $entrada = ldap_next_entry($ldap, $busqueda);
 }
@@ -116,14 +265,64 @@ El *array* que nos retorna `ldap_get_attributes()` nos proporciona estos element
 
 ### Otras funciones para resultados de búsquedas
 
-ldap_first_attribute
-ldap_free_result
-ldap_get_dn
-ldap_get_values
-ldap_next_attribute
+Como siempre, y si no se indica lo contrario, el primer parámetro de las siguiente funciones corresponde al objeto retornado por `ldap_connect()`.
+
+```php
+ldap_first_attribute($ldap, $entrada)
+```
+
+Esta función retorna un *string* con el primer atributo de la entrada ***\$entrada***, o ***false*** en caso de error. Posteriores atributos pueden ser obtenidos mediante sucesivas llamadas a:
+
+```php
+ldap_next_attribute($ldap, $entrada)
+```
+Para liberar una búsqueda de memoria:
+
+```php
+ ldap_free_result($result)
+```
+
+A esta función no se le debe pasar el objeto conexión como primer argumento. El argumento único corresponde al objeto resultado que retorna `ldap_search()`.
+
+En principio no es necesario hacerlo, ya que todos los objetos son liberados de memoria cuando termina el manejo de la *request*, pero si debemos hacer muchas búsquedas, puede ser útil ir liberando memoria.
+
+La función retorna un booleano que indica el éxito o no de la operación.
+
+```php
+ ldap_get_dn($ldap, $entrada)
+```
+
+Esta función retorna un *string* con el *distinguished name* de la entrada ***\$entrada***, o ***false*** en caso de error.
+
+```php
+ ldap_get_values($ldap, $entrada, $atributo)
+```
+
+Esta función retorna un *array* con los valores del atributo ***\$atributo*** de la entrada ***\$entrada***. El número de elementos del *array* se puede leer con el índice `['count']`.
 
 ## Funciones varias
 
-ldap_error
-ldap_get_option
-ldap_set_option
+```php
+ldap_error($ldap)
+```
+
+Retorna un *string* con el mensaje del último error producido en una operación *LDAP*.
+
+```php
+ldap_get_option($ldap, $option, &$value)
+ldap_set_option($ldap, $option, $value)
+```
+
+Estas funciones sirven para leer o establecer opciones para el funcionamiento de las funciones *LDAP*. Ambas retornan ***true*** si tienen éxito o ***false*** en caso contrario.
+
+El primer argumento, ***\$ldap***, indica la conexión *LDAP* a la que se refieren las opciones leídas/escritas. Estableciendo este argumento a ***NULL***, se refeerirá a opciones globales (para todas las conexiones).
+
+El parámetro ***\$value*** es donde se leerá el valor en caso de *get*. En caso de *set*, será el valor que se establecerá.
+
+La opción a leer/establecer se indicará en ***\$option***, y será de tipo entero. Las opciones puede ser de tipo entero, *array* o *string*. Ejemplos:
+
+```php
+ldap_set_option(NULL, LDAP_OPT_PROTOCOL_VERSION, 3);
+ldap_set_option(NULL, LDAP_OPT_REFERRALS, 0);
+ldap_set_option(NULL, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_ALLOW);
+```
