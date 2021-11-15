@@ -237,9 +237,9 @@ En este caso, la organización del *array* retornado es la siguiente:
 - `$entradas[$i]['atributo']['count']` es el número de valores del atributo ***atributo*** de la entrada número ***\$i***.
 - `$entradas[$i]['atributo'][$j]` es el valor número ***\$j*** del atributo ***atributo*** de la entrada número ***\$i***.
 
-Por otro lado, la función `ldap_first_entry()`, con los mismos argumentos, retorna un solo elemento (o ***false*** si hay error). Seguidamente se puede ir usando la función `ldap_next_entry()`, también con los mismos argumentos, que irá retornando la siguiente entrada de la búsqueda, hasta que no haya más (retornará ***false***).
+Por otro lado, la función `ldap_first_entry()`, con los mismos argumentos, retorna un solo elemento (o ***false*** si hay error), del tipo ***\LDAP\ResultEntry***. Seguidamente se puede ir usando la función `ldap_next_entry()`, a la que se le pasará el objeto conexión, y el elemento anterior, retornado por `ldap_first_entry()` o por `ldap_next_entry` (irá retornando la siguiente entrada de la búsqueda); cuando se ha llegado al final, retornará ***false***.
 
-La función `ldap_get_attributes()` recibe como primer argumento el objeto conexión, y como segundo argumento un elemento de una búsqueda.
+La función `ldap_get_attributes()` recibe como primer argumento el objeto conexión, y como segundo argumento un elemento de una búsqueda (un objeto retornado por `ldap_first_entry()` o `ldap_next_entry()`).
 
 ```php
 $ldap = ldap_connect('ldap://servidorldap.com:636');
@@ -257,8 +257,8 @@ while($entrada)
 El *array* que nos retorna `ldap_get_attributes()` nos proporciona estos elementos:
 
 - `$atributos['count']` es el número de atributos de la entrada.
-- `$atributos[0]` es el primer atributo.
-- `$atributos[$n]` es el enésimo atributo.
+- `$atributos[0]` es el nombre del primer atributo.
+- `$atributos[$n]` es el nombre del enésimo atributo.
 - `$atributos['atributo']['count']` es el número de valores del atributo ***atributo***.
 - `$atributos['atributo'][0]` es el primer valor del atributo ***atributo***.
 - `$atributos['atributo'][$i]` es el i-ésimo valor del atributo ***atributo***.
@@ -267,19 +267,10 @@ El *array* que nos retorna `ldap_get_attributes()` nos proporciona estos element
 
 Como siempre, y si no se indica lo contrario, el primer parámetro de las siguiente funciones corresponde al objeto retornado por `ldap_connect()`.
 
-```php
-ldap_first_attribute($ldap, $entrada)
-```
-
-Esta función retorna un *string* con el primer atributo de la entrada ***\$entrada***, o ***false*** en caso de error. Posteriores atributos pueden ser obtenidos mediante sucesivas llamadas a:
-
-```php
-ldap_next_attribute($ldap, $entrada)
-```
 Para liberar una búsqueda de memoria:
 
 ```php
- ldap_free_result($result)
+ ldap_free_result($busqueda)
 ```
 
 A esta función no se le debe pasar el objeto conexión como primer argumento. El argumento único corresponde al objeto resultado que retorna `ldap_search()`.
