@@ -10,7 +10,7 @@ Desde el directorio de nuestro proyecto, usaremos `composer`:
 composer require monolog/monolog
 ```
 
-La aplicación debe incluir el *autoload* del paquete (que se instala en ***vendor/monolog/monolog***):
+La librería se instala en ***vendor/monolog/monolog***. Nuestra aplicación debe incluir el *autoload* de los paquetes de *composer*:
 
 ```
 require __DIR__ . '/vendor/autoload.php';

@@ -27,6 +27,7 @@ Estos son mis apuntes de *PHP*.
 - [LdapRecord](capitulos/lib-ldaprecord.md)
 - [Monolog](capitulos/lib-monolog.md)
 - [KnpMenu](capitulos/lib-knpmenu.md)
+- [Goutte](capitulos/lib-goutte.md)
 
 ---
 

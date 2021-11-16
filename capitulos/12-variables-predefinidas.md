@@ -22,6 +22,8 @@ Es una alternativa a declarar `global foo` dentro de una función, pero en esta 
 
 Es un *array* que contiene información del entorno (*headers*, rutas, localización de *scripts*, etc.). Algunos de los índices (*strings*) usados para obtener información: `'SERVER_ADDR'`, `'REQUEST_URI'`, `'SERVER_PORT'`, `'HTTPS'`, `'REQUEST_METHOD'`, `'PHP_SELF'`, `'SERVER_PROTOCOL'`, etc.
 
+Estas variables están ligadas a una sesión concreta, no son variables de entorno que estén visibles en todas las sesiones que pueda tener abiertas el servidor con varios clientes (eso serían los valores del *array* ***$_ENV***).
+
 ## $_GET
 
 *Array* asociativo de variables pasadas al *script* como parámetros en la *URL* (en la *query string*). Incluye parámetros de un formulario con método *HTTP GET*. Se accede mediante el nombre del parámetro, y retorna el valor.
