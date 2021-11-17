@@ -2,7 +2,7 @@
 
 Esta librería es un *web crawler* (o *web scraper*). Obtiene información de una página *web*, a la que accede a través de un cliente de navegación.
 
-La librería tiene como dependencias varios componentes de *Symfony*, que son: *BrowserKit*, *CssSelector*, *DomCrawler* y *HttpClient*, que proporcionan un cliente (navegador), facilitan el acceso al *DOM*, etc. En todo caso, *composer* ya se encarga de mantener las dependencias adecuadamente.
+La librería tiene como dependencias varios componentes de *Symfony*, que son: *BrowserKit*, *CssSelector*, *DomCrawler* y *HttpClient*, que proporcionan un cliente (navegador), facilitan el acceso a los elementos del *DOM*, etc. En todo caso, *composer* ya se encarga de mantener las dependencias adecuadamente.
 
 ## Instalación
 
@@ -156,10 +156,110 @@ El cliente tiene asociado un objeto *historial* que va guardando el historial de
 
 Para eliminar el historial (y las *cookies* también), el cliente dispone del método `restart()`, que reinicia el cliente.
 
-## Filtrado del objeto *crawler* (respuesta)
+## El objeto *crawler*
 
-El objeto *crawler* contiene la respuesta recibida del servidor. Se puede crear un *crawler* pasándole simplemente un *string* con código *HTML*.
+El objeto *crawler* contiene un objeto construido a partir de la respuesta recibida del servidor (normalmente, el archivo *HTML* recibido). Se puede crear un *crawler* pasándole simplemente un *string* con dicho código *HTML*:
 
 ```php
+use Symfony\Component\DomCrawler\Crawler;
+
 $crawler = new Crawler($html);
 ```
+
+El *crawler* se compone de elementos *DOM*, y se puede acceder a ellos mediante una sentencia `foreach` (no se puede tratar como un *array*):
+
+```php
+foreach($crawler as $domElement) {
+    var_dump($domElement->nodeName);
+}
+```
+
+Si queremos buscar un elemento concreto dentro de la jerarquía de elementos, existen dos formas de hacerlo: utilizando cualquiera de los métodos del *crawler* `filterXPath()` o `filter()`. Al primero se le debe pasar un *XPath* (se omite la explicación), y al segundo un selector tipo *CSS* con el mismo formato que los selectores de *jQuery*.
+
+```php
+$crawler = $crawler->filter('body > p');
+```
+
+Dado que los métodos que filtran objetos *crawler* retornan a su vez un objeto *crawler*, se pueden encadenar varios de ellos.
+
+Cuando recibimos el *crawler* tras una petición del cliente, este contiene solamente los elementos del nivel más alto. En una página *web* normal, significa un solo elemento (la etiqueta ***html*** con todo su contenido). Tras aplicar un filtro, contendrá todos los elementos coincidentes del *DOM*.
+
+### Filtrar con selectores CSS
+
+El método `filter()` acepta un *string* con los tipos de selector que indicamos a continuación:
+
+- `*` (asterisco) selecciona todos los elementos (todas las etiquetas).
+- `parent > child` selecciona los elementos que coincidan con el selector ***child*** que son descendientes inmediatos de un elemento que coincide con el selector ***parent***. Se puede indicar una sucesión de dos o más elementos.
+- `ancestro descendiente` selecciona los elementos coincidentes con ***descendiente*** que son descendientes (inmediatos o no) de un elemento ***ancestro***. Se puede indicar una sucesión de dos o más elementos.
+- `.clase` selecciona los elementos con la clase ***clase***.
+- `#id` selecciona los elementos con *ID* ***id***.
+- `etiqueta` selecciona todos los elementos con la etiqueta *HTML* indicada.
+- `prev + next` selecciona los elementos coincidentes con el selector ***next*** que son inmediatamente precedidos por un elemento coincidente con ***prev*** dentro del mismo nivel.
+- `prev ~ siblings` selecciona todos los elementos que coincidan con ***siblings*** y vayan después del elemento coincidente con ***prev*** (todos estos elementos deben tener el mismo padre).
+
+También existen los selectores basados en atributos. Consisten en una expresión entre corchetes (***[]***). La expresión compara un atributo del elemento con un valor específico. El valor puede indicarse entrecomillado o no (aquí se indicará entre comillas):
+
+- `[atributo|="valor"]` selecciona solo los elementos cuyo atributo indicado es igual a ***valor***, o empieza por ***valor-*** (nótese el guión).
+- `[atributo*="valor"]` solo los elementos cuyo atributo indicado contiene ***valor***.
+- `[atributo~="valor"]` elementos cuyo atributo indicado contiene la palabra ***valor*** (delimitada por espacios).
+- `[atributo$="valor"]` elementos cuyo atributo indicado termina **exactamente** (*case sensitive*) en ***valor***.
+- `[atributo="valor"]` elementos cuyo atributo indicado es igual a ***valor***.
+- `[atributo!="valor"]` elementos cuyo atributo indicado no existe o es distinto a ***valor***.
+- `[atributo^="valor"]` elementos cuyo atributo indicado empieza por ***valor***.
+- `[atributo]` elementos con el atributo indicado (con cualquier valor).
+
+El otro tipo de selector consiste en un carácter dos puntos (***:***) seguido de una propiedad concreta:
+
+- `:animated` solo elementos que estén en proceso de animación en ese momento.
+- `:button` solo botones.
+- `:checkbox` solo *checkboxes*.
+- `:checked` solo elementos marcados o seleccionados.
+- `:contains()` selecciona únicamente los elementos que contengan el texto especificado, el cual se puede indicar entrecomillado o no.
+- `:disabled` elementos deshabilitados.
+- `:empty` selecciona elementos sin descendientes (inculyendo nodos de texto).
+- `:enabled` elementos habilitados.
+- `:first-child` selecciona los elementos que sean el primer hijo de su padre.
+- `:last-child` selecciona los elementos que sean el último hijo de su padre.
+- `:first-of-type` selecciona los elementos del tipo especificado que sean el primero de ese tipo entre sus posibles hermanos.
+- `:last-of-type` selecciona los elementos del tipo especificado que sean el último de ese tipo entre sus posibles hermanos.
+- `:lang()` selecciona los elementos con el idioma indicado (***es***, ***en***, etc.). El indicador de idioma puede ir entrecomillado o no.
+- `:nth-child()` selecciona los elementos que sean el n-ésimo hijo de su padre (1 corresponde al primero).
+- `:nth-last-child()` selecciona los elementos que sean el n-ésimo hijo de su padre por la cola (1 corresponde al último).
+- `:nth-of-type()` selecciona los elementos del tipo especificado que sean el enésimo de ese tipo entre sus posibles hermanos.
+- `:nth-last-of-type()` selecciona los elementos del tipo especificado que sean el enésimo de ese tipo por la cola entre sus posibles hermanos.
+- `:only-child` selecciona los elementos que son los únicos hijos de su padre.
+- `:only-of-type` selecciona los elementos que son los únicos hijos de su tipo tiene su padre.
+- `:root` selecciona los elementos del nivel raíz.
+- `:selected` selecciona los elementos seleccionados.
+
+Los diversos tipos de selectores pueden juntarse y combinarse en varios componentes cuando tenga sentido. En ese caso, deberán cumplirse todos ellos. Si queremos combinar (sumar) los resultados de varios selectores, los separaremos con comas: `selector1, selector2, selector3`. Cuando entre dos selectores no hay operador, no debe haber espacio entre ellos, ya que el espacio solo es un operador en sí (`ancestro descendiente`).
+
+Es posible encadenar filtros, y también se pueden fragmentar los diferentes componentes de un selector compuesto. En este sentido, las dos sentencias siguientes son equivalentes:
+
+```php
+$crawler1 = $crawler->filter('p.clase[atributo]');
+$crawler1 = $crawler->filter('p')->filter('.clase')->filter('[atributo]');
+```
+
+### Otros métodos de filtrado
+
+A parte de `filter()`, existen otros métodos usados para refinar los filtros:
+
+- `eq()` recibe un número de índice, de tal modo que solo el elemento en ese índice quedará seleccionado.
+- `first()` selecciona únicamente el primero de los elementos encontrados.
+- `last()` selecciona únicamente el último de los elementos encontrados.
+
+También se puede filtrar utilizando una función anónima que se pasará al método `reduce()`:
+
+```php
+$crawler = $crawler
+    ->filter('body > p')
+    ->reduce(function(Crawler $nodo, $i) {
+        return ($i % 2) == 0;
+    });
+```
+
+La función anónima va pasando por todos los nodos (elementos y textos), y recibe, por un lado, un *crawler* que contiene ese nodo, y por otro, el número de índice (*zero-based*) del mismo dentro del *crawler* global que contiene todos los nodos a tratar. Si queremos que el nodo concreto que está tratando la función desaparezca, retornaremos ***false***.
+
+
+************* NODE TRAVERSING ********************
