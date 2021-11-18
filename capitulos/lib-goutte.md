@@ -158,7 +158,7 @@ Para eliminar el historial (y las *cookies* también), el cliente dispone del m�
 
 ## El objeto *crawler*
 
-El objeto *crawler* contiene un objeto construido a partir de la respuesta recibida del servidor (normalmente, el archivo *HTML* recibido). Se puede crear un *crawler* pasándole simplemente un *string* con dicho código *HTML*:
+El objeto *crawler* (***Symfony\Component\DomCrawler\Crawler***) contiene un objeto construido a partir de la respuesta recibida del servidor (normalmente, el archivo *HTML* recibido). Se puede crear un *crawler* pasándole simplemente un *string* con dicho código *HTML*:
 
 ```php
 use Symfony\Component\DomCrawler\Crawler;
@@ -166,7 +166,7 @@ use Symfony\Component\DomCrawler\Crawler;
 $crawler = new Crawler($html);
 ```
 
-El *crawler* se compone de elementos *DOM*, y se puede acceder a ellos mediante una sentencia `foreach` (no se puede tratar como un *array*):
+El *crawler* se compone de elementos *DOM* (de tipo ***\DOMElement***), y se puede acceder a ellos mediante una sentencia `foreach` (no se puede tratar como un *array*):
 
 ```php
 foreach($crawler as $domElement) {
@@ -259,7 +259,90 @@ $crawler = $crawler
     });
 ```
 
-La función anónima va pasando por todos los nodos (elementos y textos), y recibe, por un lado, un *crawler* que contiene ese nodo, y por otro, el número de índice (*zero-based*) del mismo dentro del *crawler* global que contiene todos los nodos a tratar. Si queremos que el nodo concreto que está tratando la función desaparezca, retornaremos ***false***.
+La función anónima va pasando por todos los nodos, y recibe, por un lado, un *crawler* que contiene cada nodo, y por otro, el número de índice (*zero-based*) de cada uno dentro del *crawler* global (que contiene todos los nodos a tratar). Si queremos que el nodo concreto que está tratando la función desaparezca de la selección retornada por el método `reduce()`, retornaremos ***false***.
+
+En las siguientes explicaciones, al referirnos a **selección actual** se entenderá el conjunto de todos los nodos presentes en el *crawler* actualmente, y **nodo actual** al primero de esos nodos.
+
+El método `siblings()` hace que la nueva selección esté formada por todos los nodos hermanos del nodo actual (sin incluir a este). En cambio, `nextAll()` es como `siblings()`, pero solo tiene en cuenta a los hermanos **posteriores** del nodo actual. El método `previousAll()` hace lo mismo con los precedentes.
+
+El método `children()` retorna una lista de nodos correspondientes a todos los hijos **inmediatos** del nodo actual (en el orden en que están definidos), sin incluir el nodo en cuestión. Por otro lado, el método `ancestors()` hace lo propio con todos los ancestros de ese nodo actual, desde el más interno hasta de máximo nivel (*document root*). Si solo deseamos el nodo padre, se usa el método `closest()`.
+
+### Acceso al valor de los nodos
+
+Estos métodos del *crawler* acceden a propiedades del nodo actual. Si el *crawler* no contiene ningún nodo, se producirá un error.
+
+`nodeName()` retorna el nombre del nodo (etiqueta *HTML*).
+
+El método `text()` accede a todo el texto que contiene el nodo (incluyendo el texto de sus descendientes). Si le pasamos un *string*, lo retornará en caso de que el *crawler* esté vacío. Por otro lado, este método aplica *trim* de espacios a los textos. Si se desea que no se aplique tal cosa, se le debe pasar ***false*** como segundo argumento.
+
+El método `attr()` retorna el valor del atributo indicado como primer argumento.
+
+El método `extract()` actúa sobre todos los nodos de la lista, no solo sobre el primero. Sirve para obtener el valor de varios atributos a la vez. Recibe como argumento un *array* con los nombres de los atributos que nos interesan, y retorna un *array*, cada elemento del cual es a su vez un *array* con los valores de los atributos (un elemento para cada nodo). Los atributos especiales ***\_name*** y ***\_text*** representan respectivamente el nombre del nodo (etiqueta *HTML*) y el valor (texto) del mismo.
+
+El método `each()` recibe una función anónima, la cual recibe, al igual que el método `reduce()`, un *crawler* con el nodo a procesar y el número de índice del nodo. Pero en esta ocasión, el método retorna un *array* con los valores que va retornando la función anónima para cada nodo. Estos valores pueden ser de cualquier tipo.
+
+### Añadir contenido
+
+Solo se puede añadir contenido (un *string* con un documento *HTML* o *XML*) una única vez al *crawler*. Existen distintas opciones:
+
+- A través de una *request* al cliente, como se ha visto ya.
+- En el constructor del *crawler* (visto también).
+- Mediante uno de los siguientes métodos del *crawler*:
+    - `addHtmlContent()`
+    - `addXmlContent()`
+    - `addContent()`
+    - `add()`
+
+Estos métodos reciben un *string* con el contenido deseado. `addHtmlContent()` y `addXmlContent()` asumen *UTF-8* por defecto, aunque puede cambiarse si se le pasa como segundo argumento la codificación a usar. El primero está pensado para contenido *HTML*, mientras el segundo se usa para contenido *XML*. Por otro lado, `addContent()` se puede usar por cualquier tipo de contenido, e intenta adivinar el juego de caracteres según el contenido, y si no puede adivinarlo usa ***ISO-8859-1***. `add()` también se puede usar para cualquier tipo de contenido.
+
+### Enlaces
+
+Para seleccionar un enlace, puede hacerse mediante filtros, o usando el método `selectLink()`, que permite seleccionar usando el contenido del enlace (se le pasa dicho contenido en un *string* como argumento).
+
+Una vez el *crawler* contiene como primer elemento el enlace deseado, podemos obtener el objeto enlace (***Symfony\Component\DomCrawler\Link***) mediante el método `link()`:
+
+```php
+$crawler = $crawler->selectLink('Aceptar');
+$link = $crawler->link();
+```
+
+Al método `link()` se le puede pasar opcionalmente el método *HTTL* (por defecto es ***get***).
+
+El objeto enlace posee algunos métodos útiles:
+
+`getUri()` retorna la *URL* asociada al enlace. Aunque el atributo ***href*** sea una *URI* o ruta relativa, se reconstruye y retorna siempre la *URL* completa. En el caso de que el enlace sea relativo, es necesario que el *crawler* posea información sobre al *URL* base. En este caso, si dicho *crawler* se construye a través del constructor, debemos indicarle dicha *URL* base en el tercer argumento del mismo (el primero y segundo son ***NULL*** por defecto). Esta *URL* base es en realidad la *URL* completa de la página:
+
+```php
+$crawler = new Crawler(NULL, NULL, 'http://dominio.com/pagina.html');
+```
+
+Si obtenemos el *crawler* a través de una *request* al cliente, ya se realiza correctamente la inicialización del mismo.
+
+`getNode()` retorna el nodo (objeto ***\\DOMElement***) asociado al enlace.
+
+`getMethod()` retorna el método *HTTP* del enlace.
+
+### Imágenes
+
+Es posible seleccionar imágenes a través de su atributo ***alt***, mediante el método del *crawler* `selectImage()`, a la que se le pasa el texto de dicho atributo como primer argumento.
+
+Una vez el *crawler* tiene como primer elemento el nodo correspondiente a la imagen deseada, podemos obtener el objeto imagen (***Symfony\Component\DomCrawler\Image***) correspondiente mediante el método `image()`:
+
+```php
+$crawler = $crawler->selectImage('Un gatito');
+$imagen = $crawler->image();
+```
+
+Un objeto imagen dispone también de métod `getUri()`.
+
+### Formularios
 
 
-************* NODE TRAVERSING ********************
+
+
+
+
+
+
+
+### Objeto \\DOMElement
