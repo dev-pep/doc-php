@@ -30,6 +30,8 @@ use Goutte\Client;
 $cliente = new Client();
 ```
 
+El cliente es de tipo ***Goutte\Client***, y es en realidad una clase que simplemente extiende ***Symfony\Component\BrowserKit\HttpBrowser***, sin añadirle nada más. En versiones antiguas, sin embargo, era una extensión de otro cliente (*Guzzle*). De todas formas, es posible usar cualquiera de los dos clientes, ya que la mayor parte de la funcionalidad es compatible.
+
 Los parámetros del constructor (opcionales todos) son, en este orden:
 
 - Un *array* de parámetros del servidor, equivalente a ***\$_SERVER***. Por defecto, *array* vacío.
@@ -166,7 +168,7 @@ use Symfony\Component\DomCrawler\Crawler;
 $crawler = new Crawler($html);
 ```
 
-El *crawler* se compone de elementos *DOM* (de tipo ***\DOMElement***), y se puede acceder a ellos mediante una sentencia `foreach` (no se puede tratar como un *array*):
+El *crawler* se compone de elementos *DOM* (de tipo estándar de *PHP* ***\DOMElement***), y se puede acceder a ellos mediante una sentencia `foreach` (no se puede tratar como un *array*):
 
 ```php
 foreach($crawler as $domElement) {
@@ -318,7 +320,7 @@ $crawler = new Crawler(NULL, NULL, 'http://dominio.com/pagina.html');
 
 Si obtenemos el *crawler* a través de una *request* al cliente, ya se realiza correctamente la inicialización del mismo.
 
-`getNode()` retorna el nodo (objeto ***\\DOMElement***) asociado al enlace.
+`getNode()` retorna el elemento *DOM* (objeto ***\\DOMElement***) asociado al enlace.
 
 `getMethod()` retorna el método *HTTP* del enlace.
 
@@ -337,12 +339,120 @@ Un objeto imagen dispone también de métod `getUri()`.
 
 ### Formularios
 
+El método `selectButton()` del *crawler* busca elementos de tipo `<button>`, `<input type="submit">`, `<input type="button">`, o elementos `<img>` dentro de estos. El argumento que se le pasa al método se compara con los atributos ***id***, ***alt***, ***name***, y ***value*** de estos elementos, así como el texto que puedan contener.
 
+Una vez tenemos uno de estos elementos como primer elemento de la selección, el método `form()` retorna el objeto formulario (***Symfony\Component\DomCrawler\Form***) que contiene ese elemento. Este objeto formulario tiene varios métodos útiles para obtener información, de los que destacamos:
 
+- `getFormNode()` retorna el elemento *DOM* (objeto ***\\DOMElement***) asociado al formulario.
+- `getName()` retorna el nombre del formulario, si está definido (si no, retorna un *string* vacío).
+- `getUri()` retorna el enlace asociado a la acción de envío del formulario. Si el método es ***GET***, incluso le añade los parámetros, de tal forma que el enlace imita lo que haría el navegador.
+- `getMethod()` retorna el método *HTTP* del formulario. Si no está definido, retorna el *string* ***GET***.
+- `has()` recibe el nombre de un campo del formulario, y retorna un booleano según dicho campo exista o no.
+- `remove()` recibe el nombre de un campo del formulario, y lo elimina del mismo.
 
+Es posible rellenar los datos deseados del formulario en el momento de obtenerlo, pasando al constructor un *array* (opcional):
 
+```php
+$form = $crawler->selectButton('mi-botón')
+    ->form([
+        'nombre' => 'Ambrosio',
+        'apellido' => 'Smith'
+    ]);
+```
 
+Para establecer el valor de los campos a partir de una instancia de objeto formulario, disponemos del método `setValues()`, al que se le debe pasar un *array* con los nombres de los campos y sus valores. Hay que tener en cuenta que el *array* debe ser plano, no multidimensional, con lo que los parámetros *array* se indicarán como una clave llana:
 
+```php
+$form->setValues([
+    'nombre' => 'Ambrosio',
+    'telefono[casa]' => '5552211',
+    'telefono[trabajo]' => '5552233'
+]);
+```
 
+Para leer los valores establecidos en los campos, se usa `setValues()`, el cual retorna también un *array* llano, aunque existan parámetros *array* (incluso parámetros multidimensionales):
 
-### Objeto \\DOMElement
+```php
+$valores = $form->getValues();
+```
+
+En el ejemplo anterior, retornaría el *array*:
+
+```php
+[
+    'nombre' => 'Ambrosio',
+    'telefono[casa]' => '5552211',
+    'telefono[trabajo]' => '5552233'
+]
+```
+
+Sin embargo, podríamos usar el método `getPhpValues()` y obtendríamos u *array* multidimensional cuando procediera:
+
+```php
+$valores = $form->getPhpValues();
+```
+
+En este caso, retornaría el *array*:
+
+```php
+[
+    'nombre' => 'Ambrosio',
+    'telefono' => [
+        'casa' => '5552211',
+        'trabajo' => '5552233'
+    ]
+]
+```
+
+De forma similar, podemos obtener los valores de campos de tipo archivo mediante `getFiles()` y `getPhpFiles()`.
+
+Por otro lado, es posible interactuar con el formulario como si lo hiciésemos desde el navegador, accediendo a los campos del formulario usándolo como un *array*, combinado con métodos como `setValue()`, `tick()`, `untick()`, `select()` o `upload()`:
+
+```php
+$form['username']->setValue('usuario33');
+// Equivalente:
+$form['username'] = 'usuario33';
+
+// Check o uncheck un checkbox:
+$form['terminos']->tick();
+$form['terminos']->untick();
+
+// Seleccionar una opción:
+$form['nacimiento[year]']->select(1984);
+
+// Seleccionar varias opciones de un selector múltiple:
+$form['intereses']->select(['laravel', 'ganchillo']);
+
+// Simular la subida de un archivo:
+$form['foto']->upload('/ruta/absoluta/a/ambrosio.jpg');
+```
+
+Como se ha visto, cuando el campo es de tipo *array* se accederá al elemento incorporando el índice en el *string* de clave (`$form['nacimiento[year]']`).
+
+Veamos un ejemplo completo de cómo accederíamos a un formulario de *login*, introduciríamos la información y lo enviaríamos:
+
+```php
+use Goutte\Client;
+
+$cliente = new Client();
+$crawler = $cliente->request('GET', 'https://github.com/login');
+
+$form = $crawler->selectButton('Sign in')->form();
+$form['login'] = 'dev-pep';
+$form['password'] = 'password';
+
+$crawler = $cliente->submit($form);
+```
+
+#### Seleccionar valores inválidos
+
+Por defecto, los campos de selección múltiple (*radio* y *select*) tienen validación interna para evitar que se seleccionen valores no válidos. Si se desea obviar esta validación y establecer valores inválidos, se puede usar el método `disableValidation()` en todo el formulario o en campos específicos:
+
+```php
+// Campo específico:
+$form['país']->disableValidation()->select('Invalid value');
+
+// Todo el formulario:
+$form->disableValidation();
+$form['country']->select('Invalid value');
+```
