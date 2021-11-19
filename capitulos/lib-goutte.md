@@ -456,3 +456,15 @@ $form['país']->disableValidation()->select('Invalid value');
 $form->disableValidation();
 $form['country']->select('Invalid value');
 ```
+
+## Resolución de *URIs*
+
+La clase ***Symfony\Component\DomCrawler\UriResolver*** es una clase *helper* que toma una *URI* (relativa, absoluta, fragmento, etc.) y la convierte en una *URL* absoluta contra una *URL* base:
+
+```php
+use Symfony\Component\DomCrawler\UriResolver;
+
+UriResolver::resolve('/foo', 'http://localhost/bar/foo/');  // retorna http://localhost/foo
+UriResolver::resolve('?a=b', 'http://localhost/bar#foo');  // retorna http://localhost/bar?a=b
+UriResolver::resolve('../../', 'http://localhost/');  // retorna http://localhost/
+```
