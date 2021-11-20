@@ -237,6 +237,8 @@ En este caso, la organización del *array* retornado es la siguiente:
 - `$entradas[$i]['atributo']['count']` es el número de valores del atributo ***atributo*** de la entrada número ***\$i***.
 - `$entradas[$i]['atributo'][$j]` es el valor número ***\$j*** del atributo ***atributo*** de la entrada número ***\$i***.
 
+Los *strings* utilizados como índice se escriben **siempre en minúsculas**.
+
 Por otro lado, la función `ldap_first_entry()`, con los mismos argumentos, retorna un solo elemento (o ***false*** si hay error), del tipo ***\LDAP\ResultEntry***. Seguidamente se puede ir usando la función `ldap_next_entry()`, a la que se le pasará el objeto conexión, y el elemento anterior, retornado por `ldap_first_entry()` o por `ldap_next_entry` (irá retornando la siguiente entrada de la búsqueda); cuando se ha llegado al final, retornará ***false***.
 
 La función `ldap_get_attributes()` recibe como primer argumento el objeto conexión, y como segundo argumento un elemento de una búsqueda (un objeto retornado por `ldap_first_entry()` o `ldap_next_entry()`).
@@ -317,3 +319,26 @@ ldap_set_option(NULL, LDAP_OPT_PROTOCOL_VERSION, 3);
 ldap_set_option(NULL, LDAP_OPT_REFERRALS, 0);
 ldap_set_option(NULL, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_ALLOW);
 ```
+
+### Consideraciones sobre búsquedas
+
+Hay campos que no están indexados para hacer búsquedas. Los servidores establecen índices para los campos más frecuentes. Sin embargo, otros campos no lo están. Veamos un ejemplo. Supongamos que deseamos encontrar los grupos a los que pertenece un usuario.
+
+```php
+$grupos = ldap_list($ldap, 'OU=Groups,DC=server,DC=com', '(objectClass=group)', ['cn']);
+```
+
+En este caso, obtendríamos todos los grupos de nuestro directorio. Un nodo del tipo grupo (*group*) contiene un campo que se llama ***member*** (en otros servidores puede llamarse de forma parecida), el cual contiene los *distinguished names* de todos los usuarios que pertenecen a tal grupo. Supongamos que deseamos saber cuáles de estos grupos tienen un usuario llamado ***usuario33***. Podríamos pensar que esto solventa el problema:
+
+```php
+$groups = ldap_list($ldap, 'OU=Groups,DC=server,DC=com',
+    '(&(member=CN=userdp08*)(objectClass=group))', ['cn']);
+```
+
+Es decir, queremos todos los grupos que tengan un valor dentro de ***member*** que empiece por ***CN=userdp08***. Sin embargo, el resultado no arroja ningún valor. Simplemente no encuentra tal grupo. Y la razón es porque el campo ***member*** no está indexado por defecto para búsqueda con *substrings*, como sí lo están otros campos más habituales (el administrador del servidor puede indexar los campos que desee).
+
+Por lo tanto, el único remedio aquí es pasarle al filtro el valor del *distinguished name* **completo** del usuario a buscar.
+
+Por otro lado, la mejor forma de hacer esta búsqueda es al revés, a partir del registro del usuario, y no del grupo. En este caso, leeríamos el contenido del atributo ***memberOf*** del usuario, en lugar de leer todos los miembros de todos los grupos. En este caso, el atributo ***memberOf*** de usuario es un ***backlink*** (vínculo de retroceso), ya que para mantener la integridad, el vínculo es bidireccional, es decir el grupo apunta al usuario miembro a través de ***member***, mientras el miembro (usuario) apunta al grupo a través de ***memberOf***. Podríamos decir que los ***backlinks*** son enlaces redundantes.
+
+Como curiosidad, ***objectCategory*** es un campo indexado por defecto, pero no ***objectClass***.
