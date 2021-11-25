@@ -359,6 +359,8 @@ Este método será llamado cuando hagamos `var_dump()` sobre el objeto. Si no es
 
 Los métodos definidos con el modificador `final` no pueden ser *overriden* en clases hijas. Si la clase es la que está definida como final, ninguna otra clase la puede usar como clase base.
 
+Este modificador no afecta al rendimiento.
+
 ## Clonado de objetos
 
 Para clonar un objeto se utiliza la palabra clave `clone`.
