@@ -4,9 +4,17 @@ Las variables *superglobles* son variables predifinidas que están siempre acces
 
 `$GLOBALS`, `$_SERVER`, `$_GET`, `$_POST`, `$_FILES`, `$_COOKIE`, `$_SESSION`, `$_REQUEST` y `$_ENV`.
 
-Para acceder a una variable superglobal, no es necesario declararla mediante `global` dentro de una función, ya que están disponibles en todos los *scopes*.
+Para acceder a una variable superglobal, no hay que declararla mediante `global` dentro de una función, ya que están disponibles en todos los *scopes*.
 
 Estas variables son de lectura y escritura.
+
+Existe una opción importante dentro de la configuración de *PHP* (en ***php.ini***): ***variables_order***. Esta controla cuáles de estas variables superglobales se rellenarán con valores y cuáles no. El valor de esta opción puede contener alguno (o todos) de estos caracteres: ***EGPCS***, que significan:
+
+- ***E*** para la variable ***\$_ENV***. Es frecuente que no se incluya.
+- ***G***: variable ***\$_GET***.
+- ***P***: variable ***\$_PUT***.
+- ***C***: variable ***\$_COOKIE***.
+- ***S***: variable ***\$_SERVER***.
 
 ## $GLOBALS
 
@@ -20,9 +28,9 @@ Es una alternativa a declarar `global foo` dentro de una función, pero en esta 
 
 ## $_SERVER
 
-Es un *array* que contiene información del entorno (*headers*, rutas, localización de *scripts*, etc.). Algunos de los índices (*strings*) usados para obtener información: `'SERVER_ADDR'`, `'REQUEST_URI'`, `'SERVER_PORT'`, `'HTTPS'`, `'REQUEST_METHOD'`, `'PHP_SELF'`, `'SERVER_PROTOCOL'`, etc.
+Es un *array* que contiene información de variables que **el servidor** ***HTTP*** decide pasar al *script* (*headers*, rutas, localización de *scripts*, etc.). Algunos de los índices (*strings*) usados para obtener información: `'SERVER_ADDR'`, `'REQUEST_URI'`, `'SERVER_PORT'`, `'HTTPS'`, `'REQUEST_METHOD'`, `'PHP_SELF'`, `'SERVER_PROTOCOL'`, etc.
 
-Estas variables están ligadas a una sesión concreta, no son variables de entorno que estén visibles en todas las sesiones que pueda tener abiertas el servidor con varios clientes (eso serían los valores del *array* ***\$_ENV***).
+Estas variables están asociadas a una sesión concreta, y no persisten más allá de esta. No se trata de variables de entorno globales del sistema operativo.
 
 ## $_GET
 
@@ -46,7 +54,7 @@ Estas variables están ligadas a una sesión concreta, no son variables de entor
 
 ## $_ENV
 
-*Array* asociativo que contiene las variables que recible el *script* del entorno. A diferencia de ***\$_SERVER***, estos valores no están ligados a una sesión concreta, sino que son los valores de las variables de entorno del sistema operativo.
+*Array* asociativo que contiene las variables que recible el *script* del entorno (sistema operativo). Es frecuente que la opción de configuración ***variables_order*** carezca del carácter ***E***, con lo que con frecuencia nos encontraremos ante un *array* vacío.
 
 ## $_COOKIE
 
