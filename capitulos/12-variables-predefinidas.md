@@ -42,7 +42,13 @@ Estas variables están asociadas a una sesión concreta, y no persisten más all
 
 ## $_FILES
 
-*Array* asociativo de elementos subidos (*uploaded*) al *script* mediante el método *HTTP POST*.
+*Array* asociativo de archivos subidos (*uploaded*) al servidor mediante el método *HTTP POST*. La clave de cada elemento es el nombre del campo en el formulario *HTML*. El contenido de cada elemento es un *array* con los siguientes elementos:
+
+- ***name*** es el nombre original del archivo en la máquina del cliente.
+- ***type*** es el tipo *MIME* del archivo, si el navegador proporcionó esta información (no se comprueba en el servidor). Ejemplos podrían ser ***image/gif***, ***image/jpg***, etc.
+- ***size*** es el tamaño en *bytes*.
+- ***tmp_name*** es el nombre (único) temporal con el cual se ha guardado el archivo en el servidor.
+- ***error*** es el código de error asociado a esta subida (si no hay error, es 0).
 
 ## $_REQUEST
 
