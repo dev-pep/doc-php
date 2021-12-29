@@ -509,6 +509,8 @@ Si hay error, la función o método (constructor) de creación de la conexión r
 
 Para obtener el posible error al crear la conexión disponemos de las propiedades ***connect_error*** y ***connect_errno***, que contienen el mensaje de error y el número de error producido respectivamente. En el contexto procedural tenemos en su lugar las funciones `mysqli_connect_error()` y `mysqli_connect_errno()`, sin parámetros. Si la operación de creación de la conexión tiene éxito, el mensaje de error es ***NULL*** y el número de error es 0.
 
+Una vez la conexión ha tenido éxito, las subsiguientes operaciones afectan a las propiedades (del objeto conexión) ***error*** (mensaje de error) y ***errno*** (número de error). En el modo procedural se consigue el mismo resultado con las funciones `mysqli_error()` y `mysqli_errno()` respectivamente, a las que se debe pasar como argumento el objeto conexión.
+
 ### Consultas
 
 Al hacer una consulta, el cliente (*PHP*) puede obtener los resultados en un *buffer* (liberando recursos del servidor *MySQL*/*MariaDB*), o tras la consulta ir leyendo los registros uno a uno, lo cual mantiene más ocupado al servidor (no recomendado).
