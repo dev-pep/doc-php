@@ -114,7 +114,9 @@ CREATE TABLE usuarios(
     CONSTRAINT uq_email UNIQUE(email)
 ) ENGINE=InnoDB;
 DESCRIBE usuarios;
+TRUNCATE TABLE usuarios;
 DROP TABLE usuarios;
+DROP TABLE IF EXISTS usuarios;
 ```
 
 Por defecto, ***NULL***. Solo puede haber un campo ***AUTO_INCREMENT*** y debe ser **clave primaria**.
@@ -369,6 +371,16 @@ SELECT marca, modelo, MIN(km) as kmmin FROM coches
 
 En el caso específico de `COUNT()`, como no nos interesa el valor de ningún campo sino solamente el número de registros de cada grupo, podemos incluir como argumento el nombre de cualquier campo, o simplemente un asterisco: `COUNT(*)`.
 
+### Uniones
+
+```sql
+SELECT nombre, apellidos FROM usuarios
+UNION
+SELECT marca, modelo FROM coches;
+```
+
+El nombre de las columnas resultantes es el del primer `SELECT`. Los dos (o más, si los hay) `SELECT` implicados deben tener el mismo número de columnas.
+
 ### Subconsultas
 
 Supongamos que cada registro en la tabla ***coches*** tiene un campo ***usuario_id*** que es una clave externa a la tabla ***usuarios***.
@@ -389,6 +401,10 @@ Usuarios con más de un coche:
 SELECT nombre FROM usuarios WHERE id IN
     (SELECT usuario_id FROM coches GROUP BY usuario_id
         HAVING COUNT(*) > 1);
+```
+
+```sql
+SELECT * FROM tabla WHERE EXISTS (SELECT ...);
 ```
 
 Si la subconsulta retorna un solo valor, se puede considerar como tal, y comparar usando los operadores de igualdad, etc.
@@ -463,7 +479,85 @@ Una vista aparece como una tabla más de la BD.
 
 ## *PHP* + *MySQL*/*MariaDB*
 
-Pendiente...
+Hay básicamente dos extensiones *PHP* disponibles: *mysqli* (*MySQL improved*) y *PDO_MySQL*. Nos centraremos en la primera.
+
+### Crear la conexión
+
+Es posible utilizar una interfaz procedural:
+
+```php
+$mysql = mysqli_connect("ejemplo.com", "usuario", "password", "database", 3306);
+$result = mysqli_query($mysql, "SELECT modelo FROM coches");
+$registro = mysqli_fetch_assoc($result);
+```
+
+O una interfaz orientada a objetos:
+
+```php
+$mysql = new mysqli("ejemplo.com", "usuario", "password", "database", 3306);
+$result = $mysql->query("SELECT modelo FROM coches");
+$registro = $result->fetch_assoc();
+```
+
+No es recomendable mezclar ambos estilos (por claridad).
+
+Al crear la conexión (función `mysqli_connect()` o constructor de ***mysqli***), el primer parámetro (servidor) puede ser un nombre de *host* o una derección *IP*. El quinto parámetro no es necesario indicarlo normalmente, a no ser que el servidor esté en un puerto distinto a 3306.
+
+De hecho todos los argumentos en la creación de la conexión pueden omitirse, en cuyo caso se usarán los valores por defecto, que deben estar definidos en el archivo de configuración de *PHP*.
+
+Para obtener el posible error al crear la conexión disponemos de las propiedades ***connect_error*** y ***connect_errno***, que contienen el mensaje de error y el número de error producido respectivamente. En el contexto procedural tenemos en su lugar las funciones `mysqli_connect_error()` y `mysqli_connect_errno()`, sin parámetros. Si la operación de creación de la conexión tiene éxito, el mensaje de error es ***NULL*** y el número de error es 0.
+
+### Consultas
+
+Al hacer una consulta, el cliente (*PHP*) puede obtener los resultados en un *buffer* (liberando recursos del servidor *MySQL*/*MariaDB*), o tras la consulta ir leyendo los registros uno a uno, lo cual mantiene más ocupado al servidor (no recomendado).
+
+El método `query()` del objeto conexión o la función `mysqli_query()` realizan una consulta *buffered*, es decir obtienen los resultados en un *buffer* (siempre que se trate de una consulta `SELECT`, claro). El método recibe un argumento *string* que contiene la consulta. La función necesita dos argumentos: el primero es el objeto conexión, y el segundo la consulta.
+
+El objeto consulta retornado contiene los registros de la consulta, aunque no se puede acceder a estos mediante sintaxis de *array*. Sí se pueden obtener mediante `foreach`. Para acceder a un registro concreto se usa el método (del objeto consulta) `data_seek()`, que posiciona el **apuntador de registro actual** dentro de ese objeto (al crearse la consulta queda en 0, es decir, el primer registro). Este método recibe simplemente un entero. Si se quiere usar el modo procedural, disponemos de la función `mysqli_data_seek()` que recibe como parámetros el objeto consulta y el entero índice.
+
+El método `fetch_assoc()` (sin argumentos) del objeto consulta retorna un *array* asociativo (*string* => *string*) con el contenido del registro actual, y mueve el apuntador de registro actual una posición. En el modo procedural se usa la función `mysqli_fetch_assoc()`, que recibe como argumento el objeto consulta.
+
+En cualquiera de los dos modos, tras un *fetch assoc* del último elemento de la consulta, los subsiguientes *fetch assoc* retornarán ***NULL***.
+
+Para saber cuántos registros contiene el resultado, existe la propiedad ***num_rows*** del objeto consulta, o la función `mysqli_num_rows()` a la que se debe pasar el objeto consulta.
+
+Si las consultas pueden contener caracteres no *ASCII* (caracteres acentuados, ***ñ***, etc.) se debe mandar al servidor la consulta ***SET NAMES 'utf8'***.
+
+Ejemplo OO:
+
+```php
+$mysql = new mysqli("ejemplo.com", "usuario", "password", "database");
+$result = $mysql->query("SET NAMES 'utf8'");
+$result = $mysql->query("SELECT modelo FROM coches");
+// Número de registros:
+echo $result->num_rows;
+echo '<br/>';
+// Todos los registros:
+foreach($result as $row)
+    echo $row['id'] . '<br/>';  // campo id del registro
+// Un registro concreto:
+$resul->data_seek(3);
+$row = $result->fetch_assoc();
+echo $row['id'];
+```
+
+Ejemplo procedural:
+
+```php
+$mysql = mysqli("ejemplo.com", "usuario", "password", "database");
+$result = mysqli_query($mysql, "SET NAMES 'utf8'");
+$result = mysqli_query($mysql, "SELECT modelo FROM coches");
+// Número de registros:
+echo mysqli_num_rows($result);
+echo '<br/>';
+// Todos los registros:
+foreach($result as $row)
+    echo $row['id'] . '<br/>';  // campo id del registro
+// Un registro concreto:
+mysqli_data_seek($result, 3);
+$row = mysqli_fetch_assoc($result);
+echo $row['id'];
+```
 
 ## *PHP* + *Microsoft SQL Server*
 
