@@ -505,6 +505,8 @@ Al crear la conexión (función `mysqli_connect()` o constructor de ***mysqli***
 
 De hecho todos los argumentos en la creación de la conexión pueden omitirse, en cuyo caso se usarán los valores por defecto, que deben estar definidos en el archivo de configuración de *PHP*.
 
+Si hay error, la función o método (constructor) de creación de la conexión retorna ***false***.
+
 Para obtener el posible error al crear la conexión disponemos de las propiedades ***connect_error*** y ***connect_errno***, que contienen el mensaje de error y el número de error producido respectivamente. En el contexto procedural tenemos en su lugar las funciones `mysqli_connect_error()` y `mysqli_connect_errno()`, sin parámetros. Si la operación de creación de la conexión tiene éxito, el mensaje de error es ***NULL*** y el número de error es 0.
 
 ### Consultas
@@ -514,6 +516,8 @@ Al hacer una consulta, el cliente (*PHP*) puede obtener los resultados en un *bu
 El método `query()` del objeto conexión o la función `mysqli_query()` realizan una consulta *buffered*, es decir obtienen los resultados en un *buffer* (siempre que se trate de una consulta `SELECT`, claro). El método recibe un argumento *string* que contiene la consulta. La función necesita dos argumentos: el primero es el objeto conexión, y el segundo la consulta.
 
 El objeto consulta retornado contiene los registros de la consulta, aunque no se puede acceder a estos mediante sintaxis de *array*. Sí se pueden obtener mediante `foreach`. Para acceder a un registro concreto se usa el método (del objeto consulta) `data_seek()`, que posiciona el **apuntador de registro actual** dentro de ese objeto (al crearse la consulta queda en 0, es decir, el primer registro). Este método recibe simplemente un entero. Si se quiere usar el modo procedural, disponemos de la función `mysqli_data_seek()` que recibe como parámetros el objeto consulta y el entero índice.
+
+Si la creación de la *query* falla, el método o la función retornan ***false***.
 
 El método `fetch_assoc()` (sin argumentos) del objeto consulta retorna un *array* asociativo (*string* => *string*) con el contenido del registro actual, y mueve el apuntador de registro actual una posición. En el modo procedural se usa la función `mysqli_fetch_assoc()`, que recibe como argumento el objeto consulta.
 
