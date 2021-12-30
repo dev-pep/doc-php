@@ -567,4 +567,4 @@ echo $row['id'];
 
 ## *PHP* + *Microsoft SQL Server*
 
-Pendiente...
+Para conectar a bases de datos *SQL Server* tenemos la complejidad adicional de que dependiendo del sistema operativo deberemos utilizar una u otra extensión *PHP*. Para entornos *Windows*, véase la documentación de la extensión *SQLSRV*, y para *Linux*, la extensión *PDO*.
