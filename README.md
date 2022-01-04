@@ -33,6 +33,7 @@ Estos son mis apuntes de *PHP*.
 ### Apéndices
 
 - [SQL](capitulos/ap-sql.md)
+- [Funciones más utilizadas](capitulos/ap-funciones.md)
 
 ---
 
