@@ -385,7 +385,7 @@ Una comparación por igualdad (`==`) de dos objetos devolverá verdadero si y so
 
 ## Binding (enlazado)
 
-En un escenario con herencia y métodos *overriden*, cuando desde un método invocamos otro de los métodos de la clase, y este último tiene varias posibilidades, es necesario saber a qué método estamos haciendo referencia cuando escribimos `$this`, es decir a qué clase pertenece el método que se debe ejecutar:
+En un escenario con herencia y métodos *overriden*, cuando desde un método invocamos otro de los métodos de la clase, y este último tiene varias posibilidades (por ser heredada), es necesario saber a qué método estamos haciendo referencia cuando escribimos `$this`, es decir a qué clase pertenece el método que se debe ejecutar:
 
 ```php
 class Base
@@ -400,7 +400,7 @@ class Deriv extends Base
 }
 ```
 
-En este ejemplo, la llamada a `$this -> quesoy()` puede referirse a la versión de ***Base*** o la de ***Deriv***. Esto solo se sabrá en el momento de ejecución, ya que la versión **depende del objeto** llamante. La resolución se hará pues en *runtime*, y se denomina *late binding* o *dynamic binding*.
+En este ejemplo, la llamada a `$this->quesoy()` puede referirse a la versión de ***Base*** (si la instancia es de ese tipo) o la de ***Deriv*** (si la instancia es de tipo ***Deriv***). Esto solo se sabrá en el momento de ejecución, ya que la versión a utilizar **depende del objeto** llamante. La resolución se hará pues en *runtime*, y se denomina *late binding* o *dynamic binding*.
 
 En un escenario sin herencia, por ejemplo, una invocación, desde dentro de un método a otro de los otros métodos, no tiene pérdida, y puede resolverse en tiempo de compilación, pues en ese momento ya sabemos a qué clase pertenece `$this`. Es lo que se llama *early binding* o *static binding*.
 
@@ -423,7 +423,7 @@ class Deriv extends Base
 }
 ```
 
-En este caso, al hacer `Deriv::show();` se ejecutará el método ***quesoy()*** de la clase ***Base***. Es la limitación que tiene acceder a través de `self`. Para solucionarlo, disponemos del identificador `static`, que supera esta limitación, almacenando, no la clase actual, sino la clase que se utilizó para hacer la invocación en tiempo de ejecución. En este caso, el código correcto quedaría:
+En este caso, al hacer `Base::show()` se ejecutará (correctamente) el método `Base::quesoy()`. Pero si hacemos `Deriv::show();` también se ejecutará (incorrectamente) ese método heredado de la clase ***Base***, ya que la llamada se hace desde `Base::show()`, donde `self::quesoy()` significa `Base::quesoy()`. Es la limitación que tiene acceder a través de `self`. Para solucionarlo, disponemos del identificador `static`, que supera esta limitación, ya que no representa a la clase actual, sino a la clase que se utilizó para hacer la invocación en tiempo de ejecución. En este caso, el código correcto quedaría:
 
 ```php
 class Base
