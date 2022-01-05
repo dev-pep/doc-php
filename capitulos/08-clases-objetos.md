@@ -152,6 +152,15 @@ spl_autoload_register(function($nombre)
 });
 ```
 
+O lo que es equivalente (recordemos que un *callable* puede ser una *closure*, pero también un nombre de función):
+
+```php
+function autocarga($nombre) {
+    require $nombre . '.php';
+}
+spl_autoload_register('autocarga');
+```
+
 A partir de aquí, si hacemos `$ob = new MiClase;` y ***MiClase*** no está definida, *PHP* echará mano del *autoloader* registrado, pasándole automáticamente como parámetro un *string* con el nombre de la clase (en este caso ***'MiClase'***), con lo que tal función ejecutará `require 'MiClase.php';` antes de ejecutar el `new`.
 
 ## Constructor y destructor
