@@ -485,7 +485,7 @@ Retorna el número de argumentos pasados a la función actual.
 
 `class_exists(string $class, bool $autoload = true): bool`
 
-Retorna ***true*** si la clase indicada existe, o ***false*** en caso contrario. Por defecto se autocarga la clase si es necesario, a no ser que indiquemos ***autoload*** como ***false***.
+Retorna ***true*** si la clase indicada existe, o ***false*** en caso contrario. Por defecto se autocarga la clase si es necesario (y está disponible la autocarga de esa clase), a no ser que indiquemos ***autoload*** como ***false***.
 
 `get_class(object $object = ?): string`
 
