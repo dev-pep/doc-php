@@ -105,7 +105,7 @@ Mientras que el acceso a métodos y propiedades se realiza con el operador `->`,
 
 Son las variables miembros de una clase. Se declaran mediante `public`, `protected` o `private`, seguido de una declaración de tipo opcional y la declaración normal. Puede incluir inicialización, pero esta debe ser un valor constante.
 
-Las propiedades son accedidas mediante el operador `->` en un objeto instancia. Desde dentro de la clase se accede, mediante `$this -> propiedad` mientras que las propiedades estáticas son accedidas a través de la clase con el operador `::`. Desde dentro de la clase sería `self::$propiedad`.
+Las propiedades son accedidas mediante el operador `->` en un objeto instancia. Desde dentro de la clase se accede, mediante `$this -> propiedad` mientras que las propiedades estáticas son accedidas a través de la clase con el operador `::`. Desde dentro de la clase sería `self::$propiedad`. Desde fuera, sería `$instancia::$propiedad`.
 
 Ejemplos de declaraciones de propiedades:
 
