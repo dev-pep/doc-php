@@ -77,6 +77,25 @@ Tanto la función ***foo()*** como la función ***bar()*** cambian el valor del 
 
 Un método puede tener el mismo nombre que una propiedad. Si se debe acceder a uno u a otro dependerá del contexto.
 
+Es posible utilizar las *variable variables* para acceder a métodos y propiedades:
+
+```php
+class MiClase {
+    private $mipro;
+    public function mimet($a, $b) {/*...*/}
+    public function foo() {
+        $propiedad = 'mipro';
+        $metodo = 'mimet';
+        $this->$propiedad = 50;  // equivale a $this->mipro;
+        $this->$metodo(1, 2);  // equivale a $this->mimet(1, 2);
+    }
+}
+
+$inst = MiClase;
+$metodo = 'mimet';
+$inst->$metodo(5, 5);  // equivale a $inst->mimet(1, 2);
+```
+
 ## extends
 
 Una clase ***D*** puede ser derivada de una clase ***B***:
