@@ -216,7 +216,7 @@ El tipo `callable` permite pasar un objeto invocable (ejecutable) como parámetr
 
 ## Declaración de tipos
 
-Pueden añadirse declaraciones en los argumentos y valor de retorno de una función, así como en las propiedades de una clase.
+Pueden añadirse declaraciones en los parámetros (todos o algunos) y/o valor de retorno de una función, así como en las propiedades de una clase.
 
 > Al *override* un método, se debe respetar el mismo tipo de retorno que en la clase padre. Si el padre no lo define, el hijo puede hacerlo.
 
@@ -225,7 +225,7 @@ Si especificamos una clase, se aceptan objetos de esa clase o de cualquier deriv
 Si especificamos una interfaz, se aceptan objetos que pertenezcan a una clase que implemente esa interfaz.
 
 ```php
-function sum(int $a, int $b): float
+function sum(int $a, int $b, $c): float
 { ... }
 ```
 
@@ -245,7 +245,7 @@ En el **valor de retorno** se pueden definir los tipos `void` (no retorna valor,
 
 ## Tipado estricto
 
-Por defecto, *PHP* cambia automáticamente un tipo erróneo a uno escalar correcto, si es posible. Pero se puede declarar el tipado estricto en un archivo *.php* mediante `declare(strict_types=1)`. El tipado estricto se aplica a las **llamadas** hechas en el archivo, no a las funciones declaradas en él.
+Por defecto, *PHP* cambia automáticamente un tipo erróneo a uno escalar correcto, si es posible. Pero se puede declarar el tipado estricto en un archivo *.php* mediante `declare(strict_types=1)`. El tipado estricto se aplica a las **llamadas** hechas en el archivo, no a las funciones declaradas en él (al definir una función es posible declarar el tipo de los parámetros y/o del valor de retorno).
 
 ## Malabarismos de tipos (*type juggling*)
 
