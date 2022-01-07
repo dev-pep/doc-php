@@ -51,7 +51,7 @@ endif;
 
 Esto resulta útil para incluir código *HTML* directamente. Aunque también se puede hacer usando llaves, así resulta más claro:
 
-```php
+```html
 <?php ?>
     <h2>Código HTML</h2>
     <p>Esto es código HTML</p>
@@ -231,7 +231,7 @@ O en *scope* global:
 
 ```php
 /* aquí no afecta */
-declare(ticks=1)
+declare(ticks=1);
 /* afecta a partir de aquí hasta el final del archivo */
 ```
 
@@ -256,6 +256,8 @@ No es necesario el paréntesis para el valor, pues `return` no es una función. 
 ## include y require
 
 `include` incluye y evalúa el archivo especificado. Si se especifica con la ruta completa (relativa o absoluta), lo busca allí. Si no, lo busca en el *include path* especificado en la configuración (se puede ver con `get_include_path()`). Si no lo encuentra allí, buscará en el directorio donde está el *script*, y finalmente en el directorio de trabajo actual. Si no lo encuentra, se genera un aviso.
+
+> Dependiendo del sistema operativo, los nombres de archivos son *case-sensitive* (*Unix*) o no (*Windows*).
 
 El archivo queda incluido en el *scope* donde está la línea llamante, como si se hubiera escrito en ese punto. Aunque las funciones y clases definidas en ese archivo incluido tienen *scope* global.
 

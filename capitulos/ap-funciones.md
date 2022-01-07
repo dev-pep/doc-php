@@ -2,8 +2,6 @@
 
 De entre la gran cantidad de funciones disponibles en *PHP*, veamos algunas de las más usadas.
 
-Un parámetro del tipo ***callable*** puede ser, por ejemplo, el nombre (*string*) de una función, o una función anónima (asignada a una variable, o indicada directamente).
-
 ## *Arrays*
 
 `array_diff(array $array, array ...$arrays): array`
@@ -370,6 +368,8 @@ Trocea el *string* ***subject*** según el delimitador definido por la expresió
 
 Las rutas relativas se evaluarán en relación al directorio actual. En sistemas *Windows* se pueden indicar tanto barras como barras invertidas para crear las rutas.
 
+> Dependiendo del sistema operativo, los nombres de archivos son *case-sensitive* (*Unix*) o no (*Windows*).
+
 `basename(string $path, string $suffix = ""): string`
 
 Retorna el componente más a la derecha de una ruta. Si el componente termina en ***suffix***, este será descartado del resultado devuelto.
@@ -485,7 +485,9 @@ Retorna el número de argumentos pasados a la función actual.
 
 `class_exists(string $class, bool $autoload = true): bool`
 
-Retorna ***true*** si la clase indicada existe, o ***false*** en caso contrario. Por defecto se autocarga la clase si es necesario (y está disponible la autocarga de esa clase), a no ser que indiquemos ***autoload*** como ***false***.
+Retorna ***true*** si la clase indicada existe, o ***false*** en caso contrario. Por defecto se autocarga la clase si es necesario (y está disponible la autocarga para esa clase), a no ser que indiquemos ***autoload*** como ***false***.
+
+El nombre de la clase debemos pasárselo *fully-qualified*.
 
 `get_class(object $object = ?): string`
 

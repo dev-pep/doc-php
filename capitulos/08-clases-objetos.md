@@ -163,7 +163,7 @@ spl_autoload_register('autocarga');
 
 A partir de aquí, si hacemos `$ob = new MiClase;` y ***MiClase*** no está definida, *PHP* echará mano del *autoloader* registrado, pasándole automáticamente como parámetro un *string* con el nombre de la clase (en este caso ***'MiClase'***), con lo que tal función ejecutará `require 'MiClase.php';` antes de ejecutar el `new`.
 
-Si al usar la clase indicamos un nombre con *namespaces* (`$ob = new MiEspacio\MiClase`), estos también serán incluidos en el nombre que se pasará a la función de autocarga.
+> Si la clase está dentro de un *namespace* no global (***MiEspacio\MiClase***), la ruta *full-qualified* será incluida en el nombre que se pasará a la función de autocarga, y será interpretada como la ruta del archivo a incluir.
 
 ## Constructor y destructor
 
