@@ -550,7 +550,7 @@ echo $row['id'];
 Ejemplo procedural:
 
 ```php
-$mysql = mysqli("ejemplo.com", "usuario", "password", "database");
+$mysql = mysqli_connect("ejemplo.com", "usuario", "password", "database");
 mysqli_query($mysql, "SET NAMES 'utf8'");
 $result = mysqli_query($mysql, "SELECT modelo FROM coches");
 // Número de registros:
