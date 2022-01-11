@@ -533,7 +533,7 @@ Ejemplo OO:
 
 ```php
 $mysql = new mysqli("ejemplo.com", "usuario", "password", "database");
-$result = $mysql->query("SET NAMES 'utf8'");
+$mysql->query("SET NAMES 'utf8'");
 $result = $mysql->query("SELECT modelo FROM coches");
 // Número de registros:
 echo $result->num_rows;
@@ -551,7 +551,7 @@ Ejemplo procedural:
 
 ```php
 $mysql = mysqli("ejemplo.com", "usuario", "password", "database");
-$result = mysqli_query($mysql, "SET NAMES 'utf8'");
+mysqli_query($mysql, "SET NAMES 'utf8'");
 $result = mysqli_query($mysql, "SELECT modelo FROM coches");
 // Número de registros:
 echo mysqli_num_rows($result);
