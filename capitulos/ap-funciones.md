@@ -491,7 +491,7 @@ El nombre de la clase debemos pasárselo *fully-qualified*.
 
 `get_class(object $object = ?): string`
 
-Retorna el nombre de la clase del objeto indicado. Dentro de una clase se puede omitir el argumento, en cuyo caso se retornará el nombre de esa clase.
+Retorna el nombre de la clase (*fully qualified*, equivalente a `<Clase>::class`) del objeto indicado. Dentro de una clase se puede omitir el argumento, en cuyo caso se retornará el nombre de esa clase.
 
 `is_object(mixed $value): bool`
 
