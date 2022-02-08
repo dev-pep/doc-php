@@ -173,7 +173,7 @@ Las clases hijas que definen constructor no llaman implícitamente al constructo
 
 El constructor *overriden* está exento de las reglas de compatibilidad.
 
-A partir de *PHP* 8, los argumentos pasados al constructor pueden convertirse directamente en propiedades del objeto (*constructor promotion*). Esto se hace incluyendo modificador de visibilidad en los parámetros que deseemos convertir en propiedades automáticamente.
+A partir de *PHP* 8, los argumentos pasados al constructor pueden convertirse directamente en propiedades del objeto (*constructor property promotion*). Esto se hace incluyendo modificador de visibilidad en los parámetros que deseemos convertir en propiedades automáticamente.
 
 ```php
 public __construct(public int $x, protected $y, string $z) {}
