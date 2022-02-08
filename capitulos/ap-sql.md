@@ -517,7 +517,7 @@ Al hacer una consulta, el cliente (*PHP*) puede obtener los resultados en un *bu
 
 El método `query()` del objeto conexión o la función `mysqli_query()` realizan una consulta *buffered*, es decir obtienen los resultados en un *buffer* (siempre que se trate de una consulta `SELECT`, claro). El método recibe un argumento *string* que contiene la consulta. La función necesita dos argumentos: el primero es el objeto conexión, y el segundo la consulta.
 
-El objeto consulta retornado contiene los registros de la consulta, aunque no se puede acceder a estos mediante sintaxis de *array*. Sí se pueden obtener mediante `foreach`. Para acceder a un registro concreto se usa el método (del objeto consulta) `data_seek()`, que posiciona el **apuntador de registro actual** dentro de ese objeto (al crearse la consulta queda en 0, es decir, el primer registro). Este método recibe simplemente un entero. Si se quiere usar el modo procedural, disponemos de la función `mysqli_data_seek()` que recibe como parámetros el objeto consulta y el entero índice.
+El objeto consulta retornado (de tipo ***mysqli_result***) contiene los registros de la consulta, aunque no se puede acceder a estos mediante sintaxis de *array*. Sí se pueden obtener mediante `foreach`. Para acceder a un registro concreto se usa el método (del objeto consulta) `data_seek()`, que posiciona el **apuntador de registro actual** dentro de ese objeto (al crearse la consulta queda en 0, es decir, el primer registro). Este método recibe simplemente un entero. Si se quiere usar el modo procedural, disponemos de la función `mysqli_data_seek()` que recibe como parámetros el objeto consulta y el entero índice.
 
 Si la creación de la *query* falla, el método o la función retornan ***false***.
 
@@ -525,7 +525,15 @@ El método `fetch_assoc()` (sin argumentos) del objeto consulta retorna un *arra
 
 En cualquiera de los dos modos, tras un *fetch assoc* del último elemento de la consulta, los subsiguientes *fetch assoc* retornarán ***NULL***.
 
-Para saber cuántos registros contiene el resultado, existe la propiedad ***num_rows*** del objeto consulta, o la función `mysqli_num_rows()` a la que se debe pasar el objeto consulta.
+Si en lugar de obtener un *array* asociativo deseamos obtener un **objeto**, con los nombres de sus propiedades iguales a los nombres de los campos, usaremos el método `fetch_object()`, o la función `mysqli_fetch_object()`. En este caso hay que pasarle como argumentos:
+
+- En el caso de la función, objeto resultado (***mysqli_result***). En caso del método, es precisamente ese objeto ***mysqli_result*** el que posee dicho método.
+- El nombre de la clase del objeto creado. Por defecto, ***stdClass***.
+- Un *array* opcional de parámetros a pasar al constructor del objeto instanciado.
+
+El objeto retornado será ***NULL*** si no hay más filas, o ***false*** en caso de error.
+
+Por otro lado, para saber cuántos registros contiene el resultado, existe la propiedad ***num_rows*** del objeto consulta, o la función `mysqli_num_rows()` a la que se debe pasar el objeto consulta.
 
 Si las consultas pueden contener caracteres no *ASCII* (caracteres acentuados, ***ñ***, etc.) se debe mandar al servidor la consulta ***SET NAMES 'utf8'***.
 
