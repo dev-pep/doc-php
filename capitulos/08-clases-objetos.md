@@ -135,7 +135,7 @@ private ?string $name;    // string nullable
 
 ## Constantes
 
-Las clases e interfaces pueden definir constantes. Su visibilidad es `public` por defecto. Las clases tienen la constante `class` que contiene su nombre *fully qualified*.
+Las clases e interfaces pueden definir constantes mediante `const`, no mediante `define()`. Su visibilidad es `public` por defecto. Las clases tienen la constante `class` que contiene su nombre *fully qualified*.
 
 Las constantes se almacenan en la clase, y no en las instancias. Por lo tanto su acceso se hace a través de la clase con el operador `::` del tipo `MiClase::class`. Desde dentro de la clase se debe acceder mediante `self::`.
 

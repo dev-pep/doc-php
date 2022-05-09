@@ -14,13 +14,19 @@ o así:
 const nombre = 'Pepe';
 ```
 
-En el caso de `const` solo se le puede dar un valor escalar. En este caso, la definición debe hacerse en el *scope* global, ya que el valor se decide en tiempo de compilación, mientras que con `define` se resuelve la expresión en *runtime*.
+En el caso de `const` solo se le puede dar un valor escalar constante (número, *string* u otras constantes), mientras que con `define()` acepta cualquier tipo de expresión (constante o no).
 
-Las constantes son accesibles desde cualquier parte (tienen *scope* global). Una vez definidas no pueden cambiarse ni aplicarse `undef()`.
+Con `const`, el valor se decide en tiempo de compilación, mientras que con `define()` se resuelve la expresión en *runtime*.
+
+Las constantes son accesibles desde cualquier parte, independientemente del *scope*. Una vez definidas no pueden cambiarse ni aplicarse `undef()`.
 
 Para una lista de las constantes definidas, se usa `get_defined_constants()`. Para comprobar si una constante está definida, `defined()`.
 
 Para acceder a su valor, simplemente se debe escribir su nombre, o usar `constant()`. La última forma tiene la ventaja que no hay que especificar el nombre de la constante en el código, ya que se le pasa un *string* con dicho nombre (se decide en tiempo de ejecución).
+
+Dentro de una clase se puede definir una constante mediante `const` (no con `define()`). En este caso, la constante pasa a formar parte de dicha clase. Hay que tener en cuenta que una constante es un miembro estático, con lo que no puede accederse a través de instancia, sino de clase. Adicionalmente, se le puede dar modificador de acceso (por defecto es público).
+
+No se puede usar `const` dentro de un bloque condicional, pero sí `define()`.
 
 ## Constantes predefinidas
 
