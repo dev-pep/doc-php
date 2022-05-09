@@ -11,7 +11,7 @@ define(string $nombre, mixed $valor);
 o así:
 
 ```php
-const nombre = $valor;
+const nombre = 'Pepe';
 ```
 
 En el caso de `const` solo se le puede dar un valor escalar. En este caso, la definición debe hacerse en el *scope* global, ya que el valor se decide en tiempo de compilación, mientras que con `define` se resuelve la expresión en *runtime*.
