@@ -176,7 +176,7 @@ El constructor *overriden* está exento de las reglas de compatibilidad.
 A partir de *PHP* 8, los argumentos pasados al constructor pueden convertirse directamente en propiedades del objeto (*constructor property promotion*). Esto se hace incluyendo modificador de visibilidad en los parámetros que deseemos convertir en propiedades automáticamente.
 
 ```php
-public __construct(public int $x, protected $y, string $z) {}
+public function __construct(public int $x, protected $y, string $z) {}
 ```
 
 En este caso, ***\$x*** e ***\$y*** se convertirán en propiedades del objeto. Tras ello, se ejecutará el código del cuerpo del constructor (que puede estar vacío).
@@ -186,7 +186,7 @@ El constructor podría ser privado, en cuyo caso solo podría ser llamado por un
 ```php
 class MiClase
 {
-    private __construct($a, $b) { /* ... */ }
+    private function __construct($a, $b) { /* ... */ }
     public static function construyeA(): static { $o = new static(0, 1); return $o; }
     public static function construyeB(): static { $o = new static(1, 1); return $o; }
     ...
