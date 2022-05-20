@@ -50,6 +50,20 @@ El método `jsonRequest()`, con los mismos parámetros, convierte el *array* de 
 
 Por otro lado, el método `xmlHttpRequest()`, con los mismos parámetros también, se usa para peticiones *AJAX*. Establece automáticamente la cabecera ***HTTP_X_REQUESTED_WITH***.
 
+### Posible problema SSL
+
+Al intentar acceder a una página mediante protocolo *HTTPS*, puede aparecer un mensaje similar al siguiente:
+
+> fopen(): SSL operation failed with code 1. OpenSSL Error messages: error:1416F086:SSL routines:tls_process_server_certificate:certificate verify failed
+
+Este error se debe a que *PHP* no localiza los certificados necesarios para el protocolo *SSL*. Para arreglarlo, se debe ir a la página de `curl` (https://curl.se) y en el apartado de documentación buscar el *CA Bundle* (https://curl.se/docs/caextract.html). Descargar archivo ***cacert.pem*** y guardarlo en algún directorio del servidor. Tras esto, editar ***php.ini***, variable ***curl.cainfo*** (sección ***[curl]***), dándole el *full path* de ese archivo descargado. Tras reiniciar el servidor *web*, debería funcionar bien.
+
+Por ejemplo, la línea de *php.ini* podría quedar, en un servidor *WAMP*:
+
+```
+curl.cainfo = "c:\wamp64\bin\php\cacert.pem"
+```
+
 ## Clicar enlaces
 
 Para simular un clic, se usa el método `clickLink()` del cliente, al que se le pasa el texto del enlace. Como es habitual, cambia el estado del cliente (como si se hubiera hecho clic en el navegador) y retorna un objeto *crawler*:
