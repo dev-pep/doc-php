@@ -1,6 +1,6 @@
 # Apuntes de PHP
 
-Estos son mis apuntes de *PHP*.
+Apuntes de *PHP* 8.
 
 ## Tabla de contenido
 
