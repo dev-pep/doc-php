@@ -170,7 +170,7 @@ switch(<expresión>)
 
 La expresión inicial se ejecuta una sola vez. Luego se va comparando (mediante `==`) con las expresiones de las cláusulas `case`. Cuando se encuentra una coincidencia, se sigue la ejecución en ese punto, hasta el final del bloque `switch`. Si queremos interrumpir la ejecución antes de la siguiente cláusula `case` hay que insertar un `break` al final de la presente cláusula `case`. Si no hay coincidencia, no se ejecutará ningún código, a no ser que exista la cláusula opcional `default` (solo puede haber una), que se ejecutará en ese caso.
 
-Cuando la expresión inicial es compleja, es mejor una estructura `switch` que una serie de `if`/`elif`, ya que en el primer caso, la expresión es evaluada una única vez.
+Cuando la expresión inicial es compleja, es mejor una estructura `switch` que una serie de `if`/`elseif`, ya que en el primer caso, la expresión es evaluada una única vez.
 
 Las cláusulas `case` pueden dejarse en blanco para agrupar series de valores que compartan el mismo código a ejecutar.
 
