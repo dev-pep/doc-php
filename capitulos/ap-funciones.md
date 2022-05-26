@@ -2,7 +2,7 @@
 
 De entre la gran cantidad de funciones disponibles en *PHP*, veamos algunas de las más usadas.
 
-## *Arrays*
+## Arrays
 
 `array_diff(array $array, array ...$arrays): array`
 
@@ -203,7 +203,7 @@ Desestablece (*unsets*) las variables pasadas como parámetro.
 
 Imprime el contenido de las expresiones que se le pasan como argumento.
 
-## *Strings*
+## Strings
 
 `chr(int $codepoint): string`
 
@@ -535,7 +535,7 @@ Convierte un *string* que define una fecha (en varios formatos ingleses posibles
 
 Retorna *timestamp* actual, es decir, el número de segundos desde la época *Unix* (01/01/1970, 00:00:00 *GMT*).
 
-## *JSON*
+## JSON
 
 `json_decode(string $json, ?bool $associative = null,
     int $depth = 512, int $flags = 0): mixed`
@@ -650,7 +650,7 @@ Retorna el valor flotante redondeado de ***num*** a la precisión (decimales) **
 - ***PHP_ROUND_HALF_EVEN*** redondea hacia el valor par más próximo.
 - ***PHP_ROUND_HALF_ODD*** redondea hacia el valor impar más próximo.
 
-## *URLs*
+## URLs
 
 `base64_decode(string $string, bool $strict = false): string|false`
 
@@ -707,7 +707,7 @@ Por defecto, la función retorna -1 si ***version1*** es inferior a ***version2*
 
 Establece los tipos de error que producirán un mensaje de error en la salida. Establece en *runtime* el valor de la directiva de configuración ***error_reporting***. Si no le pasamos ***error_level***, la función simplemente retornará la configuración actual. El valor ***E_ALL*** reporta todo tipo de errores y avisos.
 
-## *iconv*
+## iconv
 
 `iconv(string $from_encoding, string $to_encoding, string $string): string|false`
 

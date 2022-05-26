@@ -88,7 +88,7 @@ Para el contenido de un elemento de un *array* o propiedad de una clase, tambié
 
 #### Sintaxis compleja
 
-Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (que tenga representación *string*), entre llaves ***\{...}***. El ***$*** debe ir inmediatamente después de la llave de apertura. Para conseguir ***\{\\\$***, hay que escribir ***\{\\\\\$***.
+Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (que tenga representación *string*), entre llaves ***\{...}***. El ***\$*** debe ir inmediatamente después de la llave de apertura. Para conseguir ***\{\\\$***, hay que escribir ***\{\\\\\$***.
 
 Para elementos de un *array* con clave no numérica, solo se puede usar la sintaxis compleja.
 
@@ -132,7 +132,7 @@ Si hay literales *string* en un *script .php* con caracteres *Unicode*, serán c
 
 Si el *string* empieza con un número pero tiene otro contenido posterior, puede convertirse a ese valor numérico, pero se genera un aviso.
 
-## *Arrays*
+## Arrays
 
 Mapa de pares clave-valor. Un elemento del *array* puede ser otro *array* (*array* multidimensional). Para hacer un volcado de un *array* podemos usar `var_dump()`, pero la función `print_r()` formateará el valor adecuadamente.
 

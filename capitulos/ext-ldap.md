@@ -22,7 +22,7 @@ La función `ldap_connect()` recibe la dirección del servidor como único pará
 
 El *string* puede consistir en varias *URLs* separadas por espacio.
 
-## *Binding*
+## Binding
 
 Una vez obtenemos el objeto conexión lo pasaremos como primer argumento del *bind* al servidor:
 

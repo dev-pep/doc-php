@@ -10,11 +10,11 @@ Estas variables son de lectura y escritura.
 
 Existe una opción importante dentro de la configuración de *PHP* (en ***php.ini***): ***variables_order***. Esta controla cuáles de estas variables superglobales se rellenarán con valores y cuáles no. El valor de esta opción puede contener alguno (o todos) de estos caracteres: ***EGPCS***, que significan:
 
-- ***E*** para la variable ***\$_ENV***. Es frecuente que no se incluya.
-- ***G***: variable ***\$_GET***.
-- ***P***: variable ***\$_PUT***.
-- ***C***: variable ***\$_COOKIE***.
-- ***S***: variable ***\$_SERVER***.
+- ***E*** para la variable ***\$\_ENV***. Es frecuente que no se incluya.
+- ***G***: variable ***\$\_GET***.
+- ***P***: variable ***\$\_PUT***.
+- ***C***: variable ***\$\_COOKIE***.
+- ***S***: variable ***\$\_SERVER***.
 
 ## $GLOBALS
 

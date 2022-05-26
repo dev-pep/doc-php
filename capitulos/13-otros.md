@@ -49,13 +49,13 @@ El segundo parámetro (opcional) define si una cabecera debe reemplazar una cabe
 
 Un tercer parámetro, opcional también, indica un código de respuesta (siempre que el encabezado no esté vacío).
 
-## *Cookies*
+## Cookies
 
 Se pueden crear *cookies* con *PHP*, que son enviadas al navegador y almacenadas localmente. A su vez, las *cookies* vigentes se envían al servidor a cada *request*. Al igual que los encabezados, es importante enviar las *cookies* estrictamente antes de que se produzca algún tipo de salida.
 
 `setcookie()` crea una *cookie* con el nombre definido en el primer argumento y el valor (opcional, por defecto un *string* vacío) en el segundo. Entre los parámetros que toma la función podríamos destacar el tercero (opcional), que indica la caducidad como un *timestamp*, normalmente el valor de `time()` más los segundos que deseemos. Si tiene éxito retorna ***true*** (no implica que el usuario la haya aceptado), de lo contrario (por ejemplo si hay salida anterior a su envío) ***false***.
 
-Los valores de las *cookies* son accesibles a través del *array* ***\$_COOKIE***.
+Los valores de las *cookies* son accesibles a través del *array* ***\$\_COOKIE***.
 
 Se puede crear una *array cookie*:
 
@@ -76,7 +76,7 @@ setcookie('galleta', '', 1);  // caducada
 
 ## Sesiones
 
-Permiten persistir datos entre *requests*. A un usuario se le asigna una ID de sesión, que se almacena en una *cookie* o bien se incluye en la *URL*. Los datos de la sesión son accesibles a través del *array* ***\$_SESSION***. Para crear nuevos datos de sesión también se hace simplemente a través de esta variable.
+Permiten persistir datos entre *requests*. A un usuario se le asigna una ID de sesión, que se almacena en una *cookie* o bien se incluye en la *URL*. Los datos de la sesión son accesibles a través del *array* ***\$\_SESSION***. Para crear nuevos datos de sesión también se hace simplemente a través de esta variable.
 
 Invocando `session_start()`, *PHP* comprueba si se ha recibido una *session ID*, y en caso afirmativo, recreará los valores de esa sesión. Si al llamar a `session_start()` no existe una *session ID*, se crea una nueva ID y se inicia una sesión nueva.
 

@@ -409,7 +409,7 @@ SELECT * FROM tabla WHERE EXISTS (SELECT ...);
 
 Si la subconsulta retorna un solo valor, se puede considerar como tal, y comparar usando los operadores de igualdad, etc.
 
-### *Joins*
+### Joins
 
 ```sql
 SELECT * FROM usuarios, coches;
@@ -477,7 +477,7 @@ DROP VIEW usu_coches;
 
 Una vista aparece como una tabla más de la BD.
 
-## *PHP* + *MySQL*/*MariaDB*
+## PHP + MySQL/MariaDB
 
 Hay básicamente dos extensiones *PHP* disponibles: *mysqli* (*MySQL improved*) y *PDO_MySQL*. Nos centraremos en la primera.
 
@@ -573,6 +573,6 @@ $row = mysqli_fetch_assoc($result);
 echo $row['id'];
 ```
 
-## *PHP* + *Microsoft SQL Server*
+## PHP + Microsoft SQL Server
 
 Para conectar a bases de datos *SQL Server* tenemos la complejidad adicional de que dependiendo del sistema operativo deberemos utilizar una u otra extensión *PHP*. Para entornos *Windows*, véase la documentación de la extensión *SQLSRV*, y para *Linux*, la extensión *PDO*.

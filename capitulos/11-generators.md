@@ -1,4 +1,4 @@
-# *Generators*
+# Generators
 
 Un generador permite crear un objeto iterador sin tener que crear una clase que implemente la interfaz ***Iterator***.
 

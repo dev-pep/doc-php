@@ -112,7 +112,7 @@ if(Container::getInstance()->exists('nombre-con'))
 
 ## Búsquedas
 
-### *Query builder*
+### Query builder
 
 Es posible realizar consultas al servidor *LDAP* mediante *query builders* (de la clase ***Ldaprecord\Query\Builder***). Es posible obtener un objeto de este tipo a través del método `query()` del objeto conexión. Los métodos que dan forma al *query builder* retornan a su vez un *query builder*, con lo que se pueden ir encadenando. Finalmente, para convertirlo en una colección, se usa el método `get()`. En este caso, la colección será un simple *array*, cuyos elementos serán los registros del servidor *LDAP* (cada registro es a su vez un *array* de campos).
 
@@ -320,7 +320,7 @@ Existen varios métodos para comprobar la igualdad o relación entre dos modelos
 
 Otros métodos: `isDescendantOf()`, `isAncestorOf()`, `isChildOf()`, `isParentOf()`.
 
-### *Accessors* y *mutators*
+### Accessors y mutators
 
 > El mecanismo es casi idéntico al de los *accessors* y *mutators* de *Eloquent ORM*.
 

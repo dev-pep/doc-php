@@ -136,7 +136,7 @@ use function Un\Espacio\Exterior\{fooA, fooB, fooC as theC};
 use const Un\Espacio\Exterior\{A, B as CONSTB, C};
 ```
 
-## *Fallback* a función/constante global
+## Fallback a función/constante global
 
 Las referencias no cualificadas a nombres de clases dentro de un *namespace* se resuelven al *namespace* actual. Si no encuentra ese nombre definido en el espacio actual, no buscará más. En cambio, las referencias *unqualified* de constantes y funciones que no se encuentren definidas en el espacio local, se buscarán en el espacio global.
 

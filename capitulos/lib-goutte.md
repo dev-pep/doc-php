@@ -34,7 +34,7 @@ El cliente es de tipo ***Goutte\Client***, y es en realidad una clase que simple
 
 Los parámetros del constructor (opcionales todos) son, en este orden:
 
-- Un *array* de parámetros del servidor, equivalente a ***\$_SERVER***. Por defecto, *array* vacío.
+- Un *array* de parámetros del servidor, equivalente a ***\$\_SERVER***. Por defecto, *array* vacío.
 - Un objeto historial (***Symfony\Component\BrowserKit\History***). Por defecto ***NULL***.
 - Un objeto *cookie jar* (***Symfony\Component\BrowserKit\CookieJar***). Por defecto ***NULL***.
 
@@ -86,7 +86,7 @@ Para hacer un *submit* de un formulario, se usa el método `submitForm()` del cl
 
 Como segundo argumento podemos indicar un *array* que *overrides* los parámetros a enviar (en el caso de archivos se debe indicar la ruta completa).
 
-El tercer argumento permite indicar el método *HTTP*, mientras el cuarto es un *array* que permite cambiar el valor de los valores ***\$_SERVER***, como por ejemplo el valor de una cabecera.
+El tercer argumento permite indicar el método *HTTP*, mientras el cuarto es un *array* que permite cambiar el valor de los valores ***\$\_SERVER***, como por ejemplo el valor de una cabecera.
 
 ```php
 $cliente->submitForm('Log in', ['login' => 'my_user', 'password' => 'my_pass'],
@@ -104,7 +104,7 @@ $form['password'] = 'my_pass';
 $crawler = $cliente->submit($form);
 ```
 
-## *Cookies*
+## Cookies
 
 Para obtener todas las *cookies* usaremos el método del cliente `getCookieJar()`. El objeto *cookie* posee numerosos métodos para obtener sus datos:
 
