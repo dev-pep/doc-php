@@ -318,6 +318,10 @@ Retorna un *string* con los caracteres en blanco eliminados del principio y el f
 
 Retorna el *string* de entrada con el primer carácter en mayúsculas.
 
+`utf8_encode(string $string): string`
+
+Convierte un *string* de codificación *ISO-8859-1* a *UTF-8*. La codificación *ISO-8859-1*, llamada *Latin 1* es muy similar a la codificación *Windows-1252*, y es utilizada frecuentemente por páginas y servidores *web*.
+
 ## Expresiones regulares
 
 Las expresiones regulares deben ir entre barras: ***/.../***
@@ -715,7 +719,7 @@ Retorna un *string* resultante de convertir ***string*** a una codificación dis
 
 Si hay error, retorna ***false***.
 
-Ejemplos de codificaciones son ***ISO-8859-1*** (europeo occidental *Latin-1*), ***ISO-8859-15*** (europeo occidental *Latin-9*, que añade algunos símbolos como el euro), ***UTF-8***, ***cp1252*** (europeo occidental de *Windows*), etc.
+Ejemplos de codificaciones son ***ISO-8859-1*** (europeo occidental *Latin-1*), ***ISO-8859-15*** (europeo occidental *Latin-9*, que añade algunos símbolos como el euro), ***UTF-8***, ***CP1252*** (europeo occidental de *Windows*, alias de ***Windows-1252***, y muy similar a ***ISO-8859-1***), etc.
 
 ## Varias
 

@@ -28,9 +28,9 @@ Veamos una tabla de operadores, ordenados de mayor a menor precedencia (los oper
 |                | `==` `!=` `===` `!==` `<>` `<=>` |
 | Izquierda      | `&`            |
 | Izquierda      | `^`            |
-| Izquierda      | `\|`           |
+| Izquierda      | `|`           |
 | Izquierda      | `&&`           |
-| Izquierda      | `\|\|`           |
+| Izquierda      | `||`           |
 | Derecha        | `??`           |
 | Izquierda      | `? :`          |
 | Derecha        | `=` `+=` `-=` `*=` `**=` `/=` `.=` `%=` `&=` `|=` `^=` `<<=` `>>=` `??=` |
