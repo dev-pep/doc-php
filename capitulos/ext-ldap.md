@@ -328,7 +328,7 @@ Hay campos que no están indexados para hacer búsquedas. Los servidores estable
 $grupos = ldap_list($ldap, 'OU=Groups,DC=server,DC=com', '(objectClass=group)', ['cn']);
 ```
 
-En este caso, obtendríamos todos los grupos de nuestro directorio. Un nodo del tipo grupo (*group*) contiene un campo que se llama ***member*** (en otros servidores puede llamarse de forma parecida), el cual contiene los *distinguished names* de todos los usuarios que pertenecen a tal grupo. Supongamos que deseamos saber cuáles de estos grupos tienen un usuario llamado ***usuario33***. Podríamos pensar que esto solventa el problema:
+En este caso, obtendríamos todos los grupos de nuestro directorio. Un nodo del tipo grupo (*group*) contiene un campo que se llama ***member*** (en otros servidores puede llamarse de forma parecida), el cual contiene los *distinguished names* de todos los usuarios que pertenecen a tal grupo. Supongamos que deseamos saber cuáles de estos grupos tienen un usuario cuyo nombre de usuario empiece por ***usuariodp08***. Podríamos pensar que esto solventa el problema:
 
 ```php
 $groups = ldap_list($ldap, 'OU=Groups,DC=server,DC=com',
