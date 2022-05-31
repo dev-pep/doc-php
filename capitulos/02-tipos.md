@@ -74,21 +74,27 @@ Una *nowdoc* es a las *single quoted strings* lo que una *heredoc* es a una *dou
 
 ### Parsing de variables
 
+Se aplica solamente a *double quoted strings*, o a las *single quoted*.
+
 #### Sintaxis simple
 
 Es simplemente indicar el nombre de la variable, incluyendo el ***\$*** inicial. El *parser* tomará el nombre a continuación (de forma *greedy*).
 
 ```php
-$juice = "apple";
-echo "I like $juices";    // produce: I like
-echo "I like {$juice}s";    // produce: I like apples
+$juice = 'apple';
+echo "I like $juices";    // produce: I like (no conoce $juices)
+echo "I like ${juice}s";    // produce: I like apples
 ```
 
-Para el contenido de un elemento de un *array* o propiedad de una clase, también funciona la expansión.
+Con la primera forma también se pueden indicar elementos de un *array* o propiedades de un objeto.
+
+La segunda forma se utiliza cuando queremos que el nombre de la variable a expandir no se tome de forma *greedy*. En ese caso, no puede haber espacios entre las llaves y el nombre de la variable, ni entre el signo ***\$*** y la llave de apertura.
 
 #### Sintaxis compleja
 
-Se puede incluir cualquier expresión, variable escalar, propiedad o elemento de *array*, entre llaves ***\{...}***. Si el único contenido de las llaves es una variable, el ***\$*** puede ir justo antes de la llave de apertura, y el nombre de la variable debe ir dentro de las llaves sin tener espacios a los lados.
+Se puede incluir cualquier variable escalar, propiedad o elemento de *array*, entre llaves ***\{...}***.
+
+Tanto en la sintaxis simple como compleja, el valor de estas referencias debe tener una representación *string*.
 
 Para conseguir ***\{\\\$***, hay que escribir ***\{\\\\\$***.
 
