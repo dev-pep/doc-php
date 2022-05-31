@@ -74,7 +74,7 @@ Una *nowdoc* es a las *single quoted strings* lo que una *heredoc* es a una *dou
 
 ### Parsing de variables
 
-Se aplica solamente a *double quoted strings*, o a las *single quoted*.
+Se aplica solamente a *double quoted strings*, no a las *single quoted*.
 
 #### Sintaxis simple
 
