@@ -81,14 +81,16 @@ Es simplemente indicar el nombre de la variable, incluyendo el ***\$*** inicial.
 ```php
 $juice = "apple";
 echo "I like $juices";    // produce: I like
-echo "I like ${juice}s";    // produce: I like apples
+echo "I like {$juice}s";    // produce: I like apples
 ```
 
 Para el contenido de un elemento de un *array* o propiedad de una clase, también funciona la expansión.
 
 #### Sintaxis compleja
 
-Se puede incluir cualquier variable escalar, propiedad o elemento de *array* (que tenga representación *string*), entre llaves ***\{...}***. El ***\$*** debe ir inmediatamente después de la llave de apertura. Para conseguir ***\{\\\$***, hay que escribir ***\{\\\\\$***.
+Se puede incluir cualquier expresión, variable escalar, propiedad o elemento de *array*, entre llaves ***\{...}***. Si el único contenido de las llaves es una variable, el ***\$*** puede ir justo antes de la llave de apertura, y el nombre de la variable debe ir dentro de las llaves sin tener espacios a los lados.
+
+Para conseguir ***\{\\\$***, hay que escribir ***\{\\\\\$***.
 
 Para elementos de un *array* con clave no numérica, solo se puede usar la sintaxis compleja.
 
