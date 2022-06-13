@@ -15,7 +15,7 @@ La librería se instala en ***vendor/knplabs/knp-menu***. Nuestra aplicación de
 require __DIR__ . '/vendor/autoload.php';
 ```
 
-El *namespace* base del paquete es ***Knp\Menu***, y se corresponde con el directorio ***vendor/knplabs/knp-menu/src/Knp/Menu***.
+El *namespace* base del paquete es ***Knp\\Menu***, y se corresponde con el directorio ***vendor/knplabs/knp-menu/src/Knp/Menu***.
 
 ## Bases
 
@@ -36,19 +36,19 @@ $renderer = new ListRenderer(new Matcher());
 echo $renderer->render($menu);
 ```
 
-En primer lugar creamos una instancia de una factoría ***Knp\Menu\MenuFactory*** (***\$factory***) que nos servirá para crear los menús. Al invocar el método `createItem()` de esta factoría, pasándole un nombre para nuestro menú, obtenemos una instancia del nuevo menú (***\$menu***).
+En primer lugar creamos una instancia de una factoría ***Knp\\Menu\\MenuFactory*** (***\$factory***) que nos servirá para crear los menús. Al invocar el método `createItem()` de esta factoría, pasándole un nombre para nuestro menú, obtenemos una instancia del nuevo menú (***\$menu***).
 
-Para añadir elementos a nuestro menú usaremos su método `addChild()`, al que le pasaremos, por un lado, un nombre, y por otro u *array* de opciones:
+Para añadir elementos a nuestro menú usaremos su método `addChild()`, al que le pasaremos, por un lado, un nombre, y por otro un *array* de opciones:
 
 - ***uri***: indicará la *URI* de destino. También se puede indicar una *URL*. Si no se indica, la opción de menú será un simple texto sin enlace.
 - ***label***: texto del elemento (si no existe, usará su nombre).
 - ***attributes***: *array* con los atributos deseados para la entrada de menú. Si el menú se renderiza como una lista, definirá los atributos *HTML* de la etiqueta `<li>`.
 
-Una vez configurada la instancia del menú deseado, se debe renderizar. Esto se hace mediante una instancia del renderizador que deseemos (en el ejemplo, ***Knp\Menu\Renderer\ListRenderer***, que es el habitual). Este renderizador necesita recibir una instancia de un objeto *matcher*, que se usa para tener constancia de cuál es el elemento actual (*current*) del menú (se verá más adelante).
+Una vez configurada la instancia del menú deseado, se debe renderizar. Esto se hace mediante una instancia del renderizador que deseemos (en el ejemplo, ***Knp\\Menu\\Renderer\\ListRenderer***, que es el habitual). Este renderizador necesita recibir una instancia de un objeto *matcher*, que se usa para tener constancia de cuál es el elemento actual (*current*) del menú (se verá más adelante).
 
 Usando el mencionado renderizador, el ejemplo anterior produce una etiqueta `<ul>` en la que anida tres etiquetas `<li>`, con sus correspondientes textos y enlaces. Los elementos `<li>` pueden anidarse. En cada nivel, el primer y último elemento obtendrán automáticamente la clase ***first*** y ***last*** respectivamente. El elemento de menú correspondiente a la página actual recibirá, además, la clase ***current***, mientras que sus *ancestors* recibirán la clase ***current_ancestor***.
 
-El renderizado se realizará en un código *HTML* debidamente espaciado e identado para facilitar su inspección y depuración. Si no nos interesa tal formato, se puede pasar como segundo parámetro al constructor del renderizador un *array* que contenga la clave ***compressed*** puesta a ***true***:
+El renderizado se realizará en un código *HTML* debidamente espaciado e indentado para facilitar su inspección y depuración. Si no nos interesa tal formato, se puede pasar como segundo parámetro al constructor del renderizador un *array* que contenga la clave ***compressed*** puesta a ***true***:
 
 ```php
 $renderer = new ListRenderer(new Matcher, ['compressed' => true]);
@@ -60,7 +60,7 @@ Cada vez que se utilice este renderizador, se producirá un menú con *HTML* con
 echo $renderer->render($menu, ['compressed' => true]);
 ```
 
-Para desarrollar un renderizador, se puede extender la clase ***ListRenderer***, o hacer un renderizador nuevo que implemente la interfaz ***Knp\Menu\Renderer\RendererInterface*** (se puede extender también el renderizador genérico ***Knp\Menu\Renderer\Renderer***).
+Para desarrollar un renderizador, se puede extender la clase ***ListRenderer***, o hacer un renderizador nuevo que implemente la interfaz ***Knp\\Menu\\Renderer\\RendererInterface*** (se puede extender también el renderizador genérico ***Knp\\Menu\\Renderer\\Renderer***).
 
 ## Árbol de menús
 
@@ -123,7 +123,7 @@ $menu['Home']->setDisplayChildren(false);
 
 Normalmente, el elemento de menú correspondiente a la página actual deberá aparecer de forma distinta. Para ello, se utiliza un objeto *matcher*, que si encuentra coincidencia entre la página y el elemento `<li>` lo marcará con la clase ***current***. Por otro lado también marcará a los elementos `<li>` *ancestors* del actual con la clase ***current_ancestor***.
 
-Al renderizador hay que indicarle cómo debe hacer el *match* entre la página actual y los elementos de menú. Para ello se le pasará, al construirse, una instancia de un objeto ***Knp\Menu\Matcher\Matcher*** que tiene esa información. Este *matcher* decidirá en base a los objetos *voter* que tenga registrados. El *voter* más usual es el que comprueba simplemente a base de la *URI* actual: ***Knp\Menu\Matcher\Voter\UriVoter***.
+Al renderizador hay que indicarle cómo debe hacer el *match* entre la página actual y los elementos de menú. Para ello se le pasará, al construirse, una instancia de un objeto ***Knp\\Menu\\Matcher\\Matcher*** que tiene esa información. Este *matcher* decidirá en base a los objetos *voter* que tenga registrados. El *voter* más usual es el que comprueba simplemente a base de la *URI* actual: ***Knp\\Menu\\Matcher\\Voter\\UriVoter***.
 
 Primero hay que construir ese *voter*, pasándole el *string* que deberá comparar con los campos *URI* de los distintos elementos del menú. Luego hay que añadir ese *voter* al objeto *matcher*, al que se le pueden añadir otros *voters*, que pueden comparar con una expresión regular (***RegexVoter***), un nombre de ruta (***RouteVoter***), o un *voter* creado por nosotros. Para añadirle el *voter* se usa el método `addVoter()`:
 
@@ -137,15 +137,15 @@ $matcher->addVoter(new UriVoter($_SERVER['REQUEST_URI']));
 $renderer = new ListRenderer($matcher);
 ```
 
-Para crear un *voter* debemos crear una clase que implemente la interfaz ***Knp\Menu\Matcher\Voter\VoterInterface***. Además podemos crear nuestro propio *matcher* (debe implementar ***Knp\Menu\Matcher\MatcherInterface***).
+Para crear un *voter* debemos crear una clase que implemente la interfaz ***Knp\\Menu\\Matcher\\Voter\\VoterInterface***. Además podemos crear nuestro propio *matcher* (debe implementar ***Knp\\Menu\\Matcher\\MatcherInterface***).
 
 ## Iteradores
 
 Para iterar sobre todos los elementos del menú, podemos hacerlo teniendo en cuenta que se trata de una estructura de árbol. Para facilitar el trabajo, podemos recorrer el árbol usando iteradores.
 
-En primer lugar, el iterador ***Knp\Menu\Iterator\RecursiveItemIterator***, al pasarle un objeto menú genera un iterador que va retornando cada uno de los submenús principales, es decir, los hijos del objeto menú.
+En primer lugar, el iterador ***Knp\\Menu\\Iterator\\RecursiveItemIterator***, al pasarle un objeto menú genera un iterador que va retornando cada uno de los submenús principales, es decir, los hijos del objeto menú.
 
-Para obtener otro iterador que recorra cada uno de los elementos de estos submenús, hay que envolver *wrap* el anterior iterador en el iterador *PHP* ***RecursiveIteratorIterator***:
+Para obtener otro iterador que recorra cada uno de los elementos de estos submenús, hay que envolver (*wrap*) el anterior iterador en el iterador *PHP* ***RecursiveIteratorIterator***:
 
 ```php
 $itemIterator = new \Knp\Menu\Iterator\RecursiveItemIterator($menu);
