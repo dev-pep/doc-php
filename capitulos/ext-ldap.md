@@ -18,7 +18,7 @@ Lo primero es crear la conexión:
 $ldap = ldap_connect($url);
 ```
 
-La función `ldap_connect()` recibe la dirección del servidor como único parámetro. Esta será del tipo ***ldap://hostname:puerto***, o ***ldaps://hostname:puerto***. La función no conecta en realidad, sino que simplemente comprueba que la sintaxis de la *URL* es correcta, e inicializa los parámetros de conexión. Si falla, retornará ***false***. Si tiene éxito (sintaxis correcta) retornará un objeto de tipo ***LDAP\Connection***.
+La función `ldap_connect()` recibe la dirección del servidor como único parámetro. Esta será del tipo ***ldap://hostname:puerto***, o ***ldaps://hostname:puerto***. La función no conecta en realidad, sino que simplemente comprueba que la sintaxis de la *URL* es correcta, e inicializa los parámetros de conexión. Si falla, retornará ***false***. Si tiene éxito (sintaxis correcta) retornará un objeto de tipo ***LDAP\\Connection***.
 
 El *string* puede consistir en varias *URLs* separadas por espacio.
 
@@ -52,11 +52,11 @@ Solo los tres primeros argumentos son obligatorios:
 - ***\$base*** es el *DN* base utilizado, es decir, el subárbol donde se realizará la búsqueda.
 - ***\$filter*** indica un filtro con formato *ldap* para los resultados.
 - ***\$attributes*** es un *array* que indica los atributos que deseamos que se retornen. El *dn* es siempre retornado. Si no se indica este argumento, se retornan **todos** los atributos de cada coincidencia, lo cual se desaconseja, pues ralentiza mucho la operación.
-- ***\$attributes_only***: si se establece en 1, solo se retornan los tipos de atributo, no sus valores. Por defecto es 0 (retorna valores).
+- ***\$attributes\_only***: si se establece en 1, solo se retornan los tipos de atributo, no sus valores. Por defecto es 0 (retorna valores).
 - ***\$sizelimit*** indica el número máximo de entradas devueltas. Un número inferior a 1 significa sin límite, aunque nunca se retornarán más elementos que el máximo definido en el servidor.
 - ***\$timelimit*** indica el máximo número de segundos que debe tomar la búsqueda. Un número inferior a 1 significa sin límite, aunque nunca tardará más que el máximo definido en el servidor.
 
-La función retorna un objeto del tipo ***LDAP\Result*** (o ***false*** si hay error).
+La función retorna un objeto del tipo ***LDAP\\Result*** (o ***false*** si hay error).
 
 Ejemplo:
 
@@ -239,7 +239,7 @@ En este caso, la organización del *array* retornado es la siguiente:
 
 Los *strings* utilizados como índice se escriben **siempre en minúsculas**.
 
-Por otro lado, la función `ldap_first_entry()`, con los mismos argumentos, retorna un solo elemento (o ***false*** si hay error), del tipo ***\LDAP\ResultEntry***. Seguidamente se puede ir usando la función `ldap_next_entry()`, a la que se le pasará el objeto conexión, y el elemento anterior, retornado por `ldap_first_entry()` o por `ldap_next_entry` (irá retornando la siguiente entrada de la búsqueda); cuando se ha llegado al final, retornará ***false***.
+Por otro lado, la función `ldap_first_entry()`, con los mismos argumentos, retorna un solo elemento (o ***false*** si hay error), del tipo ***LDAP\\ResultEntry***. Seguidamente se puede ir usando la función `ldap_next_entry()`, a la que se le pasará el objeto conexión, y el elemento anterior, retornado por `ldap_first_entry()` o por `ldap_next_entry` (irá retornando la siguiente entrada de la búsqueda); cuando se ha llegado al final, retornará ***false***.
 
 La función `ldap_get_attributes()` recibe como primer argumento el objeto conexión, y como segundo argumento un elemento de una búsqueda (un objeto retornado por `ldap_first_entry()` o `ldap_next_entry()`).
 
@@ -328,7 +328,7 @@ Hay campos que no están indexados para hacer búsquedas. Los servidores estable
 $grupos = ldap_list($ldap, 'OU=Groups,DC=server,DC=com', '(objectClass=group)', ['cn']);
 ```
 
-En este caso, obtendríamos todos los grupos de nuestro directorio. Un nodo del tipo grupo (*group*) contiene un campo que se llama ***member*** (en otros servidores puede llamarse de forma parecida), el cual contiene los *distinguished names* de todos los usuarios que pertenecen a tal grupo. Supongamos que deseamos saber cuáles de estos grupos tienen un usuario cuyo nombre de usuario empiece por ***usuariodp08***. Podríamos pensar que esto solventa el problema:
+En este caso, obtendríamos todos los grupos de nuestro directorio. Un nodo del tipo grupo (*group*) contiene un campo que se llama ***member*** (en otros servidores puede llamarse de forma parecida), el cual contiene los *distinguished names* de todos los usuarios que pertenecen a tal grupo. Supongamos que deseamos saber cuáles de estos grupos tienen un usuario cuyo nombre de usuario empiece por ***userdp08***. Podríamos pensar que esto solventa el problema:
 
 ```php
 $groups = ldap_list($ldap, 'OU=Groups,DC=server,DC=com',

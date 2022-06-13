@@ -20,11 +20,11 @@ El *namespace* base del paquete es ***Monolog***, y se corresponde con el direct
 
 ## Uso
 
-Cada instancia de ***Monolog\Logger*** contiene un canal (nombre) y una pila de *handlers*. Cada entrada enviada al *logger* debe atravesar la pila (de arriba hacia abajo). Un *handler* puede decidir, a parte de escribir el mensaje o no, propagar la entrada al siguiente *handlers* o no. Si un *handler* tiene la propiedad ***$bubble*** en ***false***, no propagará el mensaje. Los *handlers* disponibles se encuentran en ***Monolog\Handler***.
+Cada instancia de ***Monolog\\Logger*** contiene un canal (nombre) y una pila de *handlers*. Cada entrada enviada al *logger* debe atravesar la pila (de arriba hacia abajo). Un *handler* puede decidir, a parte de escribir el mensaje o no, propagar la entrada al siguiente *handlers* o no. Si un *handler* tiene la propiedad ***$bubble*** en ***false***, no propagará el mensaje. Los *handlers* disponibles se encuentran en ***Monolog\\Handler***.
 
 Los *handlers* se pueden compartir entre varios *loggers*.
 
-Cada *handler* dispone de un *formatter* que da forma al mensaje. Si no se define, tendrá un *default formatter*.  Los *formatters* disponibles se encuentran en ***Monolog\Formatter***.
+Cada *handler* dispone de un *formatter* que da forma al mensaje. Si no se define, tendrá un *default formatter*.  Los *formatters* disponibles se encuentran en ***Monolog\\Formatter***.
 
 ### Niveles de *log*
 
@@ -89,7 +89,7 @@ $logger->pushHandler($handler);
 
 En ese caso el *processor* en cuestión solo tendrá efecto en la ejecución del *handler* en el que está registrado (es posible también registrar una pila de *processors* en un *handler*). En todo caso, los *processors* del *logger* se procesan **antes** que los del *handler*.
 
-*Monolog* proporciona una serie de *built-in processors* en ***Monolog\Processor***.
+*Monolog* proporciona una serie de *built-in processors* en ***Monolog\\Processor***.
 
 ### Formato de los registros
 
@@ -118,7 +118,7 @@ En el ejemplo pueden verse los nombres de los campos, y cómo especificarlos:
 
 - ***datetime*** es la fecha/hora del registro.
 - ***channel*** es el nombre del canal. Útil en el caso de que varios *loggers* compartan un *handler*.
-- ***level*** y ***level_name*** son el número y el nombre del nivel de *log* del registro, respectivamente.
+- ***level*** y ***level\_name*** son el número y el nombre del nivel de *log* del registro, respectivamente.
 - ***message*** es el mensaje en sí que registramos.
 - ***context*** y ***extra*** son los *arrays* de datos adicionales vistos anteriormente.
 

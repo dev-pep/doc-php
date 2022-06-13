@@ -20,7 +20,7 @@ El *namespace* base del paquete es ***LdapRecord***, y se corresponde con el dir
 
 ## Configuración
 
-Lo primero que hay que hacer es configurar la conexión con el servidor *LDAP*. Para ello debemos crear un objeto de la clase ***LdapRecord\Connection***, al que pasaremos un *array* con los siguientes campos:
+Lo primero que hay que hacer es configurar la conexión con el servidor *LDAP*. Para ello debemos crear un objeto de la clase ***LdapRecord\\Connection***, al que pasaremos un *array* con los siguientes campos:
 
 - ***hosts***: *array* con 1 o más servidores (IP o nombre), separados por comas. El primero es el principal.
 - ***base_dn***: *distinguished name* (*DN*) base. Las búsquedas se harán usando ese nombre como raíz de la búsqueda. Si solo deseamos usar el servidor *LDAP* para autenticación, este valor no es necesario.
@@ -53,7 +53,7 @@ $conexion = new Connect([
 $conexion->connect();
 ```
 
-El método `connect()` levantará una excepción ***LdapRecord\Auth\BindException*** en caso de error.
+El método `connect()` levantará una excepción ***LdapRecord\\Auth\\BindException*** en caso de error.
 
 En ocasiones, si tenemos problemas con la autenticación relacionados con el certificado, se puede solucionar editando el archivo de configuración de *LDAP* en el servidor *web* llamado ***ldap.conf*** (en *Linux* suele estar en ***/etc/ldap/***). Si no existe habrá que crearlo. En todo caso, se puede añadir la línea:
 
@@ -79,7 +79,7 @@ if ($conexion->auth()->attempt($user, $password))
     echo "Correcto!";
 ```
 
-El método `auth()` retorna un objeto de tipo ***Ldaprecord\Auth\Guard***.
+El método `auth()` retorna un objeto de tipo ***Ldaprecord\\Auth\\Guard***.
 
 Si ***\$user*** es un *DN*, será un *string* del tipo ***cn=user,dc=tesla,dc=com***. En cuanto a ***\$password***, es el *password* de ese usuario (en claro).
 
@@ -87,7 +87,7 @@ Una vez se ha realizado la autenticación, la conexión se vuelve a *bind* al us
 
 ### Contenedor de conexiones
 
-Las conexiones se pueden añadir a un contenedor (de la clase ***Ldaprecord\Container***), mediante el método estático `addConnection()`, al que se le pasa el objeto conexión. Si este no se ha conectado todavía al servidor (mediante el método `connect()`, por ejemplo), se conectará automáticamente cuando invoquemos cualquier operación con el servidor *LDAP*.
+Las conexiones se pueden añadir a un contenedor (de la clase ***Ldaprecord\\Container***), mediante el método estático `addConnection()`, al que se le pasa el objeto conexión. Si este no se ha conectado todavía al servidor (mediante el método `connect()`, por ejemplo), se conectará automáticamente cuando invoquemos cualquier operación con el servidor *LDAP*.
 
 Al añadir la conexión al contenedor, debemos especificar un nombre como segundo argumento, de tal manera que sea fácil extraerlas del contenedor. Si no se especifica nombre, se añadirá con el nombre ***default***. Si un nombre ya existe, se sobrescribirá la conexión.
 
@@ -114,11 +114,11 @@ if(Container::getInstance()->exists('nombre-con'))
 
 ### Query builder
 
-Es posible realizar consultas al servidor *LDAP* mediante *query builders* (de la clase ***Ldaprecord\Query\Builder***). Es posible obtener un objeto de este tipo a través del método `query()` del objeto conexión. Los métodos que dan forma al *query builder* retornan a su vez un *query builder*, con lo que se pueden ir encadenando. Finalmente, para convertirlo en una colección, se usa el método `get()`. En este caso, la colección será un simple *array*, cuyos elementos serán los registros del servidor *LDAP* (cada registro es a su vez un *array* de campos).
+Es posible realizar consultas al servidor *LDAP* mediante *query builders* (de la clase ***Ldaprecord\\Query\\Builder***). Es posible obtener un objeto de este tipo a través del método `query()` del objeto conexión. Los métodos que dan forma al *query builder* retornan a su vez un *query builder*, con lo que se pueden ir encadenando. Finalmente, para convertirlo en una colección, se usa el método `get()`. En este caso, la colección será un simple *array*, cuyos elementos serán los registros del servidor *LDAP* (cada registro es a su vez un *array* de campos).
 
 El método `select()` selecciona los campos que se retornarán. Se le debe pasar un *array* con los nombres de los campos, o una cantidad arbitraria de argumentos, con los nombres deseados.
 
-El método `find()` retorna un solo registro (si lo encuentra), o ***null***. Este registro es un *array* con los campos del registro. Para ello, hay que pasarle al método el *DN* deseado. Si queremos que levante una excepción (***Ldaprecord\Models\ModelNotFoundException***) en caso de no encontrar el registro, usaremos `findOrFail()`.
+El método `find()` retorna un solo registro (si lo encuentra), o ***null***. Este registro es un *array* con los campos del registro. Para ello, hay que pasarle al método el *DN* deseado. Si queremos que levante una excepción (***Ldaprecord\\Models\\ModelNotFoundException***) en caso de no encontrar el registro, usaremos `findOrFail()`.
 
 Si deseamos buscar por un atributo distinto al *DN*, usaremos `findBy()`, cuyo primer argumento será el nombre del campo deseado, y el segundo el valor a buscar.
 
@@ -205,7 +205,7 @@ Entre los numerosos métodos disponibles para los *query builders* podemos desta
 
 ### Definición de modelos
 
-Los modelos *ORM* de *LdapRecord* extienden la clase ***Ldaprecord\Models\Model***. Los modelos correspondientes a Directorio Activo están en el *namespace* ***Ldaprecord\Models\ActiveDirectory***. El modelo ***Entry*** sirve para obtener todo tipo de entradas del directorio. Otros modelos sirven para obtener un tipo concreto de entrada: ***User***, ***Group***, ***Computer***, ***OrganizationalUnit***, ***Printer***, etc. Los modelos para *OpenLDAP* están en el *namespace* ***LdapRecord\Models\OpenLDAP***, etc.
+Los modelos *ORM* de *LdapRecord* extienden la clase ***Ldaprecord\\Models\\Model***. Los modelos correspondientes a Directorio Activo están en el *namespace* ***Ldaprecord\\Models\\ActiveDirectory***. El modelo ***Entry*** sirve para obtener todo tipo de entradas del directorio. Otros modelos sirven para obtener un tipo concreto de entrada: ***User***, ***Group***, ***Computer***, ***OrganizationalUnit***, ***Printer***, etc. Los modelos para *OpenLDAP* están en el *namespace* ***LdapRecord\\Models\\OpenLDAP***, etc.
 
 Por defecto, los modelos intentan usar la conexión por defecto del contenedor. Si se desea que no sea así, el modelo debe definir una propiedad `protected` ***\$connection*** con el nombre de la conexión deseada.
 
@@ -228,7 +228,7 @@ use Ldaprecord\Models\ActiveDirectory\User;
 $registros = User::get();
 ```
 
-Podemos utilizar como método inicial uno de los definidos para *query builders*, con lo que lo podremos ir refinando, igual que si de un *query builder* se tratara. En este caso, se trata de un objeto del tipo ***Ldaprecord\Query\Model\ActiveDirectoryBuilder***. Al final de la cadena, `get()` retornará los registros en una colección del tipo ***Ldaprecord\Models\Collection***.
+Podemos utilizar como método inicial uno de los definidos para *query builders*, con lo que lo podremos ir refinando, igual que si de un *query builder* se tratara. En este caso, se trata de un objeto del tipo ***Ldaprecord\\Query\\Model\\ActiveDirectoryBuilder***. Al final de la cadena, `get()` retornará los registros en una colección del tipo ***Ldaprecord\\Models\\Collection***.
 
 A parte de las restricciones habituales de los *query builders*, estos modelos disponen de restricciones específicas de los directorios *LDAP*: `ancestors()`, `siblings()` y `descendants()`.
 
@@ -242,7 +242,7 @@ Algunos métodos que retornan un único modelo (no un *query builder* ni un cole
 - Búsqueda por *DN*: `find($distinguishedName)`
 - Búsqueda por cualquier atributo: `findBy($attributeName, $attributeValue)`
 
-Si queremos que se levente excepción al no encontrar una coincidencia (***Ldaprecord\Models\ModelNotFoundException***), usaremos los métodos correspondientes: `firstOrFail()`, `findOrFail()`, `findByOrFail()`.
+Si queremos que se levente excepción al no encontrar una coincidencia (***Ldaprecord\\Models\\ModelNotFoundException***), usaremos los métodos correspondientes: `firstOrFail()`, `findOrFail()`, `findByOrFail()`.
 
 ### Creación y actualización de modelos
 

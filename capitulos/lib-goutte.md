@@ -30,15 +30,15 @@ use Goutte\Client;
 $cliente = new Client();
 ```
 
-El cliente es de tipo ***Goutte\Client***, y es en realidad una clase que simplemente extiende ***Symfony\Component\BrowserKit\HttpBrowser***, sin añadirle nada más. En versiones antiguas, sin embargo, era una extensión de otro cliente (*Guzzle*). De todas formas, es posible usar cualquiera de los dos clientes, ya que la mayor parte de la funcionalidad es compatible.
+El cliente es de tipo ***Goutte\\Client***, y es en realidad una clase que simplemente extiende ***Symfony\\Component\\BrowserKit\\HttpBrowser***, sin añadirle nada más. En versiones antiguas, sin embargo, era una extensión de otro cliente (*Guzzle*). De todas formas, es posible usar cualquiera de los dos clientes, ya que la mayor parte de la funcionalidad es compatible.
 
 Los parámetros del constructor (opcionales todos) son, en este orden:
 
 - Un *array* de parámetros del servidor, equivalente a ***\$\_SERVER***. Por defecto, *array* vacío.
-- Un objeto historial (***Symfony\Component\BrowserKit\History***). Por defecto ***NULL***.
-- Un objeto *cookie jar* (***Symfony\Component\BrowserKit\CookieJar***). Por defecto ***NULL***.
+- Un objeto historial (***Symfony\\Component\\BrowserKit\\History***). Por defecto ***NULL***.
+- Un objeto *cookie jar* (***Symfony\\Component\\BrowserKit\\CookieJar***). Por defecto ***NULL***.
 
-Una vez tenemos el cliente, podemos hacer una petición mediante un método como `request()`. Este método cambiará el estado del cliente (cambia la página que mostraría el navegador) y retorna un objeto *crawler* (***Symfony\Component\DomCrawler\Crawler***), que es la respuesta recibida, de la que podremos extraer información posteriormente:
+Una vez tenemos el cliente, podemos hacer una petición mediante un método como `request()`. Este método cambiará el estado del cliente (cambia la página que mostraría el navegador) y retorna un objeto *crawler* (***Symfony\\Component\\DomCrawler\\Crawler***), que es la respuesta recibida, de la que podremos extraer información posteriormente:
 
 ```php
 $crawler = $cliente->request('GET', 'https://google.es');
@@ -135,7 +135,7 @@ El argumento a `allValues()` es el nombre del *host*, es decir, el método retor
 
 Entonces ya podemos acceder a los valores de las *cookies* mediante `$valores['nombre_cookie']`.
 
-Para crear *cookies* podemos trabajar con objetos de la clase ***Cookie*** y ***CookieJar***, ambos pertenecientes al *namespace* ***Symfony\Component\BrowserKit***.
+Para crear *cookies* podemos trabajar con objetos de la clase ***Cookie*** y ***CookieJar***, ambos pertenecientes al *namespace* ***Symfony\\Component\\BrowserKit***.
 
 ```php
 use Goutte\Client;
@@ -174,7 +174,7 @@ Para eliminar el historial (y las *cookies* también), el cliente dispone del m�
 
 ## El objeto *crawler*
 
-El objeto *crawler* (***Symfony\Component\DomCrawler\Crawler***) contiene un objeto construido a partir de la respuesta recibida del servidor (normalmente, el archivo *HTML* recibido). Se puede crear un *crawler* pasándole simplemente un *string* con dicho código *HTML*:
+El objeto *crawler* (***Symfony\\Component\\DomCrawler\\Crawler***) contiene un objeto construido a partir de la respuesta recibida del servidor (normalmente, el archivo *HTML* recibido). Se puede crear un *crawler* pasándole simplemente un *string* con dicho código *HTML*:
 
 ```php
 use Symfony\Component\DomCrawler\Crawler;
@@ -182,7 +182,7 @@ use Symfony\Component\DomCrawler\Crawler;
 $crawler = new Crawler($html);
 ```
 
-El *crawler* se compone de elementos *DOM* (de tipo estándar de *PHP* ***\DOMElement***), y se puede acceder a ellos mediante una sentencia `foreach` (no se puede tratar como un *array*):
+El *crawler* se compone de elementos *DOM* (de tipo estándar de *PHP* ***\\DOMElement***), y se puede acceder a ellos mediante una sentencia `foreach` (no se puede tratar como un *array*):
 
 ```php
 foreach($crawler as $domElement) {
@@ -315,7 +315,7 @@ Estos métodos reciben un *string* con el contenido deseado. `addHtmlContent()` 
 
 Para seleccionar un enlace, puede hacerse mediante filtros, o usando el método `selectLink()`, que permite seleccionar usando el contenido del enlace (se le pasa dicho contenido en un *string* como argumento).
 
-Una vez el *crawler* contiene como primer elemento el enlace deseado, podemos obtener el objeto enlace (***Symfony\Component\DomCrawler\Link***) mediante el método `link()`:
+Una vez el *crawler* contiene como primer elemento el enlace deseado, podemos obtener el objeto enlace (***Symfony\\Component\\DomCrawler\\Link***) mediante el método `link()`:
 
 ```php
 $crawler = $crawler->selectLink('Aceptar');
@@ -342,7 +342,7 @@ Si obtenemos el *crawler* a través de una *request* al cliente, ya se realiza c
 
 Es posible seleccionar imágenes a través de su atributo ***alt***, mediante el método del *crawler* `selectImage()`, a la que se le pasa el texto de dicho atributo como primer argumento.
 
-Una vez el *crawler* tiene como primer elemento el nodo correspondiente a la imagen deseada, podemos obtener el objeto imagen (***Symfony\Component\DomCrawler\Image***) correspondiente mediante el método `image()`:
+Una vez el *crawler* tiene como primer elemento el nodo correspondiente a la imagen deseada, podemos obtener el objeto imagen (***Symfony\\Component\\DomCrawler\\Image***) correspondiente mediante el método `image()`:
 
 ```php
 $crawler = $crawler->selectImage('Un gatito');
@@ -355,7 +355,7 @@ Un objeto imagen dispone también de métod `getUri()`.
 
 El método `selectButton()` del *crawler* busca elementos de tipo `<button>`, `<input type="submit">`, `<input type="button">`, o elementos `<img>` dentro de estos. El argumento que se le pasa al método se compara con los atributos ***id***, ***alt***, ***name***, y ***value*** de estos elementos, así como el texto que puedan contener.
 
-Una vez tenemos uno de estos elementos como primer elemento de la selección, el método `form()` retorna el objeto formulario (***Symfony\Component\DomCrawler\Form***) que contiene ese elemento. Este objeto formulario tiene varios métodos útiles para obtener información, de los que destacamos:
+Una vez tenemos uno de estos elementos como primer elemento de la selección, el método `form()` retorna el objeto formulario (***Symfony\\Component\\DomCrawler\\Form***) que contiene ese elemento. Este objeto formulario tiene varios métodos útiles para obtener información, de los que destacamos:
 
 - `getFormNode()` retorna el elemento *DOM* (objeto ***\\DOMElement***) asociado al formulario.
 - `getName()` retorna el nombre del formulario, si está definido (si no, retorna un *string* vacío).
@@ -473,7 +473,7 @@ $form['country']->select('Invalid value');
 
 ## Resolución de *URIs*
 
-La clase ***Symfony\Component\DomCrawler\UriResolver*** es una clase *helper* que toma una *URI* (relativa, absoluta, fragmento, etc.) y la convierte en una *URL* absoluta contra una *URL* base:
+La clase ***Symfony\\Component\\DomCrawler\\UriResolver*** es una clase *helper* que toma una *URI* (relativa, absoluta, fragmento, etc.) y la convierte en una *URL* absoluta contra una *URL* base:
 
 ```php
 use Symfony\Component\DomCrawler\UriResolver;
