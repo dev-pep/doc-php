@@ -125,15 +125,14 @@ Normalmente, el elemento de menú correspondiente a la página actual deberá ap
 
 Al renderizador hay que indicarle cómo debe hacer el *match* entre la página actual y los elementos de menú. Para ello se le pasará, al construirse, una instancia de un objeto ***Knp\\Menu\\Matcher\\Matcher*** que tiene esa información. Este *matcher* decidirá en base a los objetos *voter* que tenga registrados. El *voter* más usual es el que comprueba simplemente a base de la *URI* actual: ***Knp\\Menu\\Matcher\\Voter\\UriVoter***.
 
-Primero hay que construir ese *voter*, pasándole el *string* que deberá comparar con los campos *URI* de los distintos elementos del menú. Luego hay que añadir ese *voter* al objeto *matcher*, al que se le pueden añadir otros *voters*, que pueden comparar con una expresión regular (***RegexVoter***), un nombre de ruta (***RouteVoter***), o un *voter* creado por nosotros. Para añadirle el *voter* se usa el método `addVoter()`:
+Primero hay que construir ese *voter*, pasándole el *string* que deberá comparar con los campos *URI* de los distintos elementos del menú. Luego hay que asociar ese *voter* al objeto *matcher*. Existen *voters* para comparar también con una expresión regular (***RegexVoter***) o un nombre de ruta (***RouteVoter***). También podemos crear un *voter* nosotros mismos. Para especificar un *voter*, hay que pasar una instancia del mismo al constructor del *matcher*:
 
 ```php
 use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\Matcher\Voter\UriVoter;
 use Knp\Menu\Renderer\ListRenderer;
 
-$matcher = new Matcher();
-$matcher->addVoter(new UriVoter($_SERVER['REQUEST_URI']));
+$matcher = new Matcher(new UriVoter($_SERVER['REQUEST_URI']));
 $renderer = new ListRenderer($matcher);
 ```
 
