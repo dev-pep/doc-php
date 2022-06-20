@@ -234,6 +234,11 @@ Adicionalmente se puede definir la codificación del *string* en ***encoding***:
 
 Si ***double_encode*** es ***false***, las entidades *HTML* ya existentes no se recodificarán.
 
+`htmlspecialchars_decode(string $string,
+    int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401): string`
+
+Es el inverso de `htmlspecialchars()`.
+
 `implode(string $separator, array $array): string`
 
 Retorna un *string* con la concatenación de los *strings* de ***array***, intercalados con ***separator*** (por defecto *string* vacío si solo se pasa un argumento).
