@@ -2,7 +2,7 @@
 
 Gracias por leer estos apuntes sobre el lenguaje de programación *PHP* 8.
 
-La intención del presente texto es dar una explicación exhaustiva de los detalles más relevantes de este lenguaje. No se trata de un tutorial o de una guía paso a paso, sino más bien de un **resumen completo**, extraído de la documentación oficial. Se han añadido aclaraciones y ampliaciones relevantes donde se ha estimado necesario.
+La intención del presente texto es dar una explicación exhaustiva de los detalles más relevantes de este lenguaje. No se trata de un tutorial o de una guía paso a paso, sino más bien de un **resumen completo**, extraído de la documentación oficial. Se han añadido aclaraciones y ampliaciones relevantes donde se ha estimado necesario. Sin embargo, el contenido de estos apuntes es demasiado denso para un principiante sin conocimientos de programación.
 
 Se incluye la descripción del lenguaje, y de algunas extensiones y bibliotecas que pueden resultar útiles. Los apéndices incluyen unas breves pinceladas del lenguaje *SQL*, así como un resumen de las funciones *PHP* más utilizadas.
 
