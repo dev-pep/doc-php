@@ -47,7 +47,10 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
 $logger = new Logger('mi_logger');
-$logger->pushHandler(new StreamHandler(__DIR__ . '/mi_app.log', Logger::DEBUG));
+$logger->pushHandler(
+    new StreamHandler(__DIR__ . '/mi_app.log',
+                      Logger::DEBUG)
+);
 $logger->pushHandler(new FirePHPHandler());
 
 $logger->info('El logger está preparado.');
@@ -82,7 +85,8 @@ Es posible registrar un *processor* solamente en un *handler*, en lugar de regis
 
 ```php
 $logger = new Logger('mi_logger');
-$handler = new StreamHandler(__DIR__ . '/mi_app.log', Logger::DEBUG);
+$handler = new StreamHandler(__DIR__ . '/mi_app.log',
+                             Logger::DEBUG);
 $handler->pushProcessor( /*...*/ );
 $logger->pushHandler($handler);
 ```
@@ -101,11 +105,15 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
 
 $formatoFecha = "d/m/Y, h:i";
-$formatoSalida = "%datetime% %channel% (%level_name%) > %message% %context% %extra%\n";
+$formatoSalida =
+    "%datetime% %channel% (%level_name%) > %message% " .
+    "%context% %extra%\n";
 
-$formatter = new LineFormatter($formatoSalida, $formatoFecha);
+$formatter = new LineFormatter($formatoSalida,
+                               $formatoFecha);
 
-$handler = new StreamHandler(__DIR__ . '/mi_app.log', Logger::DEBUG);
+$handler = new StreamHandler(__DIR__ . '/mi_app.log',
+                             Logger::DEBUG);
 $handler->setFormatter($formatter);
 
 $logger = new Logger('mi_log');

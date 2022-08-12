@@ -13,16 +13,20 @@ function foo($arg1, $arg2,...)
 Está permitido anidar funciones e incluso clases. Las funciones pueden ser definidas después de ser referenciadas, a no ser que esté definida en un bloque condicional (dentro de un `if`, por ejemplo). Todas las funciones y clases en *PHP* tienen *scope* global. Sin embargo, para que una función sea visible, debe estar definida en *scope* global, ya sea antes o después de su referencia; en caso contrario, debe haberse ejecutado ya su definición. Por ejemplo:
 
 ```php
-bar();    // ERROR! No está definida en scope global ni se ha ejecutado su definición
-poobarboo();    // OK! Está definida más abajo en scope global
-bar();    // OK! Al llamar a poobarboo() arriba, se ha ejecutado su definición
+bar();    // ERROR! No está definida en scope global ni se
+          // ha ejecutado su definición
+poobarboo();  // OK! Está definida más abajo en scope global
+bar();    // OK! Al llamar a poobarboo() arriba, se ha
+          // ejecutado su definición
 
 function poobarboo()
 {
     function bar() { echo "BAR"; }
     poo();    // OK! Está definida más abajo en scope global
-    bar();    // OK! Ya se ha ejecutado su definición más arriba
-    boo();    // ERROR! No está definida en scope global ni se ha ejecutado su definición
+    bar();    // OK! Ya se ha ejecutado su definición más
+              // arriba
+    boo();    // ERROR! No está definida en scope global ni
+              // se ha ejecutado su definición
     function boo() { echo "BOO"; }
     boo();    // OK! Ya se ha ejecutado su definición arriba
 }
@@ -138,17 +142,24 @@ En el momento de definirse, la función tenía acceso a una serie de variables. 
 
 ```php
 $ms = "hola";
-$fun = function() { echo "Resultado: " . $ms . "<br/>"; };
+$fun = function() {
+    echo "Resultado: " . $ms . "<br/>";
+};
 $fun();    // '': no hemos especificado que usa $ms
-$fun = function() use ($ms) { echo "Resultado: " . $ms . "<br/>"; };
+$fun = function() use ($ms) {
+    echo "Resultado: " . $ms . "<br/>";
+};
 $fun();    // 'hola'
 $ms = "adiós";
-$fun();    // 'hola': contenido del momento en que se definió
+$fun();  // 'hola': contenido del momento en que se definió
 $ms = "hola";
-$fun = function() use (&$ms) { echo "Resultado: " . $ms . "<br/>"; };
+$fun = function() use (&$ms) {
+    echo "Resultado: " . $ms . "<br/>";
+};
 $fun();    // 'hola'
 $ms = "adiós";
-$fun();    // 'adiós': la función usa ahora una referencia a la variable
+$fun();    // 'adiós': la función usa ahora una referencia
+           // a la variable
 ```
 
 Al especificar `use` debemos indicar entre paréntesis la lista de varibales separadas por comas.

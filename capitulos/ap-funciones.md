@@ -11,7 +11,8 @@ array_diff(array $array, array ...$arrays): array
 Compara ***array*** con el resto de *arrays*, y retorna un *array* con los valores de ***array*** que no están en el resto de *arrays*. Las claves de ***array*** se conservan tal cual.
 
 ```
-array_filter(array $array, ?callable $callback = null, int $mode = 0): array
+array_filter(array $array, ?callable $callback = null,
+             int $mode = 0): array
 ```
 
 Itera sobre todos los **valores** del *array*, que va pasando a la función ***callback***, la cual, para cada elemento, retornará ***true*** para mantener el elemento en el *array* retornado (si no retorna verdadero, ese elemento queda fuera). Al final retorna un *array* filtrado.
@@ -33,13 +34,15 @@ array_key_first(array $array): int|string|null
 Retorna la clave del primer elemento del *array*, sin afectar al apuntador interno.
 
 ```
-array_keys(array $array, mixed $search_value, bool $strict = false): array
+array_keys(array $array, mixed $search_value,
+           bool $strict = false): array
 ```
 
 Retorna un *array* con las claves. Si se especifica uno o varios (*array*) valores en ***search_value*** (argumento opcional), solo las claves cuyos **valores** correspondientes coincidan con alguno de estos serán retornadas. La comparación no será estricta (`===`) por defecto, a no ser que indiquemos ***strict*** a ***true***.
 
 ```
-array_map(?callable $callback, array $array, array ...$arrays): array
+array_map(?callable $callback, array $array,
+          array ...$arrays): array
 ```
 
 Retorna un *array* con los valores retornados por ***callback***. Esta función *callback* recibe un parámetro por cada *array* pasado por parámetro, y es llamada sucesivamente con todos los valores de los *arrays* de entrada. Por ello, normalmente los *arrays* pasados a `array_map()` suelen tener el mismo número de elementos.
@@ -63,14 +66,15 @@ array_push(array &$array, mixed ...$values): int
 Añade los valores ***values*** al final del *array*, y retorna el nuevo número de elementos de este. Las claves numéricas serán renumeradas para empezar desde 0.
 
 ```
-array_reverse(array $array, bool $preserve_keys = false): array
+array_reverse(array $array, bool $preserve_keys = false):
+    array
 ```
 
 Retorna un *array* con los elementos de ***array*** con el orden invertido. Las claves numéricas son renumeradas, a no ser que ***preserve_keys*** sea ***true***.
 
 ```
 array_search(mixed $needle, array $haystack,
-    bool $strict = false): int|string|false
+             bool $strict = false): int|string|false
 ```
 
 Busca un valor ***needle*** en un *array* ***haystack*** y retorna la clave del primer elemento coincidente. Si deseamos comparación estricta (`===`), ***strict*** debe ser verdadero. Si no se encuenta el elemento, retornará ***false***.
@@ -82,7 +86,8 @@ array_shift(array &$array): mixed
 Elimina el primer elemento del *array* y retorna ese elemento. Las claves numéricas serán renumeradas para empezar desde 0. El apuntador interno del *array* pasará a apuntar al primer elemento. Retorna ***null*** si el *array* está vacío.
 
 ```
-array_slice(array $array, int $offset, ?int $length = null, bool $preserve_keys = false): array
+array_slice(array $array, int $offset, ?int $length = null,
+            bool $preserve_keys = false): array
 ```
 
 Retorna un *slice* de ***array***, empezando en la posición definida por ***offset*** y hasta un máximo de ***length*** elementos.
@@ -133,7 +138,8 @@ end(array|object &$array): mixed
 Avanza el apuntador interno del *array* hasta el último elemento (se pasa por referencia porque modifica ese apuntador interno), y retorna su valor. Si está vacío retorna ***false***.
 
 ```
-in_array(mixed $needle, array $haystack, bool $strict = false): bool
+in_array(mixed $needle, array $haystack,
+         bool $strict = false): bool
 ```
 
 Retorna ***true*** si ***needle*** es igual (`==`) a alguno de los elementos en ***haystack***, o ***false*** en caso contrario. Los *strings* se comparan en modo *case-sensitive*. Si ***strict*** es ***true***, la comparación será estricta, es decir, incluyendo el tipo (`===`).
@@ -216,7 +222,8 @@ is_bool(mixed $value): bool
 Retorna ***true*** si la variable es booleana y ***false*** en caso contrario.
 
 ```
-is_callable(mixed $value, bool $syntax_only = false, string &$callable_name = null): bool
+is_callable(mixed $value, bool $syntax_only = false,
+            string &$callable_name = null): bool
 ```
 
 Retorna ***true*** si ***value*** es un *callable* (nombre de función, objeto *callable*). Si ***syntax_only*** es verdadero, solo comprueba si ***value*** se refiere a una función o método, y no a ningún otro tipo de *callable*. Si se le proporciona ***callable_name***, recibirá el nombre del *callable*.
@@ -294,7 +301,8 @@ chr(int $codepoint): string
 Retorna un *string* de un solo carácter cuyo código *ASCII* (0-255) está definido por ***codepoint***.
 
 ```
-explode(string $separator, string $string, int $limit = PHP_INT_MAX): array
+explode(string $separator, string $string,
+        int $limit = PHP_INT_MAX): array
 ```
 
 Retorna un *array* formado por *substrings* de ***string*** delimitados por el *string* ***separator***. El *array* no tendrá más de ***limit*** elementos (si ***limit*** es negativo, se retornarán todos los elementos excepto los últimos ***-limit***).
@@ -324,7 +332,8 @@ Si ***double_encode*** es ***false***, las entidades *HTML* ya existentes no se 
 
 ```
 htmlspecialchars_decode(string $string,
-    int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401): string
+    int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401):
+    string
 ```
 
 Es el inverso de `htmlspecialchars()`.
@@ -342,7 +351,8 @@ is_string(mixed $value): bool
 Retorna ***true*** si el valor es un *string* o ***false*** si no.
 
 ```
-ltrim(string $string, string $characters = " \n\r\t\v\x00"): string
+ltrim(string $string, string $characters = " \n\r\t\v\x00"):
+    string
 ```
 
 Es como `trim()` pero solo al principio del *string*.
@@ -360,7 +370,8 @@ ord(string $character): int
 Retorna el código *ASCII* (0-255) del primer carácter de ***character***. Si el *string* tiene una codificación *single-byte* (*ASCII*, *ISO-8859* o *Windows 1252*, por ejemplo) la función retornará simplemente la posición del carácter dentro del juego de caracteres. Pero si tiene una codificación *multibyte* (como *UTF-8* o *UTF-16*), retornará simplemente el primer *byte* de la secuencia.
 
 ```
-rtrim(string $string, string $characters = " \n\r\t\v\x00"): string
+rtrim(string $string, string $characters = " \n\r\t\v\x00"):
+    string
 ```
 
 Es como `trim()` pero solo al final del *string*.
@@ -378,7 +389,8 @@ strlen(string $string): int
 Retorna la longitud del *string*.
 
 ```
-strpos(string $haystack, string $needle, int $offset = 0): int|false
+strpos(string $haystack, string $needle, int $offset = 0):
+    int|false
 ```
 
 Retorna la posición que ocupa ***needle*** dentro de ***haystack***, o ***false*** si no existe. I indicamos un valor positivo en ***offset***, la búsqueda se iniciará en esa posición (si es negativo, esa posición se cuenta desde el final del *string*).
@@ -391,14 +403,15 @@ Retorna un *string* consistente en el *string* de entrada repetido ***times*** v
 
 ```
 str_replace(array|string $search,
-    array|string $replace, string|array $subject,
-    int &$count = null): string|array
+            array|string $replace, string|array $subject,
+            int &$count = null): string|array
 ```
 
 Retorna un *string* en el que todas las ocurrencias de ***search*** en ***subject*** son sustituidas por ***replace***. Si ***search*** y ***replace*** son *arrays*, cada elemento de ***search*** se sustituirá por el elemento correspondiente en ***replace*** (si ***replace*** tiene menos elementos que ***search***, los elementos de ***search*** sin correspondencia se sustituirán por un *string* vacío). Si ***search*** es un *array* y ***replace*** es un *string*, se sustituirán todos los elementos de ***search*** por ese *string*. Si ***subject*** es un *array* (de *strings*), la sustitución se producirá en todos sus elementos, y el resultado retornado será un *array* con todos esos *strings* sustituidos. Si se especifica ***count***, este recibirá el número de sustituciones realizadas.
 
 ```
-strrpos(string $haystack, string $needle, int $offset = 0): int|false
+strrpos(string $haystack, string $needle, int $offset = 0):
+    int|false
 ```
 
 Retorna la posición en la que ***needle*** aparece por última vez dentro de ***haystack***.
@@ -440,7 +453,8 @@ substr(string $string, int $start, int $length = ?): string
 Retorna un *substring* de ***string***, iniciando en la posición ***offset***, y con un máximo de ***length*** caracteres (por defecto hasta el final del *string*). Si ***offset*** es negativo, se contará desde el final. Si ***length*** es negativo, indica la cantidad de caracteres a omitir del final del *string*.
 
 ```
-trim(string $string, string $characters = " \n\r\t\v\x00"): string
+trim(string $string, string $characters = " \n\r\t\v\x00"):
+    string
 ```
 
 Retorna un *string* con los caracteres en blanco eliminados del principio y el final. Si queremos definir nuestros propios caracteres a eliminar, los especificaremos en ***characters***.
@@ -463,8 +477,8 @@ Las expresiones regulares deben ir entre barras: ***/.../***
 
 ```
 preg_match(string $pattern, string $subject,
-    array &$matches = null, int $flags = 0,
-    int $offset = 0): int|false
+           array &$matches = null, int $flags = 0,
+           int $offset = 0): int|false
 ```
 
 Busca una coincidencia de la expresión regular ***pattern*** dentro de ***subject***. Si se indica ***matches*** recibirá un *array* en el cual el elemento 0 es el texto completo que ha coincidido con el patrón, el 1 el primer grupo capturado entre paréntesis, el 2 el segundo, etc.
@@ -477,8 +491,8 @@ La función retorna 1 si ha habido coincidencia, 0 si no, o ***false*** si ha ha
 
 ```
 preg_match_all(string $pattern,
-    string $subject, array &$matches = null,
-    int $flags = 0, int $offset = 0): int|false
+               string $subject, array &$matches = null,
+               int $flags = 0, int $offset = 0): int|false
 ```
 
 Es como `preg_match()`, pero en este caso se buscan **todas** las coincidencias posibles del patrón dentro del *string*. Tras una coincidencia, la siguiente se empieza desde el final de la anterior dentro del *string*. En este caso, hay dos valores más que pueden combinarse en ***flags*** (aunque estos dos no tienen sentido juntos):
@@ -488,8 +502,8 @@ Es como `preg_match()`, pero en este caso se buscan **todas** las coincidencias 
 
 ```
 preg_replace(mixed $pattern,
-    mixed $replacement, mixed $subject,
-    int $limit = -1, int &$count = ?): mixed
+             mixed $replacement, mixed $subject,
+             int $limit = -1, int &$count = ?): mixed
 ```
 
 Busca en ***subject*** coincidencias de ***pattern*** y las reemplaza con ***replacement***. ***limit*** indica el número máximo de sustituciones (por defecto, sin límite). Si se especifica ***count***, recibirá el número de sustituciones realizadas.
@@ -500,7 +514,7 @@ Si ***subject*** es un *array* de *strings*, las sustituciones se realizarán en
 
 ```
 preg_split(string $pattern, string $subject,
-    int $limit = -1, int $flags = 0): array|false
+           int $limit = -1, int $flags = 0): array|false
 ```
 
 Trocea el *string* ***subject*** según el delimitador definido por la expresión regular ***pattern***. El resultado devuelto es un *array* con todos los fragmentos. ***limit*** indica el número máximo de *substrings* retornados (el último de ellos es el resto del *string*). Un límite de 0 o -1 indica que no hay límite.
@@ -543,9 +557,10 @@ Retorna ***true*** si el archivo cuya ruta es ***filename*** existe, o ***false*
 
 ```
 file_get_contents(string $filename,
-    bool $use_include_path = false,
-    ?resource $context = null, int $offset = 0,
-    ?int $length = null): string|false
+                  bool $use_include_path = false,
+                  ?resource $context = null,
+                  int $offset = 0, ?int $length = null):
+                  string|false
 ```
 
 Es la manera recomendada de leer el contenido de un archivo.
@@ -556,8 +571,8 @@ Es la manera recomendada de leer el contenido de un archivo.
 
 ```
 file_put_contents(string $filename,
-    mixed $data, int $flags = 0,
-    ?resource $context = null): int|false
+                  mixed $data, int $flags = 0,
+                  ?resource $context = null): int|false
 ```
 
 Escribe ***data*** (*string* o *array* unidimensional) en el archivo ***filename***. ***context*** suele ser ***null***, a no ser que deseemos pasarle un contexto creado con `stream_context_create()`.
@@ -574,8 +589,8 @@ Retorna el número de *bytes* escritos o ***false*** si hay error.
 
 ```
 fopen(string $filename, string $mode,
-    bool $use_include_path = false,
-    ?resource $context = null): resource|false
+      bool $use_include_path = false,
+      ?resource $context = null): resource|false
 ```
 
 Abre un archivo (ruta) o *URL* (schema://...) definido en ***filename***.
@@ -589,7 +604,8 @@ El modo de apertura se indica en ***mode***: algunos modos son ***r*** (*read on
 La función retorna un recurso archivo, o ***false*** si hay error.
 
 ```
-fwrite(resource $stream, string $data, ?int $length = null): int|false
+fwrite(resource $stream, string $data, ?int $length = null):
+    int|false
 ```
 
 Es la manera recomendada de escribir en un archivo.
@@ -610,8 +626,8 @@ Retorna ***true*** si la ruta especificada corresponde a un archivo existente, y
 
 ```
 mkdir(string $directory, int $permissions = 0777,
-    bool $recursive = false,
-    ?resource $context = null): bool
+      bool $recursive = false,
+      ?resource $context = null): bool
 ```
 
 Intenta crear el directorio ***directory***, con los permisos indicados en ***permissions*** (no funciona en *Windows*). Si ***recursive*** es verdadero, se crearán los directorios necesarios de la ruta. Retorna ***true*** si tiene éxito y ***false*** en caso contrario.
@@ -689,7 +705,8 @@ is_object(mixed $value): bool
 Retorna ***true*** si el valor es un objeto, o ***false*** en caso contrario.
 
 ```
-method_exists(object|string $object_or_class, string $method): bool
+method_exists(object|string $object_or_class,
+              string $method): bool
 ```
 
 Retorna ***true*** si existe un método con nombre ***method*** dentro del objeto o nombre de clase indicado en ***object_or_class***. De lo contrario, retorna ***false***.
@@ -725,7 +742,8 @@ microtime(bool $as_float = false): string|float
 Retorna el *timestamp* actual en microsegundos (no disponible en todos los sistemas operativos). Si ***as_float*** es verdadero, en lugar de retornar un *string* se retornará un *float*.
 
 ```
-strtotime(string $datetime, ?int $baseTimestamp = null): int|false
+strtotime(string $datetime, ?int $baseTimestamp = null):
+    int|false
 ```
 
 Convierte un *string* que define una fecha (en varios formatos ingleses posibles) a un *timestamp*, que será relativo a ***baseTimestamp***, o al momento actual si no se indica este. Retorna ese *timestamp* relativo, o ***false*** si hay error.
@@ -740,7 +758,7 @@ Retorna *timestamp* actual, es decir, el número de segundos desde la época *Un
 
 ```
 json_decode(string $json, ?bool $associative = null,
-    int $depth = 512, int $flags = 0): mixed
+            int $depth = 512, int $flags = 0): mixed
 ```
 
 Retorna un objeto construido a partir del *string JSON* ***json***. Solo para *strings* codificados mediante *UTF-8*. La profundidad máxima a considerar se define en ***depth***. Si ***associative*** es ***true***, el resultado será un *array* asociativo. Si es ***false*** será un objeto. Si es ***null*** (por defecto), dependerá del *flag* ***JSON_OBJECT_AS_ARRAY***.
@@ -749,7 +767,7 @@ Si no se puede construir el resultado o el *string* tiene una profundidad superi
 
 ```
 json_encode(mixed $value, int $flags = 0,
-    int $depth = 512): string|false
+            int $depth = 512): string|false
 ```
 
 Retorna la representación *JSON* del objeto ***value***. La profundida máxima a utilizar (***depth***) debe ser mayor que 0. La función retorna ***false*** si hay error.
@@ -757,7 +775,8 @@ Retorna la representación *JSON* del objeto ***value***. La profundida máxima 
 ## Red
 
 ```
-header(string $header, bool $replace = true, int $response_code = 0): void
+header(string $header, bool $replace = true,
+       int $response_code = 0): void
 ```
 
 Envía un encabezado *HTTP*. Debe ser lo primero que se haga al gestionar la *request* actual, ya que de lo contrario, si se envía cualquier tipo de salida (incluyendo un simple espacio en blanco), ya no se enviarán encabezados al cliente, con lo que la función no tendrá efecto.
@@ -825,7 +844,7 @@ Es como `ob_end_flush()`, pero no desactiva el *buffering* de salida.
 
 ```
 ob_start(callable $callback = null, int $chunk_size = 0,
-    int $flags = PHP_OUTPUT_HANDLER_STDFLAGS): bool
+         int $flags = PHP_OUTPUT_HANDLER_STDFLAGS): bool
 ```
 
 A partir de su invocación, la salida producida a través de cualquiera de las funciones que la producen se va insertando en un *buffer*. A partir de ese momento, el *script* no envía ninguna salida (solo encabezados).
@@ -875,7 +894,8 @@ min(mixed $value1, mixed $value2, mixed $... = ?): mixed
 Retorna el menor (numéricamente) de los valores. Si solo se le pasa un *array*, retornará el menor de los valores de este.
 
 ```
-round(int|float $num, int $precision = 0, int $mode = PHP_ROUND_HALF_UP): float
+round(int|float $num, int $precision = 0,
+      int $mode = PHP_ROUND_HALF_UP): float
 ```
 
 Retorna el valor flotante redondeado de ***num*** a la precisión (decimales) ***precision***. Si la precisión es negativa, se referirá a posiciones **a la izquierda** del punto decimal.
@@ -890,7 +910,8 @@ Retorna el valor flotante redondeado de ***num*** a la precisión (decimales) **
 ## URLs
 
 ```
-base64_decode(string $string, bool $strict = false): string|false
+base64_decode(string $string, bool $strict = false):
+    string|false
 ```
 
 Decodifica datos codificados mediante *MIME base64* y retorna el *string* original.
@@ -906,7 +927,8 @@ Codifica los datos usando *MIME base64* (reversible). Retorna tal codificación.
 Se utiliza sobre todo para transporte de datos binarios.
 
 ```
-parse_url(string $url, int $component = -1): int|string|array|null|false
+parse_url(string $url, int $component = -1):
+    int|string|array|null|false
 ```
 
 Retorna un *array* asociativo con todas las partes de la *URL* indicada. Si solo se desea obtener uno de los elementos de la *URL*, indicaremos en ***component*** uno de estos valores, en cuyo caso se retornará un *string*: ***PHP_URL_SCHEME***, ***PHP_URL_HOST***, ***PHP_URL_USER***, ***PHP_URL_PASS***, ***PHP_URL_PATH***, ***PHP_URL_QUERY*** o ***PHP_URL_FRAGMENT***. Si indicamos ***PHP_URL_PORT*** se retornará un entero. Si el componente solicitado no existe, se retornará ***null*** (no es lo mismo un componente vacío que un componente inexistente).
@@ -940,7 +962,8 @@ ini_get(string $option): string|false
 Retorna el valor de la opción de configuración *PHP* indicada, como *string*. Los valores ***null*** retornan un *string* vacío. Si la opción no existe, retorna ***false***.
 
 ```
-ini_set(string $option, string|int|float|bool|null $value): string|false
+ini_set(string $option, string|int|float|bool|null $value):
+    string|false
 ```
 
 Establece la opción de configuración *PHP* indicada al valor de ***value***. Se mantendrá dicho valor durante la ejecución del *script*, tras lo cual se restaurará. No todas las opciones pueden cambiarse con esta función.
@@ -949,7 +972,7 @@ Si tiene éxito, retorna el valor antiguo como *string*. De lo contrario retorna
 
 ```
 version_compare(string $version1, string $version2,
-    ?string $operator = null): int|bool
+                ?string $operator = null): int|bool
 ```
 
 Compara *strings* con versiones de *PHP* con su formato estándar.
@@ -967,7 +990,8 @@ Establece los tipos de error que producirán un mensaje de error en la salida. E
 ## iconv
 
 ```
-iconv(string $from_encoding, string $to_encoding, string $string): string|false
+iconv(string $from_encoding, string $to_encoding,
+      string $string): string|false
 ```
 
 Retorna un *string* resultante de convertir ***string*** a una codificación distinta. ***from_encoding*** es la codificación del *string* origen, y ***to_encoding*** es la codificación final que deseamos.
@@ -999,7 +1023,8 @@ Se trata de una construcción del lenguaje y no de una función, y puede indicar
 La construcción `die()` (o `die`) es equivalente.
 
 ```
-uniqid(string $prefix = "", bool $more_entropy = false): string
+uniqid(string $prefix = "", bool $more_entropy = false):
+    string
 ```
 
 Genera y retorna un ID único en un *string* basado en la hora actual en microsegundos. Sin embargo, es posible que el valor generado no sea único. Para aumentar las probabilidades de que este sea único deberemos establecer  ***more_entropy*** a ***true***.

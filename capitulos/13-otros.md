@@ -18,13 +18,13 @@ En caso de que la autenticación sea cancelada por el usuario, la ejecución pro
 if (!isset($_SERVER['PHP_AUTH_USER'])) {
     header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
-    echo 'Text to send if user hits Cancel button';
+    echo 'Texto a enviar si usuario presiona Cancelar';
     exit;
 }
 else
 {
-    echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
-    echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
+    echo "<p>Hola, {$_SERVER['PHP_AUTH_USER']}.</p>";
+    echo "<p>Tu contraseña: {$_SERVER['PHP_AUTH_PW']}.</p>";
 }
 ```
 

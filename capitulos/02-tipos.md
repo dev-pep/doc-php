@@ -82,7 +82,8 @@ Es simplemente indicar el nombre de la variable, incluyendo el ***\$*** inicial.
 
 ```php
 $juice = 'apple';
-echo "I like $juices";    // produce: I like (no conoce $juices)
+echo "I like $juices";    // produce: I like (no conoce
+                          // $juices)
 echo "I like ${juice}s";    // produce: I like apples
 ```
 
@@ -103,7 +104,8 @@ Para elementos de un *array* con clave no numérica, solo se puede usar la sinta
 ```php
 $fruta = "pera";
 $nombre = "fruta";
-echo "contenido de $nombre: {${$nombre}};"    // produce: contenido de fruta: pera
+echo "contenido de $nombre: {${$nombre}}";  // produce:
+                          // "contenido de fruta: pera"
 ```
 
 ### Acceso (I/O) a los caracteres
@@ -147,9 +149,9 @@ Mapa de pares clave-valor. Un elemento del *array* puede ser otro *array* (*arra
 ### Creación
 
 ```php
-$arr = array(key1 => val1, key2 => val2,...)
+$arr = array(key1 => val1, key2 => val2,...);
 
-$arr = [key1 => val1, key2 => val2,...]
+$arr = [key1 => val1, key2 => val2,...];
 ```
 
 Las claves pueden ser *string* o entero (positivo, negativo o 0). Los valores, cualquier tipo. Si es *string* y contiene un número decimal correcto (que no empiece por ***+***), será convertido a entero. Los flotantes se convierten a entero (truncando). Los booleanos, pasan a entero 0 o 1. ***NULL*** se convierte al *string* vacío. Si varios elementos usan la misma clave, solo será accesible el último de ellos.
@@ -171,7 +173,7 @@ Acceder a una clave inexistente, produce el mismo efecto que acceder a una varia
 ```php
 $arr[5] = "pepe";    // si no existe el array, lo crea
 $arr[-5] = "giuseppe";    // añade o modifica clave -5
-$arr[] = "joe";    // en este caso, equivale a $arr[6]="joe"
+$arr[] = "joe";  // en este caso equivale a $arr[6] = "joe"
 ```
 
 Para eliminar un elemento: `unset($arr[$clave])`. Para eliminar el *array* entero: `unset($arr)`.

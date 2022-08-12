@@ -123,7 +123,8 @@ Por defecto, ***NULL***. Solo puede haber un campo ***AUTO_INCREMENT*** y debe s
 
 ```sql
 ALTER TABLE users RENAME TO usuarios;
-ALTER TABLE usuarios CHANGE surnames apellidos varchar(159) NULL;
+ALTER TABLE usuarios
+    CHANGE surnames apellidos varchar(159) NULL;
 ALTER TABLE usuarios MODIFY apellidos varchar(255) NULL;
 ALTER TABLE usuarios ADD telefono varchar(20) NOT NULL;
 ALTER TABLE usuarios ADD CONSTRAINT uq_tel UNIQUE(telefono);
@@ -160,8 +161,10 @@ Las opciones para `ON DELETE` y `ON UPDATE`:
 ### Inserciones
 
 ```sql
-INSERT INTO usuarios VALUES(null, 'Pepe', 'Martinez', 25, 'info@pepe.com', '1234');
-INSERT INTO usuarios(nombre, email) VALUES('Pepe', 'info@pepe.com');
+INSERT INTO usuarios VALUES(
+    null, 'Pepe', 'Martinez', 25, 'info@pepe.com', '1234');
+INSERT INTO usuarios(nombre, email)
+    VALUES('Pepe', 'info@pepe.com');
 ```
 
 Se puede indicar ***null*** para ***id*** porque es autoincremental. El número de argumentos a `VALUES()` debe ser exacto, independientemente de si los campos tienen valor por defecto.
@@ -174,9 +177,12 @@ SELECT email, apellidos, nombre FROM usuarios;
 SELECT nombre, 54+6 FROM usuarios;
 SELECT nombre, edad+5 FROM usuarios;
 SELECT nombre, edad+15 AS muchaedad FROM usuarios;
-SELECT nombre, edad+15 AS muchaedad FROM usuarios ORDER BY muchaedad;
-SELECT nombre, edad+15 AS muchaedad FROM usuarios ORDER BY muchaedad ASC;
-SELECT nombre, edad+15 AS muchaedad FROM usuarios ORDER BY muchaedad DESC;
+SELECT nombre, edad+15 AS muchaedad FROM usuarios
+    ORDER BY muchaedad;
+SELECT nombre, edad+15 AS muchaedad FROM usuarios
+    ORDER BY muchaedad ASC;
+SELECT nombre, edad+15 AS muchaedad FROM usuarios
+    ORDER BY muchaedad DESC;
 ```
 
 Las expresiones (incluyendo los simples nombres de campo) se pueden agrupar en paréntesis. Las expresiones pueden incluir funciones *SQL*. Se admiten los operadores aritméticos habituales (`+`, `-`, `*`, `/`, `%`).
@@ -212,9 +218,12 @@ Operadores de comparación: `=`, `!=`, `>`, `<`, `>=`, `<=`, `IN`, `BETWEEN ... 
 `expresion IS NULL` equivale a `ISNULL(expresion)`.
 
 ```sql
-SELECT * FROM usuarios WHERE YEAR(fecha) NOT IN (2019, 2020);
-SELECT * FROM usuarios WHERE YEAR(fecha) NOT IN (2019, 2020) OR id != 4;
-SELECT * FROM usuarios WHERE YEAR(fecha) NOT BETWEEN 2019 AND 2020 AND id != 4;
+SELECT * FROM usuarios WHERE YEAR(fecha)
+    NOT IN (2019, 2020);
+SELECT * FROM usuarios WHERE YEAR(fecha)
+    NOT IN (2019, 2020) OR id != 4;
+SELECT * FROM usuarios WHERE YEAR(fecha)
+    NOT BETWEEN 2019 AND 2020 AND id != 4;
 ```
 
 En el último caso, el primer `AND` forma parte del `BETWEEN`. El segundo es el operador lógico. Los conjuntos (*sets*) deben ir entre paréntesis. Puede ser una subconsulta (un `SELECT`, de hecho, genera un conjunto).
@@ -231,7 +240,8 @@ Si **al final de todo** indicamos `LIMIT <N>`, la consulta retornada se limitar�
 ```sql
 UPDATE usuarios SET nombre='Pepe';
 UPDATE usuarios SET nombre='Pepe' WHERE id=3;
-UPDATE usuarios SET nombre='Pepe', email='info@pepe.com' WHERE id=3;
+UPDATE usuarios SET nombre='Pepe',
+    email='info@pepe.com' WHERE id=3;
 ```
 
 La primera sentencia actualiza **todos** los registros.
@@ -321,7 +331,8 @@ Si se quieren activar varios modos, se separarán por comas.
 Ejemplo seleccionando campos en `SELECT` que no aparecen en `GROUP BY` (no siempre aceptado por el SGBD):
 
 ```sql
-SELECT marca, modelo, color FROM coches GROUP BY marca, modelo;
+SELECT marca, modelo, color FROM coches
+    GROUP BY marca, modelo;
 ```
 
 | marca | modelo | color    |
@@ -351,7 +362,8 @@ En este caso, la marca aparece una vez por cada modelo distinto de la misma, lo 
 En todo caso, siempre se pueden seleccionar funciones *aggregate* sobre campos no agrupados:
 
 ```sql
-SELECT marca, modelo, MIN(km) FROM coches GROUP BY marca, modelo;
+SELECT marca, modelo, MIN(km) FROM coches
+    GROUP BY marca, modelo;
 ```
 
 | marca | modelo | km     |
@@ -424,7 +436,8 @@ SELECT * FROM usuarios CROSS JOIN coches;
 Supongamos que tanto la tabla ***usuarios*** como la ***coches*** tienen un campo ***nombre***. Para referirnos a tal campo hay que desambiguar:
 
 ```sql
-SELECT usuarios.nombre, coches.nombre, modelo FROM usuarios, coches;
+SELECT usuarios.nombre, coches.nombre, modelo
+    FROM usuarios, coches;
 ```
 
 En el caso del campo ***modelo*** no hace falta, aunque se podría indicar también ***coches.modelo***.
@@ -432,7 +445,8 @@ En el caso del campo ***modelo*** no hace falta, aunque se podría indicar tambi
 Para hacer alias de tablas:
 
 ```sql
-SELECT us.nombre, co.nombre, modelo FROM usuarios us, coches co;
+SELECT us.nombre, co.nombre, modelo
+    FROM usuarios us, coches co;
 ```
 
 Si tenemos 3 tablas ***t1***, ***t2*** y ***t3*** con 50 registros cada una, entonces `t1, t2, t3` tendrá 125000 registros (todas las combinaciones de registros). Aunque hagamos un `WHERE` posterior, la tabla inicial es monstruosa.
@@ -441,7 +455,8 @@ Para evitar que se generen estas tablas tan grandes, están los *joins*:
 
 ```sql
 SELECT apellidos, marca, modelo FROM
-    usuarios us INNER JOIN coches co ON us.id = co.usuario_id;
+    usuarios us INNER JOIN coches co
+    ON us.id = co.usuario_id;
 ```
 
 Solo aparecen en la tabla los registros que asocian un coche a un usuario. Los coches que no tienen usuario (***usuario_id*** es ***null***) no aparecen, y tampoco los usuarios que no están asociados a un coche.
@@ -486,7 +501,8 @@ Hay básicamente dos extensiones *PHP* disponibles: *mysqli* (*MySQL improved*) 
 Es posible utilizar una interfaz procedural:
 
 ```php
-$mysql = mysqli_connect("ejemplo.com", "usuario", "password", "database", 3306);
+$mysql = mysqli_connect("ejemplo.com", "usuario",
+                        "password", "database", 3306);
 $result = mysqli_query($mysql, "SELECT modelo FROM coches");
 $registro = mysqli_fetch_assoc($result);
 ```
@@ -494,7 +510,8 @@ $registro = mysqli_fetch_assoc($result);
 O una interfaz orientada a objetos:
 
 ```php
-$mysql = new mysqli("ejemplo.com", "usuario", "password", "database", 3306);
+$mysql = new mysqli("ejemplo.com", "usuario",
+                    "password", "database", 3306);
 $result = $mysql->query("SELECT modelo FROM coches");
 $registro = $result->fetch_assoc();
 ```
@@ -540,7 +557,8 @@ Si las consultas pueden contener caracteres no *ASCII* (caracteres acentuados, *
 Ejemplo OO:
 
 ```php
-$mysql = new mysqli("ejemplo.com", "usuario", "password", "database");
+$mysql = new mysqli("ejemplo.com", "usuario",
+                    "password", "database");
 $mysql->query("SET NAMES 'utf8'");
 $result = $mysql->query("SELECT modelo FROM coches");
 // Número de registros:
@@ -558,7 +576,8 @@ echo $row['id'];
 Ejemplo procedural:
 
 ```php
-$mysql = mysqli_connect("ejemplo.com", "usuario", "password", "database");
+$mysql = mysqli_connect("ejemplo.com", "usuario",
+                        "password", "database");
 mysqli_query($mysql, "SET NAMES 'utf8'");
 $result = mysqli_query($mysql, "SELECT modelo FROM coches");
 // Número de registros:

@@ -43,7 +43,9 @@ Una vez hayamos terminado las operaciones que deseamos realizar podemos *unbind*
 Para realizar búsquedas se usa la función `ldap_search()`
 
 ```php
-ldap_search($ldap, $base, $filter, $attributes=[], $attributes_only=0, $sizelimit=-1, $timelimit=-1);
+ldap_search($ldap, $base, $filter, $attributes=[],
+            $attributes_only=0, $sizelimit=-1,
+            $timelimit=-1);
 ```
 
 Solo los tres primeros argumentos son obligatorios:
@@ -61,7 +63,8 @@ La función retorna un objeto del tipo ***LDAP\\Result*** (o ***false*** si hay 
 Ejemplo:
 
 ```php
-$busqueda = ldap_search($ldap, 'DC=dominio,DC=com', '(objectClass=user)', ['cn']);
+$busqueda = ldap_search($ldap, 'DC=dominio,DC=com',
+                        '(objectClass=user)', ['cn']);
 ```
 
 La búsqueda se realiza recursivamente por todos los niveles del subárbol. Si solo se desea un nivel de búsqueda, se debe usar la fucnión `ldap_list()`, que recibe los mismos argumentos que `ldap_search()`. Por otro lado, la función `ldap_read()` también recibe los mismos argumentos, y retorna un resultado que contiene un solo elemento (en este caso, ***\$base*** es el *dn* exacto del elemento deseado).
@@ -246,7 +249,8 @@ La función `ldap_get_attributes()` recibe como primer argumento el objeto conex
 ```php
 $ldap = ldap_connect('ldap://servidorldap.com:636');
 ldap_bind($ldap);  // binding anónimo
-$busqueda = ldap_search($ldap, 'DC=dominio,DC=com', '(objectClass=user)', ['cn']);
+$busqueda = ldap_search($ldap, 'DC=dominio,DC=com',
+                        '(objectClass=user)', ['cn']);
 $entrada = ldap_first_entry($ldap, $busqueda);
 while($entrada)
 {
@@ -317,7 +321,8 @@ La opción a leer/establecer se indicará en ***\$option***, y será de tipo ent
 ```php
 ldap_set_option(NULL, LDAP_OPT_PROTOCOL_VERSION, 3);
 ldap_set_option(NULL, LDAP_OPT_REFERRALS, 0);
-ldap_set_option(NULL, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_ALLOW);
+ldap_set_option(NULL, LDAP_OPT_X_TLS_REQUIRE_CERT,
+                LDAP_OPT_X_TLS_ALLOW);
 ```
 
 ### Consideraciones sobre búsquedas
@@ -325,7 +330,8 @@ ldap_set_option(NULL, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_ALLOW);
 Hay campos que no están indexados para hacer búsquedas. Los servidores establecen índices para los campos más frecuentes. Sin embargo, otros campos no lo están. Veamos un ejemplo. Supongamos que deseamos encontrar los grupos a los que pertenece un usuario.
 
 ```php
-$grupos = ldap_list($ldap, 'OU=Groups,DC=server,DC=com', '(objectClass=group)', ['cn']);
+$grupos = ldap_list($ldap, 'OU=Groups,DC=server,DC=com',
+                    '(objectClass=group)', ['cn']);
 ```
 
 En este caso, obtendríamos todos los grupos de nuestro directorio. Un nodo del tipo grupo (*group*) contiene un campo que se llama ***member*** (en otros servidores puede llamarse de forma parecida), el cual contiene los *distinguished names* de todos los usuarios que pertenecen a tal grupo. Supongamos que deseamos saber cuáles de estos grupos tienen un usuario cuyo nombre de usuario empiece por ***userdp08***. Podríamos pensar que esto solventa el problema:

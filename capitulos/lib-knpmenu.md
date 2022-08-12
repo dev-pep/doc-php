@@ -30,7 +30,9 @@ $factory = new MenuFactory();
 $menu = $factory->createItem('My menu');
 $menu->addChild('Home', ['uri' => '/']);
 $menu->addChild('Comments', ['uri' => '#comments']);
-$menu->addChild('Symfony', ['uri' => 'http://symfony.com/']);
+$menu->addChild('Symfony', [
+    'uri' => 'http://symfony.com/'
+]);
 
 $renderer = new ListRenderer(new Matcher());
 echo $renderer->render($menu);
@@ -51,7 +53,8 @@ Usando el mencionado renderizador, el ejemplo anterior produce una etiqueta `<ul
 El renderizado se realizará en un código *HTML* debidamente espaciado e indentado para facilitar su inspección y depuración. Si no nos interesa tal formato, se puede pasar como segundo parámetro al constructor del renderizador un *array* que contenga la clave ***compressed*** puesta a ***true***:
 
 ```php
-$renderer = new ListRenderer(new Matcher, ['compressed' => true]);
+$renderer = new ListRenderer(new Matcher,
+                             ['compressed' => true]);
 ```
 
 Cada vez que se utilice este renderizador, se producirá un menú con *HTML* condensado (lo cual no afecta a su visualización). Si en lugar de ello queremos que solo algunos menús (en caso de disponer de varios) se rendericen con *HTML* condensado, se construirá el renderizador sin esa opción, y se indicará la misma en el momento de renderizar un menú con el método `render()` del renderizador:
@@ -82,7 +85,8 @@ Los elementos `<ul>` (a excepción del elemento global) reciben la clase ***menu
 El texto con el que aparecerá cada elemento coincidirá por defecto con el nombre dado. Podemos *override* este texto mediante el método `setLabel()` del menú (o con la opción ***label*** del *array* de inicialización).
 
 ```php
-$menu['Comments']['Your Comments']->setLabel('Tus comentarios');
+$menu['Comments']['Your Comments']
+    ->setLabel('Tus comentarios');
 ```
 
 Para establecer la *URI* después de inicializar, se usa `setUri()`, pasándole dicha *URI* o *URL*.
@@ -100,8 +104,11 @@ Se pueden dar attributos al enlace (`<a>`) o etiqueta (`<span>`) de un elemento 
 También es posible dar un atributo a todos los hijos de una opción padre, mediante `setChildrenAttribute()`. Esto dará el atributo a la etiqueta `<ul>` que engloba a los hijos.
 
 ```php
-$menu->setChildrenAttribute('class', 'una-clase');  // elementos de máximo nivel
-$menu['Comments']->setChildrenAttribute('class', 'otra-clase');
+$menu->setChildrenAttribute('class',
+                            'una-clase');  // elementos de
+                                           // máximo nivel
+$menu['Comments']->setChildrenAttribute('class',
+                                        'otra-clase');
 ```
 
 ## Visibilidad de los elementos
@@ -132,7 +139,9 @@ use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\Matcher\Voter\UriVoter;
 use Knp\Menu\Renderer\ListRenderer;
 
-$matcher = new Matcher(new UriVoter($_SERVER['REQUEST_URI']));
+$matcher = new Matcher(
+    new UriVoter($_SERVER['REQUEST_URI'])
+);
 $renderer = new ListRenderer($matcher);
 ```
 
@@ -147,8 +156,11 @@ En primer lugar, el iterador ***Knp\\Menu\\Iterator\\RecursiveItemIterator***, a
 Para obtener otro iterador que recorra cada uno de los elementos de estos submenús, hay que envolver (*wrap*) el anterior iterador en el iterador *PHP* ***RecursiveIteratorIterator***:
 
 ```php
-$itemIterator = new \Knp\Menu\Iterator\RecursiveItemIterator($menu);
-$iterator = new \RecursiveIteratorIterator($itemIterator, \RecursiveIteratorIterator::SELF_FIRST);
+$itemIterator = new
+    \Knp\Menu\Iterator\RecursiveItemIterator($menu);
+$iterator = new
+    \RecursiveIteratorIterator($itemIterator,
+        \RecursiveIteratorIterator::SELF_FIRST);
 foreach ($iterator as $item) {
     echo $item->getName() . " ";
 }
@@ -159,9 +171,14 @@ La constante ***SELF_FIRST*** del iterador ***RecursiveIteratorIterator*** retor
 El ejemplo no incluye el elemento raíz (el objeto menú en sí). Para que lo incluya se debe pasar a ***RecursiveItemIterator*** un iterador que inicie en tal raíz en lugar del objeto menú:
 
 ```php
-$rootIterator = new \ArrayIterator([$menu]);  // iterador que solo contiene el nodo raíz
-$itemIterator = new \Knp\Menu\Iterator\RecursiveItemIterator($rootIterator);
-$iterator = new \RecursiveIteratorIterator($itemIterator, \RecursiveIteratorIterator::SELF_FIRST);
+$rootIterator = new
+    \ArrayIterator([$menu]);  // iterador que solo contiene
+                              // el nodo raíz
+$itemIterator = new
+    \Knp\Menu\Iterator\RecursiveItemIterator($rootIterator);
+$iterator = new
+    \RecursiveIteratorIterator($itemIterator,
+        \RecursiveIteratorIterator::SELF_FIRST);
 foreach ($iterator as $item) {
     echo $item->getName() . " ";
 }

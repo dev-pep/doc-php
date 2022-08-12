@@ -16,7 +16,8 @@ function generaNums($inicial, $final)
     return 'Todo bien';
 }
 
-$generador = generaNums(5, 50);  // creamos el objeto generador
+$generador = generaNums(5, 50);  // creamos el objeto
+                                 // generador
 foreach($generador as $num)
 {
     /* ... */

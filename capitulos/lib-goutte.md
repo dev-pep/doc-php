@@ -89,8 +89,9 @@ Como segundo argumento podemos indicar un *array* que *overrides* los parámetro
 El tercer argumento permite indicar el método *HTTP*, mientras el cuarto es un *array* que permite cambiar el valor de los valores ***\$\_SERVER***, como por ejemplo el valor de una cabecera.
 
 ```php
-$cliente->submitForm('Log in', ['login' => 'my_user', 'password' => 'my_pass'],
-    'PUT', ['HTTP_ACCEPT_LANGUAGE' => 'es']
+$cliente->submitForm('Log in', ['login' => 'my_user',
+                     'password' => 'my_pass'],
+                     'PUT',['HTTP_ACCEPT_LANGUAGE' => 'es']
 );
 ```
 
@@ -110,7 +111,8 @@ Para obtener todas las *cookies* usaremos el método del cliente `getCookieJar()
 
 ```php
 $cookieJar = $cliente->getCookieJar();
-$cookie = $cookieJar->get('nombre_cookie');  // obtiene la cookie
+$cookie = $cookieJar->get('nombre_cookie');  // obtiene la
+                                             // cookie
 
 // Leer datos de la cookie:
 $name       = $cookie->getName();
@@ -142,7 +144,8 @@ use Goutte\Client;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\BrowserKit\CookieJar;
 
-$cookie = new Cookie('nombre', 'valor', strtotime('+1 day'));
+$cookie = new Cookie('nombre', 'valor',
+                     strtotime('+1 day'));
 $cookieJar = new CookieJar();
 $cookieJar->set($cookie);
 
@@ -254,7 +257,8 @@ Es posible encadenar filtros, y también se pueden fragmentar los diferentes com
 
 ```php
 $crawler1 = $crawler->filter('p.clase[atributo]');
-$crawler1 = $crawler->filter('p')->filter('.clase')->filter('[atributo]');
+$crawler1 = $crawler->filter('p')->filter('.clase')
+    ->filter('[atributo]');
 ```
 
 ### Otros métodos de filtrado
@@ -329,7 +333,8 @@ El objeto enlace posee algunos métodos útiles:
 `getUri()` retorna la *URL* asociada al enlace. Aunque el atributo ***href*** sea una *URI* o ruta relativa, se reconstruye y retorna siempre la *URL* completa. En el caso de que el enlace sea relativo, es necesario que el *crawler* posea información sobre al *URL* base. En este caso, si dicho *crawler* se construye a través del constructor, debemos indicarle dicha *URL* base en el tercer argumento del mismo (el primero y segundo son ***NULL*** por defecto). Esta *URL* base es en realidad la *URL* completa de la página:
 
 ```php
-$crawler = new Crawler(NULL, NULL, 'http://dominio.com/pagina.html');
+$crawler = new Crawler(NULL, NULL,
+                       'http://dominio.com/pagina.html');
 ```
 
 Si obtenemos el *crawler* a través de una *request* al cliente, ya se realiza correctamente la inicialización del mismo.
@@ -449,7 +454,8 @@ Veamos un ejemplo completo de cómo accederíamos a un formulario de *login*, in
 use Goutte\Client;
 
 $cliente = new Client();
-$crawler = $cliente->request('GET', 'https://github.com/login');
+$crawler = $cliente
+    ->request('GET', 'https://github.com/login');
 
 $form = $crawler->selectButton('Sign in')->form();
 $form['login'] = 'dev-pep';
@@ -478,7 +484,10 @@ La clase ***Symfony\\Component\\DomCrawler\\UriResolver*** es una clase *helper*
 ```php
 use Symfony\Component\DomCrawler\UriResolver;
 
-UriResolver::resolve('/foo', 'http://localhost/bar/foo/');  // retorna http://localhost/foo
-UriResolver::resolve('?a=b', 'http://localhost/bar#foo');  // retorna http://localhost/bar?a=b
-UriResolver::resolve('../../', 'http://localhost/');  // retorna http://localhost/
+// http://localhost/foo:
+UriResolver::resolve('/foo', 'http://localhost/bar/foo/');
+// http://localhost/bar?a=b:
+UriResolver::resolve('?a=b', 'http://localhost/bar#foo');
+// http://localhost/:
+UriResolver::resolve('../../', 'http://localhost/');
 ```

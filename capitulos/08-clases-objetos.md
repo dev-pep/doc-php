@@ -87,7 +87,8 @@ class MiClase {
         $propiedad = 'mipro';
         $metodo = 'mimet';
         $this->$propiedad = 50;  // equivale a $this->mipro;
-        $this->$metodo(1, 2);  // equivale a $this->mimet(1, 2);
+        $this->$metodo(1, 2);  // equivale a
+                               // $this->mimet(1, 2);
     }
 }
 
@@ -176,7 +177,9 @@ El constructor *overriden* está exento de las reglas de compatibilidad.
 A partir de *PHP* 8, los argumentos pasados al constructor pueden convertirse directamente en propiedades del objeto (*constructor property promotion*). Esto se hace incluyendo modificador de visibilidad en los parámetros que deseemos convertir en propiedades automáticamente.
 
 ```php
-public function __construct(public int $x, protected $y, string $z) {}
+public function __construct(public int $x,
+                            protected $y,
+                            string $z) { ... }
 ```
 
 En este caso, ***\$x*** e ***\$y*** se convertirán en propiedades del objeto. Tras ello, se ejecutará el código del cuerpo del constructor (que puede estar vacío).
@@ -187,8 +190,12 @@ El constructor podría ser privado, en cuyo caso solo podría ser llamado por un
 class MiClase
 {
     private function __construct($a, $b) { /* ... */ }
-    public static function construyeA(): static { $o = new static(0, 1); return $o; }
-    public static function construyeB(): static { $o = new static(1, 1); return $o; }
+    public static function construyeA(): static {
+        $o = new static(0, 1); return $o;
+    }
+    public static function construyeB(): static {
+        $o = new static(1, 1); return $o;
+    }
     ...
 }
 $ob1 = MiClase::construyeA;
@@ -270,10 +277,10 @@ Las interfaces pueden heredar de otras interfaces, incluso con herencia múltipl
 
 ```php
 interface a { function foo(); function bar(); }
-interface b { /* ... */ }
-interface c extends a, b { /* ... */ }
-class MiClase1 implements c { /* ... */ }
-class MiClase2 extends MiClase1 implements a, b { /* ... */ }
+interface b { ... }
+interface c extends a, b { ... }
+class MiClase1 implements c { ... }
+class MiClase2 extends MiClase1 implements a, b { ... }
 ```
 
 Una clase que implemente una o más interfaces pero no defina todos los métodos, debe declararse como abstracta.
@@ -305,9 +312,10 @@ Imaginemos que queremos usar ambas versiones. Una de las dos (o las dos) deberá
 use t1, t2
 {
     t2::foo insteadof t1;    // resolución de conflicto
-    t1::foo as foot1;    // resolución de conflicto mediante alias
-    bar as protected;    // cambio de visibilidad
-    poo as private poot1;    // cambio de visibilidad y alias
+    t1::foo as foot1;    // resolución de conflicto mediante
+                         // alias
+    bar as protected;  // cambio de visibilidad
+    poo as private poot1;  // cambio de visibilidad y alias
 }
 ```
 
@@ -321,7 +329,9 @@ Pueden también declarar métodos abstractos. En este caso, en la clase que los 
 
 ```php
 foo(new class { /* ... */ });
-foo(new class(5, 'hola') extends MiBase implements a, b { /* ... */ });
+foo(new class(5, 'hola') extends MiBase implements a, b {
+    /* ... */
+});
 ```
 
 Si la clase anónima se crea dentro del código de otra clase, no tiene acceso a los miembros privados y protegidos de la clase exterior.
@@ -331,9 +341,14 @@ Si la clase anónima se crea dentro del código de otra clase, no tiene acceso a
 Se le llama sobrecarga, **pero no tiene nada que ver**. Se trata simplemente de una serie de funciones que son llamadas al acceder a propiedades o métodos no accesibles (por su visibilidad o porque simplemente no existen). Su uso es *self-explanatory*:
 
 ```php
-public __set(string $nombre, mixed $valor): void    // al dar valor a una propiedad no accesible
-public __get(string $nombre): mixed    // al intentar obtener el valor de una propiedad no accesible
-public __isset(string $nombre): bool    // al llamar a isset() o empty() sobre una propiedad no accesible
+// Es invocada al dar valor a una propiedad no accesible:
+public __set(string $nombre, mixed $valor): void
+// Al intentar obtener el valor de una propiedad no
+// accesible:
+public __get(string $nombre): mixed
+// Al llamar a isset() sobre una propiedad no accesible:
+public __isset(string $nombre): bool
+// Al llamar a empty() sobre una propiedad no accesible:
 public __unset(string $nombre): void
 ```
 
@@ -342,8 +357,11 @@ Solo funcionan en contexto de objeto (no contextos estáticos).
 En cuanto a los métodos:
 
 ```php
-public __call(string $nombre, array $args): mixed    // al llamar a un método no accesible en contexto de objeto
-public static __callStatic(string $nombre, array $args): mixed    // lo mismo pero en contexto estático
+// Al llamar a un método no accesible en contexto de objeto:
+public __call(string $nombre, array $args): mixed
+// Lo mismo pero en contexto estático:
+public static __callStatic(string $nombre,
+                           array $args): mixed
 ```
 
 El *array* pasado a estas funciones es un *array* enumerado (claves 0, 1, 2,...).
@@ -356,10 +374,14 @@ Para ir más allá, se puede implementar la interfaz `Iterator` en la clase, per
 
 ```php
 public current(): mixed    // retorna el elemento actual
-public key(): scalar    // retorna la clave (índice) del elemento actual
-public next(): void    // mueve una posición, al siguiente elemento
-public rewind(): void    // mueve el iterador al primer elemento
-public valid(): bool    // comprueba si la posición actual es válida
+public key(): scalar    // retorna la clave (índice) del
+                        // elemento actual
+public next(): void   // mueve una posición, al siguiente
+                      // elemento
+public rewind(): void    // mueve el iterador al primer
+                         // elemento
+public valid(): bool    // comprueba si la posición actual
+                        // es válida
 ```
 
 ## Métodos especiales (magic methods)
@@ -397,8 +419,10 @@ Para clonar un objeto se utiliza la palabra clave `clone`.
 
 ```php
 $a = new MiClase;
-$b = $a;    // $b hace referencia a la misma instancia que $a
-$c = clone $a;    // $c se refiere a una nueva instancia, aunque inicialmente con el mismo contenido que $a
+$b = $a;  // $b hace referencia a la misma instancia que $a
+$c = clone $a;    // $c se refiere a una nueva instancia,
+                  // aunque inicialmente con el mismo
+                  // contenido que $a
 ```
 
 Al clonarse un objeto, se crea una *shallow copy*, es decir, se copia la instancia, pero las propiedades que hagan referencia a otros objetos seguiran referenciando a esos objetos.
@@ -420,13 +444,19 @@ En un escenario con herencia y métodos *overriden*, cuando desde un método inv
 ```php
 class Base
 {
-    public function quesoy() { return "Soy de clase Base."; }
-    public function show() { echo $this -> quesoy(); }
+    public function quesoy() {
+        return "Soy de clase Base.";
+    }
+    public function show() {
+        echo $this -> quesoy();
+    }
 }
 
 class Deriv extends Base
 {
-    public function quesoy() { return "Soy de clase Deriv."; }
+    public function quesoy() {
+        return "Soy de clase Deriv.";
+    }
 }
 ```
 
@@ -443,13 +473,19 @@ En el caso anterior, la resolución se hacía en función de `$this`. Pero cuand
 ```php
 class Base
 {
-    public static function quesoy() { return "Soy de clase Base."; }
-    public static function show() { echo self::quesoy(); }
+    public static function quesoy() {
+        return "Soy de clase Base.";
+    }
+    public static function show() {
+        echo self::quesoy();
+    }
 }
 
 class Deriv extends Base
 {
-    public static function quesoy() { return "Soy de clase Deriv."; }
+    public static function quesoy() {
+        return "Soy de clase Deriv.";
+    }
 }
 ```
 
@@ -458,13 +494,19 @@ En este caso, al hacer `Base::show()` se ejecutará (correctamente) el método `
 ```php
 class Base
 {
-    public static function quesoy() { return "Soy de clase Base."; }
-    public static function show() { echo static::quesoy(); }
+    public static function quesoy() {
+        return "Soy de clase Base.";
+    }
+    public static function show() {
+        echo static::quesoy();
+    }
 }
 
 class Deriv extends Base
 {
-    public static function quesoy() { return "Soy de clase Deriv."; }
+    public static function quesoy() {
+        return "Soy de clase Deriv.";
+    }
 }
 ```
 

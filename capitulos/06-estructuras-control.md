@@ -274,7 +274,7 @@ if(include('vars.php') == true) {...}
 Porque se interpreta como `include 'vars.php' == TRUE`, es decir, `include ('vars.php' == true)`, o sea `include('1')`. Lo correcto sería escribir, por ejemplo:
 
 ```
-if((include 'vars.php') == true) { /* ... */ }
+if((include 'vars.php') == true) { ... }
 ```
 
 Si hay funciones o clases definidas en el archivo incluido, que están después de un posible `return`, se podrán usar igual desde el archivo principal.

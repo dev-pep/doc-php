@@ -72,10 +72,12 @@ Cuando utilizamos variables que contienen nombres de funciones o clases para inv
 ```php
 namespace MiEspacio;    // entramos en el espacio MiEspacio
 class MiClase { /* ... */ }
-$a = new MiClase;    // OK, estamos en el mismo espacio que la definición de la clase
+$a = new MiClase;    // OK, estamos en el mismo espacio que
+                     // la definición de la clase
 $b = new \MiEspacio\MiClase;    // OK, equivale al anterior
 $nombre = 'MiClase';
-$c = new $nombre;    // Error, a través de instanciación dinámica hay que especificar namespace
+$c = new $nombre;  // Error, a través de instanciación
+                   // dinámica hay que especificar namespace
 $nombre = '\MiEspacio\MiClase';
 $d = new $nombre;    // OK, ahora sí
 ```
@@ -102,16 +104,19 @@ Si importamos una función o constante, hay que informar en el código de que se
 Cuando omitimos `as`, se entenderá que este será el último elemento de la importación: `use <un>\<elemento>\<a>\<importar>` equivale a `use <un>\<elemento>\<a>\<importar> as <importar>`.
 
 ```php
-namespace MiEspacio;    // entramos en el namespace MiEspacio
+namespace MiEspacio;  // entramos en el namespace MiEspacio
 use Un\Espacio\Exterior as OtroEspacio;
 use Un\Espacio\Lejano;
 use UnaClase;    // importamos una clase en namespace global
 use function Un\Espacio\Exterior\foo;
 use const Un\Espacio\Exterior\CONSTANTE;
 
-$a = new OtroEspacio\Clase;    // instancia de Un\Espacio\Exterior\Clase
-$b = new Lejano\Clase;    // instancia de Un\Espacio\Lejano\Clase
-$c = new UnaClase;    // instancia de \UnaClase, y no de \MiEspacio\UnaClase
+$a = new OtroEspacio\Clase;    // instancia de
+                               // Un\Espacio\Exterior\Clase
+$b = new Lejano\Clase;    // instancia de
+                          // Un\Espacio\Lejano\Clase
+$c = new UnaClase;    // instancia de \UnaClase, y no de
+                      // \MiEspacio\UnaClase
 foo();    // llamada a Un\Espacio\Exterior\foo()
 echo CONSTANTE;    // muestra Un\Espacio\Exterior\CONSTANTE
 ```
@@ -119,7 +124,9 @@ echo CONSTANTE;    // muestra Un\Espacio\Exterior\CONSTANTE
 Se pueden combinar varios `use` en una misma línea, separados por coma (***,***):
 
 ```php
-use Un\Espacio\Exterior as OtroEspacio, \Un\Espacio\Lejano as MasEspacio, \Un\Espacio\Adicional;
+use Un\Espacio\Exterior as OtroEspacio,
+    \Un\Espacio\Lejano as MasEspacio,
+    \Un\Espacio\Adicional;
 ```
 
 Se pueden usar los nombres importados como valores para variables para usos dinámicos.

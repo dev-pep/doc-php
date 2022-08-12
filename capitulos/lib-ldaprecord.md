@@ -179,7 +179,9 @@ $registros = $query->in('ou=Accounting,dc=tesla,dc=com')
 A la hora de especificar este nombre base, podemos sustituir directamente el nombre base configurado en la conexión (***base_dn***) dentro de cualquier *query*:
 
 ```php
-$registros = $query->in('ou=Accounting,dc=tesla,dc=com')->...
+$registros = $query
+    ->in('ou=Accounting,dc=tesla,dc=com')
+    ->...
 ```
 
 Para acceder a los campos de un registro, se accederá indexando el *array* con el nombre del campo, y se tendrá en cuenta que el valor retornado es un *array*:
@@ -286,7 +288,8 @@ Para acceder a los valores de los campos, una vez hayamos obtenido nuestro model
 ```php
 use Ldaprecord\Models\ActiveDirectory\User;
 
-$registros = User::in('ou=Marketing,dc=tesla,dc=com')->first();
+$registros = User::in('ou=Marketing,dc=tesla,dc=com')
+                 ->first();
 $nombre = $registros->name[0];
 ```
 
@@ -355,7 +358,8 @@ class Usuario extends Model
     public function setFotoperfilAttribute($valor)
     {
         /* ... */
-        $this->attributes['fotoPerfil'] = [$valor_modificado];
+        $this->attributes['fotoPerfil'] =
+            [$valor_modificado];
     }
 }
 ```
@@ -373,13 +377,17 @@ Existen una serie de mapeos predeterminados entre datos *PHP* de/a *LDAP*. Esto 
 Para autenticación se usará el método `attempt()` visto anteriormente. Veamos un ejemplo que recogería la *request* de una pantalla de *login*:
 
 ```php
-$connection = new \LdapRecord\Connection([ /* datos de la conexión */ ]);
+$connection = new \LdapRecord\Connection([
+    /* datos de la conexión */
+]);
 $connection->connect();
 $user = $connection->query()
     ->where('samaccountname', '=', $_POST['username'])
     ->first();
 
-if ($connection->auth()->attempt($user['distinguishedname'][0], $_POST['password']))
+if ($connection->auth()
+    ->attempt($user['distinguishedname'][0],
+              $_POST['password']))
 { /* OK */ }
 else
 { /* Username y/o password incorrectos */ }
