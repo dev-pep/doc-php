@@ -361,7 +361,7 @@ Es como `trim()` pero solo al principio del *string*.
 md5(string $string, bool $binary = false): string
 ```
 
-Retorna un *hash* *MD5* del *string* indicado. Si ***binary*** es ***true***, el *string* retornado será en formato binario.
+Retorna un *hash MD5* del *string* indicado. Si ***binary*** es ***true***, el *string* retornado tendrá formato binario (16 *bytes*); de lo contrario, será un *string* con 32 cifras hexadecimales.
 
 ```
 ord(string $character): int
@@ -377,6 +377,12 @@ rtrim(string $string, string $characters = " \n\r\t\v\x00"):
 Es como `trim()` pero solo al final del *string*.
 
 ```
+sha1(string $string, bool $binary = false): string
+```
+
+Retorna un *hash SHA-1* del *string* indicado. Si ***binary*** es ***true***, el *string* retornado tendrá formato binario (20 *bytes*); de lo contrario, será un *string* con 40 cifras hexadecimales.
+
+```
 sprintf(string $format, mixed ...$values): string
 ```
 
@@ -387,6 +393,16 @@ strlen(string $string): int
 ```
 
 Retorna la longitud del *string*.
+
+```
+str_pad(string $string, int $length,
+        string $pad_string = " ",
+        int $pad_type = STR_PAD_RIGHT): string
+```
+
+Retorna el *string* indicado (***string***) rellenado con otro *string* (***pad_string***), hasta una longitud máxima, indicada en ***length***. La longitud mínima del *string* retornado es la del *string* de entrada.
+
+Los tipo de relleno pueden ser ***STR_PAD_RIGHT*** (por defecto, relleno por la derecha), ***STR_PAD_LEFT*** (por la izquierda) o ***STR_PAD_BOTH*** (a ambos lados).
 
 ```
 strpos(string $haystack, string $needle, int $offset = 0):
