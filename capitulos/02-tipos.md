@@ -66,11 +66,13 @@ Además, los nombres de variables son expandidos.
 
 ### Heredoc
 
-Este tipo de *string* empieza con ***\<\<\<***, un identificador y *newline*. Luego el *string* en sí, y una línea de cierre que solo contiene el identificador (debe empezar en la columna 1) y el correspondiente ***;*** final. Este *string* se comporta igual que un *double quoted string*, con la diferencia de que no es necesario usar la barra invertida para indicar comillas dobles.
+Este tipo de *string* multilínea empieza con ***\<\<\<***, un identificador y *newline*. Luego el *string* en sí (una o más líneas), y una línea de cierre que solo contiene el identificador del principio con su correspondiente ***;*** final. Este *string* se comporta igual que un *double quoted string*, con la diferencia de que no es necesario usar la barra invertida para indicar comillas dobles.
+
+La indentación del identificador de cierre indica la indentación total del *string*, es decir, el espacio que precede a dicho identificador de cierre se suprime de todas las líneas del *string*. Es por ello que ninguna de las líneas puede tener menos indentación que el identificador de cierre.
 
 ### Nowdoc
 
-Una *nowdoc* es a las *single quoted strings* lo que una *heredoc* es a una *double quoted*.
+Una *nowdoc* es a las *single quoted strings* lo que una *heredoc* es a una *double quoted*. Un *nowdoc* se indica igual que un *heredoc*, pero el identificador tras ***\<\<\<*** se escribe entre comillas simples (el identificador de cierre no).
 
 ### Parsing de variables
 
