@@ -547,6 +547,8 @@ Las rutas relativas se evaluarán en relación al directorio actual. En sistemas
 
 > Dependiendo del sistema operativo, los nombres de archivos son *case-sensitive* (*Unix*) o no (*Windows*).
 
+Es importante tener en cuenta la diferencia entre *stream* y archivo. Mientras todos los archivos son *streams*, no todos los *streams* son archivos.
+
 ```
 basename(string $path, string $suffix = ""): string
 ```
@@ -564,6 +566,16 @@ fclose(resource $stream): bool
 ```
 
 Cierra el *stream* ***stream***. Retorna ***true*** si tiene éxito, y ***false*** en caso contrario.
+
+```
+fgets(resource $stream, ?int $length = null): string|false
+```
+
+Lee una **línea** del archivo ***stream***, por ejemplo abierto con `fopen()`. Otra posibilidad podría ser leer de la entrada estándar, en cuyo caso se indicaría la constante ***STDIN***.
+
+Se leerán un máximo de ***length*** - 1 *bytes* (menos si se encuentra un salto de línea o un final de archivo).
+
+Retorna el *string* leído, o ***false*** si no existen datos por leer o si se ha producido un error.
 
 ```
 file_exists(string $filename): bool
@@ -611,7 +623,7 @@ fopen(string $filename, string $mode,
 
 Abre un archivo (ruta) o *URL* (schema://...) definido en ***filename***.
 
-Al abrir, si no se especifica lo contrario, el apuntador de lectura/escritura se sitúa al principio del *stream*.
+Al abrir, si no se especifica lo contrario, el apuntador de lectura/escritura se sitúa al principio del archivo.
 
 El modo de apertura se indica en ***mode***: algunos modos son ***r*** (*read only*), ***r+*** (lectura y escritura), ***w*** (escritura, con creación o truncado), ***w+*** (como ***w***, pero también permite lectura), ***a*** (como ***w*** pero situando el apuntador al final, `fseek()` no tiene efecto al abrir en este modo), ***a+*** (como ***a*** pero también permite lectura, `fseek()` solo afecta a la lectura).
 
@@ -626,7 +638,9 @@ fwrite(resource $stream, string $data, ?int $length = null):
 
 Es la manera recomendada de escribir en un archivo.
 
-Escribe ***data*** en ***stream***, como máximo ***length*** *bytes* (si definimos ese valor). Retorna la cantidad de *bytes* escritos o ***false*** si hay error.
+Escribe ***data*** en ***stream***, como máximo ***length*** *bytes* (si no definimos ese valor no habrá máximo). Retorna la cantidad de *bytes* escritos o ***false*** si hay error.
+
+Para escribir en la salida estándar, se indicará el *stream* ***STDOUT***. El *stream* de error es ***STDERR***.
 
 ```
 is_dir(string $filename): bool
