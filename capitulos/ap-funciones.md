@@ -148,7 +148,7 @@ Retorna ***true*** si ***needle*** es igual (`==`) a alguno de los elementos en 
 ksort(array &$array, int $flags = SORT_REGULAR): bool
 ```
 
-Ordena *in-place* los elementos del *array* indicado. Si dos elementos se comparan igual, mantendrán su orden relativo. Establece el apuntador interno al primer elemento. Siempre retorna ***true***. En cuanto a los ***flags***, podemos destacar:
+Ordena *in-place* los elementos del *array* indicado, según sus claves. Si dos elementos se comparan igual, mantendrán su orden relativo. Establece el apuntador interno al primer elemento. Siempre retorna ***true***. En cuanto a los ***flags***, podemos destacar:
 
 - ***SORT_REGULAR*** compara normalmente.
 - ***SORT_NUMERIC*** compara numéricamente.
@@ -168,12 +168,18 @@ prev(array|object &$array): mixed
 Como `next()`, pero retrocediendo una posición en lugar de avanzar.
 
 ```
-print(string $expression): int
+usort(array &$array, callable $callback): bool
 ```
 
-Imprime la expresión pasada como argumento. Siempre retorna 1.
+Ordena el *array in-place*, según sus valores, a través de la función de comparación indicada.
 
-Es una construcción del lenguaje y no una función. No es necesario incluir los paréntesis de la lista de argumentos.
+Si dos elementos se comparan igual, mantendrán su ordenación relativa.
+
+La función asigna nuevas claves a los elementos del *array*. Las claves que poseyeran anteriormente se pierden.
+
+Siempre retorna ***true***.
+
+La función *callback* recibe dos argumentos, y debe retornar un entero menor, igual o mayor a cero, en los respectivos casos en que el primer argumento sea menor, igual o mayor al segundo.
 
 ```
 reset(array|object &$array): mixed
@@ -1051,6 +1057,14 @@ Imprime un mensaje (si ***status*** es un *string*) y termina la ejecución. Si 
 Se trata de una construcción del lenguaje y no de una función, y puede indicarse sin paréntesis si no le pasamos ningún argumento.
 
 La construcción `die()` (o `die`) es equivalente.
+
+```
+print(string $expression): int
+```
+
+Imprime la expresión pasada como argumento. Siempre retorna 1.
+
+Es una construcción del lenguaje y no una función. No es necesario incluir los paréntesis de la lista de argumentos.
 
 ```
 uniqid(string $prefix = "", bool $more_entropy = false):
